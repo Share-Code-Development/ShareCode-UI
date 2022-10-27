@@ -1,0 +1,39 @@
+<div class="hero min-h-screen bg-base-300 pt-16">
+    <div class="hero-content flex-col lg:flex-row-reverse z-50">
+        <div class="text-center lg:text-left">
+            <h1 class="text-5xl font-bold">Login to &lt;ShareCode/&gt;</h1>
+            <p class="py-6 text-lg">Login now to start creating code snippets and save for later use. As a logged in
+                user, you
+                will get options to create private code snippets and favourites.</p>
+        </div>
+        <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+            <div class="card-body">
+                <div class="form-control mt-2 mb-4">
+                    <button class="btn btn-outline btn-error">Login with Google</button>
+                </div>
+                <div class="divider my-0">OR</div>
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text">Email</span>
+                    </label>
+                    <input type="text" placeholder="Email" class="input input-bordered" />
+                </div>
+                <div class="form-control">
+                    <label class="label">
+                        <span class="label-text">Password</span>
+                    </label>
+                    <input type="text" placeholder="Password" class="input input-bordered" />
+                    <label class="label">
+                        <a href="#" class="label-text-alt link link-hover">Forgot password?</a>
+                    </label>
+                </div>
+                <div class="text-center mt-3">
+                    <p>Don't have an account? <a routerLink="/home/signup" class="link">Create One</a></p>
+                </div>
+                <div class="form-control mt-3">
+                    <button class="btn btn-primary" (click)="onLigin()">Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
