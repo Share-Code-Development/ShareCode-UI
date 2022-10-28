@@ -5,7 +5,11 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SidemenuComponent } from './sidemenu/sidemenu.component';
 
-import { matAddRound, matDeleteRound, matContentCopyRound, matOpenInFullRound, matDoneRound, matVisibilityRound } from '@ng-icons/material-icons/round';
+import {
+  matAddRound, matDeleteRound, matContentCopyRound,
+  matOpenInFullRound, matDoneRound,
+  matVisibilityRound, matDataObjectRound, matFavoriteRound, matInterestsRound, matIntegrationInstructionsRound
+} from '@ng-icons/material-icons/round';
 import { NgIconsModule } from '@ng-icons/core';
 import { CodeItemComponent } from './code-item/code-item.component';
 import { TooltipModule } from 'primeng/tooltip';
@@ -23,7 +27,10 @@ const commons: any[] = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    NgIconsModule.withIcons({ matAddRound, matDeleteRound, matContentCopyRound, matOpenInFullRound, matDoneRound, matVisibilityRound }),
+    NgIconsModule.withIcons({
+      matAddRound, matDeleteRound, matContentCopyRound,
+      matOpenInFullRound, matDoneRound, matVisibilityRound, matDataObjectRound, matFavoriteRound, matInterestsRound, matIntegrationInstructionsRound
+    }),
     TooltipModule
   ],
   exports: [

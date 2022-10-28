@@ -22,14 +22,14 @@
         <div class="px-4 -my-1 flex gap-3">
             <span class="text-xs flex align-center" pTooltip="Views" tooltipPosition="top" [showDelay]="1000">
                 <ng-icon name="matVisibilityRound" size="1.3em" class="align-middle mt-[1px] mr-1"></ng-icon>
-                <span>123</span>
+                <span>12345</span>
             </span>
             <span class="text-xs flex align-center" pTooltip="Copies" tooltipPosition="top" [showDelay]="1000">
                 <ng-icon name="matContentCopyRound" size="1.3em" class="align-middle mt-[1px]"></ng-icon>
-                <span>123</span>
+                <span>12345</span>
             </span>
         </div>
-        <div class="mockup-code w-full h-52">
+        <div class="mockup-code min-w-0 w-full h-52">
             <pre [ngClass]="{'wrap-code': commonService.wrapCode}" *ngFor="let line of lineCode; let i = index"><span class="absolute w-8 text-right text-base-100 select-none whitespace-pre break-words">{{i + 1}}</span><code class="ml-10 cursor-text">{{line}}</code></pre>
         </div>
     </div>
