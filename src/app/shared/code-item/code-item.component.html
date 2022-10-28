@@ -1,0 +1,36 @@
+<div class="card w-full bg-base-200 shadow-xl transition-all ">
+    <div class="card-body px-0 pb-0 pt-2">
+        <h2 class="card-title px-4 flex justify-between">
+            <span class="truncate">Title Here</span>
+            <span class="flex align-middle gap-2">
+                <label (click)="onCopy()" [ngClass]="{'swap-active': copied}"
+                    class="btn btn-square btn-sm btn-outline btn-accent swap swap-rotate" pTooltip="Copy"
+                    tooltipPosition="top" [showDelay]="1000">
+                    <ng-icon name="matContentCopyRound" size="1.3em" class="swap-off"></ng-icon>
+                    <ng-icon name="matDoneRound" size="1.3em" class="swap-on"></ng-icon>
+                </label>
+                <button class="btn btn-square btn-sm btn-outline btn-secondary" pTooltip="Open" tooltipPosition="top"
+                    [showDelay]="1000">
+                    <ng-icon name="matOpenInFullRound" size="1.3em"></ng-icon>
+                </button>
+                <button class="btn btn-square btn-sm btn-outline btn-error" pTooltip="Delete" tooltipPosition="top"
+                    [showDelay]="1000">
+                    <ng-icon name="matDeleteRound" size="1.3em"></ng-icon>
+                </button>
+            </span>
+        </h2>
+        <div class="px-4 -my-1 flex gap-3">
+            <span class="text-xs flex align-center" pTooltip="Views" tooltipPosition="top" [showDelay]="1000">
+                <ng-icon name="matVisibilityRound" size="1.3em" class="align-middle mt-[1px] mr-1"></ng-icon>
+                <span>123</span>
+            </span>
+            <span class="text-xs flex align-center" pTooltip="Copies" tooltipPosition="top" [showDelay]="1000">
+                <ng-icon name="matContentCopyRound" size="1.3em" class="align-middle mt-[1px]"></ng-icon>
+                <span>123</span>
+            </span>
+        </div>
+        <div class="mockup-code w-full h-52">
+            <pre [ngClass]="{'wrap-code': commonService.wrapCode}" *ngFor="let line of lineCode; let i = index"><span class="absolute w-8 text-right text-base-100 select-none whitespace-pre break-words">{{i + 1}}</span><code class="ml-10 cursor-text">{{line}}</code></pre>
+        </div>
+    </div>
+</div>
