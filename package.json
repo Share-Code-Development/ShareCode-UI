@@ -22,6 +22,7 @@
     "@ng-icons/material-icons": "^22.4.0",
     "daisyui": "^2.33.0",
     "highlightjs-line-numbers.js": "^2.8.0",
+    "material-icons": "^1.12.0",
     "ngx-highlightjs": "^7.0.1",
     "notyf": "^3.10.0",
     "primeicons": "^6.0.1",

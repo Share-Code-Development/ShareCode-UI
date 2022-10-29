@@ -9,17 +9,21 @@ import { HighlightModule } from 'ngx-highlightjs';
 import {
   matAddRound, matDeleteRound, matContentCopyRound,
   matOpenInFullRound, matDoneRound,
-  matVisibilityRound, matDataObjectRound, matFavoriteRound, matInterestsRound, matIntegrationInstructionsRound
+  matVisibilityRound, matDataObjectRound, matFavoriteRound,
+  matInterestsRound, matIntegrationInstructionsRound
 } from '@ng-icons/material-icons/round';
 import { NgIconsModule } from '@ng-icons/core';
 import { CodeItemComponent } from './code-item/code-item.component';
 import { TooltipModule } from 'primeng/tooltip';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { CreateSnippetComponent } from './create-snippet/create-snippet.component';
 
 
 const commons: any[] = [
   NavbarComponent,
   SidemenuComponent,
-  CodeItemComponent
+  CodeItemComponent,
+  CreateSnippetComponent
 ]
 
 @NgModule({
@@ -30,14 +34,17 @@ const commons: any[] = [
     ReactiveFormsModule,
     NgIconsModule.withIcons({
       matAddRound, matDeleteRound, matContentCopyRound,
-      matOpenInFullRound, matDoneRound, matVisibilityRound, matDataObjectRound, matFavoriteRound, matInterestsRound, matIntegrationInstructionsRound
+      matOpenInFullRound, matDoneRound, matVisibilityRound, matDataObjectRound,
+      matFavoriteRound, matInterestsRound, matIntegrationInstructionsRound
     }),
     TooltipModule,
-    HighlightModule
+    HighlightModule,
+    DynamicDialogModule
   ],
   exports: [
     FormsModule,
     ReactiveFormsModule,
+    DynamicDialogModule,
     ...commons
   ],
   providers: [

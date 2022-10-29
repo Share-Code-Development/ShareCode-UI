@@ -1,4 +1,7 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
+import { DialogService } from 'primeng/dynamicdialog';
+import { ConfigService } from 'src/app/services/config.service';
+import { CreateSnippetComponent } from '../create-snippet/create-snippet.component';
 
 @Component({
   selector: 'app-sidemenu',
@@ -7,13 +10,26 @@ import { Component, EventEmitter, OnInit } from '@angular/core';
 })
 export class SidemenuComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public dialogService: DialogService,
+    private config: ConfigService
+    ) { }
 
   ngOnInit(): void {
   }
 
   onSelectItem() {
     document.getElementById('sidemenu-drawer')?.click();
+  }
+
+  openCreate() {
+    this.dialogService.open(CreateSnippetComponent, {
+      header: 'Create',
+      width: '70%',
+      contentStyle: this.config.defaultDialogStyles,
+      showHeader: false,
+      baseZIndex: 10000,
+    });
   }
 
 }

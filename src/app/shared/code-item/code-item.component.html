@@ -6,26 +6,26 @@
                 <label (click)="onCopy()" [ngClass]="{'swap-active': copied}"
                     class="btn btn-square btn-sm btn-outline btn-accent swap swap-rotate" pTooltip="Copy"
                     tooltipPosition="top" [showDelay]="1000">
-                    <ng-icon name="matContentCopyRound" size="1.3em" class="swap-off"></ng-icon>
-                    <ng-icon name="matDoneRound" size="1.3em" class="swap-on"></ng-icon>
+                    <span class="material-icons swap-on">done</span>
+                    <span class="material-icons swap-off">content_copy</span>
                 </label>
                 <button class="btn btn-square btn-sm btn-outline btn-secondary" pTooltip="Open" tooltipPosition="top"
                     [showDelay]="1000">
-                    <ng-icon name="matOpenInFullRound" size="1.3em"></ng-icon>
+                    <span class="material-icons">open_in_full</span>
                 </button>
                 <button class="btn btn-square btn-sm btn-outline btn-error" pTooltip="Delete" tooltipPosition="top"
                     [showDelay]="1000">
-                    <ng-icon name="matDeleteRound" size="1.3em"></ng-icon>
+                    <span class="material-icons">delete</span>
                 </button>
             </span>
         </h2>
         <div class="px-4 -my-1 flex gap-3">
             <span class="text-xs flex align-center" pTooltip="Views" tooltipPosition="top" [showDelay]="1000">
-                <ng-icon name="matVisibilityRound" size="1.3em" class="align-middle mt-[1px] mr-1"></ng-icon>
+                <span class="material-icons mt-[1px] mr-1">visibility</span>
                 <span>12345</span>
             </span>
             <span class="text-xs flex align-center" pTooltip="Copies" tooltipPosition="top" [showDelay]="1000">
-                <ng-icon name="matContentCopyRound" size="1.3em" class="align-middle mt-[1px]"></ng-icon>
+                <span class="material-icons mt-[1px] mr-1">content_copy</span>
                 <span>12345</span>
             </span>
         </div>

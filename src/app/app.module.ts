@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HighlightOptions, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
+import { DialogService } from 'primeng/dynamicdialog';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +14,7 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
   ],
   providers: [
@@ -31,6 +34,7 @@ import { AppComponent } from './app.component';
         },
       },
     },
+    DialogService
   ],
   bootstrap: [AppComponent]
 })
