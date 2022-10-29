@@ -7,7 +7,6 @@ import { SharedModule } from '../shared/shared.module';
 import { OverviewComponent } from './overview/overview.component';
 import { CarouselModule } from 'primeng/carousel';
 
-
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -18,6 +17,6 @@ import { CarouselModule } from 'primeng/carousel';
     DashboardRoutingModule,
     SharedModule,
     CarouselModule
-  ]
+  ],
 })
 export class DashboardModule { }

@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonService } from 'src/app/services/common.service';
 
 @Component({
@@ -6,12 +6,18 @@ import { CommonService } from 'src/app/services/common.service';
   templateUrl: './code-item.component.html',
   styleUrls: ['./code-item.component.scss']
 })
-export class CodeItemComponent implements OnInit, OnChanges {
+export class CodeItemComponent implements OnInit {
 
   @Input()
-  public code = `Hello World!\n\n\n\n\n`;
-
-  public lineCode = this.code.split('\n');
+  public code = `int myFunction() {
+  int a = 0;
+  return a;
+  a=1;
+  a=1;
+  a=1;
+  a=1;
+  a=1;
+}`;
 
   public copied: boolean = false;
 
@@ -19,22 +25,17 @@ export class CodeItemComponent implements OnInit, OnChanges {
     public commonService: CommonService
   ) { }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (this.code) {
-      this.lineCode.push('\n'.repeat(10));
-      this.lineCode = this.code.split('\n');
-    }
-  }
-
   ngOnInit(): void {
   }
 
   onCopy() {
-    navigator.clipboard.writeText(this.code.trim());
-    this.copied = true;
-    setTimeout(() => {
-      this.copied = false;
-    }, 2000);
+    navigator.clipboard.writeText(this.code.trim()).then(() => {
+      this.copied = true;
+      setTimeout(() => {
+        this.copied = false;
+      }, 2000);
+      this.commonService.showSuccess('Copied to clipboard')
+    }).catch(() => this.commonService.showError('Failed to copy to clipboard'));
   }
 
 }
