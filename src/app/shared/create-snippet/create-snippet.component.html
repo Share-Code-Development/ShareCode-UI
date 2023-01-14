@@ -1,12 +1,19 @@
 <div class="bg-base-200 rounded-2xl">
-    <div class="card-body px-0 pb-0 pt-2">
+    <div class="px-0 pb-0 pt-2">
         <h2 class="card-title px-4 flex justify-between">
             <span class="truncate">Title Here</span>
             <span class="flex">
-                <button class="btn btn-circle btn-outline btn-xs">
+                <button class="btn btn-circle btn-outline btn-xs" (click)="close()">
                     <span class="material-icons">close</span>
                 </button>
             </span>
         </h2>
+    </div>
+    <div id="editor" class="mt-2">
+        <ngx-codemirror [(ngModel)]="content" [options]="{
+            lineNumbers: true,
+            theme: 'midnight',
+            mode: 'javascript'
+          }"></ngx-codemirror>
     </div>
 </div>

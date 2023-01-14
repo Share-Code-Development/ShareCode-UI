@@ -7,10 +7,25 @@ pre code {
     background-color: unset !important;
 }
 
-.mockup-code:before {
-    margin-bottom: 0rem;
+.mockup-code {
+
+    padding-top: 0px;
+
+    &:before {
+        margin-bottom: 0rem;
+        display: none;
+    }
 }
 
 td.hljs-ln-line.hljs-ln-numbers {
     padding-right: 0.5rem;
+}
+
+.CodeMirror-line {
+    padding-left: 20px !important;
+}
+
+.CodeMirror-cursor,
+.CodeMirror-selected {
+    min-height: 24px !important;
 }

@@ -17,7 +17,7 @@ import { CodeItemComponent } from './code-item/code-item.component';
 import { TooltipModule } from 'primeng/tooltip';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { CreateSnippetComponent } from './create-snippet/create-snippet.component';
-
+import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 
 const commons: any[] = [
   NavbarComponent,
@@ -39,7 +39,8 @@ const commons: any[] = [
     }),
     TooltipModule,
     HighlightModule,
-    DynamicDialogModule
+    DynamicDialogModule,
+    CodemirrorModule,
   ],
   exports: [
     FormsModule,
