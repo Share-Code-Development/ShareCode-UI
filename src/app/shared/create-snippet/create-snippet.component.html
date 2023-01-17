@@ -3,17 +3,21 @@
         <h2 class="card-title px-4 flex justify-between">
             <span class="truncate">Title Here</span>
             <span class="flex">
-                <button class="btn btn-circle btn-outline btn-xs" (click)="close()">
+                <button class="btn btn-circle btn-outline btn-xs" (click)="close()" tabindex="-1">
                     <span class="material-icons">close</span>
                 </button>
             </span>
         </h2>
     </div>
-    <div id="editor" class="mt-2">
-        <ngx-codemirror [(ngModel)]="content" [options]="{
-            lineNumbers: true,
-            theme: 'midnight',
-            mode: 'javascript'
-          }"></ngx-codemirror>
+    <div id="editor" class="m-1 bg-base-100 p-0 rounded-lg">
+        <ngx-codejar [highlightMethod]="highlightMethod" [(code)]="content" [highlighter]="'hljs'"
+            [showLineNumbers]="true"></ngx-codejar>
+    </div>
+    <div class="mt-2 px-1 pb-1">
+        <textarea class="w-full textarea" placeholder="Brief Summary" tabindex="-1"></textarea>
+        <div class="flex justify-end gap-3 m-2">
+            <button class="btn btn-sm btn-outline" (click)="close()" tabindex="-1">Close</button>
+            <button class="btn btn-sm" [class.loading]="loading" (click)="onSave()" tabindex="-1">Save</button>
+        </div>
     </div>
 </div>

@@ -29,3 +29,14 @@ td.hljs-ln-line.hljs-ln-numbers {
 .CodeMirror-selected {
     min-height: 24px !important;
 }
+
+.ngx-codejar-editor,
+.codejar-linenumbers {
+    background-color: transparent;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.codejar-wrap {
+    // margin: 0.25rem;
+}

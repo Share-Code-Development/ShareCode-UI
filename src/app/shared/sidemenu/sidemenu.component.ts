@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ConfigService } from 'src/app/services/config.service';
 import { CreateSnippetComponent } from '../create-snippet/create-snippet.component';
@@ -16,6 +16,7 @@ export class SidemenuComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+    this.openCreate()
   }
 
   onSelectItem() {

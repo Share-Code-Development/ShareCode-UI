@@ -50,8 +50,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss",
-              "node_modules/highlight.js/styles/androidstudio.css"
+              "src/styles.scss"
             ],
             "scripts": [
             ]

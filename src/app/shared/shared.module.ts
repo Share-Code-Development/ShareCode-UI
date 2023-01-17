@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SidemenuComponent } from './sidemenu/sidemenu.component';
 import { HighlightModule } from 'ngx-highlightjs';
-
+import { FocusTrapModule } from 'primeng/focustrap';
 import {
   matAddRound, matDeleteRound, matContentCopyRound,
   matOpenInFullRound, matDoneRound,
@@ -17,7 +17,7 @@ import { CodeItemComponent } from './code-item/code-item.component';
 import { TooltipModule } from 'primeng/tooltip';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { CreateSnippetComponent } from './create-snippet/create-snippet.component';
-import { CodemirrorModule } from '@ctrl/ngx-codemirror';
+import { NgxCodejarModule } from 'ngx-codejar';
 
 const commons: any[] = [
   NavbarComponent,
@@ -40,7 +40,8 @@ const commons: any[] = [
     TooltipModule,
     HighlightModule,
     DynamicDialogModule,
-    CodemirrorModule,
+    FocusTrapModule,
+    NgxCodejarModule
   ],
   exports: [
     FormsModule,
