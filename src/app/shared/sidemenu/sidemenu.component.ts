@@ -16,7 +16,6 @@ export class SidemenuComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.openCreate()
   }
 
   onSelectItem() {

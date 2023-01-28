@@ -19,8 +19,7 @@ import {
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    AppRoutingModule,
-    // SocialLoginModule
+    AppRoutingModule
   ],
   providers: [
     {
@@ -41,13 +40,13 @@ import {
     },
     {
       provide: 'SocialAuthServiceConfig',
-      useValue: {
+      useValue: {        
         autoLogin: false,
         providers: [
           {
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider(
-              '939503022711-9m2d1ejrp8ufj52m52iab1klqeqdk37k.apps.googleusercontent.com'
+              '939503022711-9m2d1ejrp8ufj52m52iab1klqeqdk37k.apps.googleusercontent.com',
             ),            
           }
         ],

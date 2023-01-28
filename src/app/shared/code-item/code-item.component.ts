@@ -34,7 +34,6 @@ export class CodeItemComponent implements OnInit {
       setTimeout(() => {
         this.copied = false;
       }, 2000);
-      this.commonService.showSuccess('Copied to clipboard')
     }).catch(() => this.commonService.showError('Failed to copy to clipboard'));
   }
 
