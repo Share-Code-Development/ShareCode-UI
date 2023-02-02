@@ -1,3 +1,10 @@
 <div class="min-h-screen bg-base-300">
   <router-outlet></router-outlet>
 </div>
+<div class="toast">
+  <div class="alert p-3" [ngClass]="message.color" *ngFor="let message of commonService.errorMessages" @fadeOut @scaleDown>
+    <div>
+      <span class="text-sm">{{message.text}}</span>
+    </div>
+  </div>
+</div>

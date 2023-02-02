@@ -11,12 +11,10 @@ export class CodeItemComponent implements OnInit {
   @Input()
   public code = `int myFunction() {
   int a = 0;
+  a=1;
+  a=2;
+  a=4;
   return a;
-  a=1;
-  a=1;
-  a=1;
-  a=1;
-  a=1;
 }`;
 
   public copied: boolean = false;

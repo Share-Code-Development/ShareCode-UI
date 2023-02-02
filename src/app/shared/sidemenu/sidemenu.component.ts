@@ -19,6 +19,7 @@ export class SidemenuComponent implements OnInit {
   }
 
   onSelectItem() {
+    // Closing the sidebar
     document.getElementById('sidemenu-drawer')?.click();
   }
 

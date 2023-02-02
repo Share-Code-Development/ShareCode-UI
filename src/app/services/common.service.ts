@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Notyf } from 'notyf';
 
 @Injectable({
   providedIn: 'root'
@@ -7,30 +6,34 @@ import { Notyf } from 'notyf';
 export class CommonService {
 
   public wrapCode: boolean = false;
-  private notyf = new Notyf();
-  private previusMessage = '';
+  public errorMessages = new Array<{ text: string, time: number, color: string }>();
 
   constructor(
   ) {
   }
 
   public showSuccess(message: string) {
-    if (this.previusMessage === message) {
-      return;
+    const item = {
+      text: message,
+      color: 'alert-success',
+      time: new Date().getTime()
     }
-    this.previusMessage = message;
+    this.errorMessages.push(item);
     setTimeout(() => {
-      this.previusMessage = '';
-    }, 2500);
-    this.notyf.success({
-      message
-    });
+      this.errorMessages = this.errorMessages.filter(el => el !== item);
+    }, 3000);
   }
 
   public showError(message: string) {
-    this.notyf.error({
-      message
-    });
+    const item = {
+      text: message,
+      color: 'alert-error',
+      time: new Date().getTime()
+    }
+    this.errorMessages.push(item);
+    setTimeout(() => {
+      this.errorMessages = this.errorMessages.filter(el => el !== item);
+    }, 3000);
   }
 
 }

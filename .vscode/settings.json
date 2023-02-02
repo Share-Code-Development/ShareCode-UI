@@ -1,6 +1,14 @@
 {
     "files.autoSave": "afterDelay",
     "cSpell.words": [
-        "codejar"
+        "androidstudio",
+        "codejar",
+        "codemirror",
+        "dynamicdialog",
+        "iconfont",
+        "Notyf",
+        "primeicons",
+        "primeng",
+        "sidemenu"
     ]
 }
