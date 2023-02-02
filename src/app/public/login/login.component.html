@@ -1,5 +1,5 @@
 <div class="hero min-h-screen pt-16">
-    <div class="hero-content flex-col lg:flex-row-reverse z-50">
+    <div class="hero-content flex-col lg:flex-row-reverse z-50 gap-4 gap-y-5 gap-x-20">
         <div class="text-center lg:text-left">
             <h1 class="text-5xl font-bold">Login to &lt;ShareCode/&gt;</h1>
             <p class="py-6 text-lg">Login now to start creating code snippets and save for later use. As a logged in
@@ -9,13 +9,14 @@
         <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
             <div class="card-body">
                 <div class="form-control mt-2 mb-4">
-                        <!-- <button class="btn btn-outline btn-error">Login with Google</button> -->
+                    <!-- <button class="btn btn-outline btn-error">Login with Google</button> -->
                     <asl-google-signin-button GoogleSigninButtonDirective type='standard' size='large' width="320"
                         theme="filled_blue">
                     </asl-google-signin-button>
 
                 </div>
                 <div class="divider my-0">OR</div>
+                <div class="text-center font-semibold text-2xl">Login Now</div>
                 <div class="form-control">
                     <label class="label">
                         <span class="label-text">Email</span>

@@ -11,6 +11,9 @@ import { SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 import {
   GoogleLoginProvider
 } from '@abacritt/angularx-social-login';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpTokenInterceptor } from './services/resolvers/http.interceptor';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -19,9 +22,11 @@ import {
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [
+    DialogService,
     {
       provide: HIGHLIGHT_OPTIONS,
       useValue: <HighlightOptions>{
@@ -40,14 +45,14 @@ import {
     },
     {
       provide: 'SocialAuthServiceConfig',
-      useValue: {        
+      useValue: {
         autoLogin: false,
         providers: [
           {
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider(
-              '939503022711-9m2d1ejrp8ufj52m52iab1klqeqdk37k.apps.googleusercontent.com',
-            ),            
+              environment.googleClientId
+            ),
           }
         ],
         onError: (err) => {
@@ -55,7 +60,11 @@ import {
         },
       } as SocialAuthServiceConfig,
     },
-    DialogService
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpTokenInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

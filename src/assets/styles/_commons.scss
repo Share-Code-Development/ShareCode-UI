@@ -4,6 +4,14 @@
     }
 }
 
-span.material-icons {
+span.material-icons:not(.avatar) {
     font-size: 1rem;
+}
+
+iframe {
+    color-scheme: light;
+}
+
+#credential_picker_container {
+    margin-top: 70px;
 }
