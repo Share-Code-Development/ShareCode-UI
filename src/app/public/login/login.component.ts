@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {  Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SocialAuthService } from "@abacritt/angularx-social-login";
 import { takeWhile } from 'rxjs';
-declare const google: any;
 
 @Component({
   selector: 'app-login',
@@ -22,7 +21,6 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/dashboard']);
     });
   }
-
 
   public onLogin() {
     this.router.navigate(['/dashboard']);
