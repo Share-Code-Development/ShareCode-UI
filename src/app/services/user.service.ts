@@ -16,6 +16,10 @@ export class UserService {
     private http: HttpService
   ) { }
 
+  public setupAuthState(user: IUser) {
+    this.authState$.next(user);
+  }
+
 
   public loginAsync(body: any) {
     return this.http.postAsync(body, `${this.authEndpoint}/login`)
@@ -23,6 +27,10 @@ export class UserService {
 
   public signupAsync(body: IUser) {
     return this.http.postAsync(body, `${this.authEndpoint}/signup`)
+  }
+
+  public googleLoginAsync(body: any) {
+    return this.http.postAsync(body, `${this.authEndpoint}/google`)
   }
 
 }
