@@ -11,6 +11,8 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class LoginComponent implements OnInit {
 
+  public showForgotModel = false;
+
   constructor(
     private router: Router,
     private authService: SocialAuthService,

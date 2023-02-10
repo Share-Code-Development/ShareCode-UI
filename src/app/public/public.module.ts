@@ -8,6 +8,7 @@ import { LandingComponent } from './landing/landing.component';
 import { SignupComponent } from './signup/signup.component';
 import { SharedModule } from '../shared/shared.module';
 import { SocialLoginModule } from '@abacritt/angularx-social-login';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { SocialLoginModule } from '@abacritt/angularx-social-login';
     CommonModule,
     PublicRoutingModule,
     SharedModule,
-    SocialLoginModule
+    SocialLoginModule,
+    FormsModule
   ],
   bootstrap: [HomeComponent]
 })

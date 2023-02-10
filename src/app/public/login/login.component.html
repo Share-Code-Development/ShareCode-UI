@@ -29,7 +29,7 @@
                     </label>
                     <input type="text" placeholder="Password" class="input input-bordered" />
                     <label class="label">
-                        <a href="#" class="label-text-alt link link-hover">Forgot password?</a>
+                        <label for="forgot-popup" class="label-text-alt link link-hover">Forgot password?</label>
                     </label>
                 </div>
                 <div class="text-center mt-3">
@@ -39,6 +39,23 @@
                     <button class="btn btn-primary" (click)="onLogin()">Login</button>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<input type="checkbox" id="forgot-popup" class="modal-toggle" [(ngModel)]="showForgotModel" />
+<div class="modal">
+    <div class="modal-box">
+        <label for="forgot-popup" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+        <h3 class="font-bold text-lg">Enter your Email</h3>
+        <div class="form-control">
+            <label class="label">
+                <span class="label-text">Enter email to receive Password Reset link</span>
+            </label>
+            <input type="text" placeholder="Email" class="input input-bordered" />
+        </div>
+        <div class="modal-action">
+            <button class="btn">Login</button>
         </div>
     </div>
 </div>

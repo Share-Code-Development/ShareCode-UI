@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class CommonService {
 
   public wrapCode: boolean = false;
-  public errorMessages = new Array<{ text: string, time: number, color: string }>();
+  public errorMessages = new Array<{ text: string, color: string }>();
 
   constructor(
   ) {
@@ -15,8 +15,7 @@ export class CommonService {
   public showSuccess(message: string) {
     const item = {
       text: message,
-      color: 'alert-success',
-      time: new Date().getTime()
+      color: 'alert-success'
     }
     this.errorMessages.push(item);
     setTimeout(() => {
@@ -27,8 +26,7 @@ export class CommonService {
   public showError(message: string) {
     const item = {
       text: message,
-      color: 'alert-error',
-      time: new Date().getTime()
+      color: 'alert-error'
     }
     this.errorMessages.push(item);
     setTimeout(() => {
