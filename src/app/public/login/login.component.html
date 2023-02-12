@@ -52,10 +52,11 @@
             <label class="label">
                 <span class="label-text">Enter email to receive Password Reset link</span>
             </label>
-            <input type="text" [formControl]="forgotEmailControl" placeholder="Email" class="input input-bordered" InputValidityColors />
+            <input type="text" [formControl]="forgotEmailControl" placeholder="Email" class="input input-bordered"
+                InputValidityColors/>
         </div>
         <div class="modal-action">
-            <button class="btn" (click)="onSend()">Send</button>
+            <button class="btn" (click)="onSend()" [disabled]="forgotEmailControl.invalid">Send</button>
         </div>
     </div>
 </div>

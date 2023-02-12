@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   public showForgotModel = false;
 
   public forgotEmailControl = new FormControl('', [Validators.required, Validators.pattern(this.config.emailRegex)]);
+  private forgotEmailSubmitted = false;
   private subs: Subscription = new Subscription();
 
   constructor(
