@@ -20,7 +20,7 @@ export class CommonService {
     this.errorMessages.push(item);
     setTimeout(() => {
       this.errorMessages = this.errorMessages.filter(el => el !== item);
-    }, 3000);
+    }, 5000);
   }
 
   public showError(message: string) {
@@ -31,7 +31,11 @@ export class CommonService {
     this.errorMessages.push(item);
     setTimeout(() => {
       this.errorMessages = this.errorMessages.filter(el => el !== item);
-    }, 3000);
+    }, 5000);
+  }
+
+  public closeError(item: any) {
+    this.errorMessages = this.errorMessages.filter(el => el !== item);
   }
 
 }

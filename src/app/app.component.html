@@ -1,10 +1,20 @@
 <div class="min-h-screen bg-base-300">
   <router-outlet></router-outlet>
 </div>
-<div class="toast">
-  <div class="alert p-3" [ngClass]="message.color" *ngFor="let message of commonService.errorMessages" @fadeOut @scaleDown>
-    <div>
-      <span class="text-sm">{{message.text}}</span>
+<div class="toast toast-center z-[999]">
+  <div class="alert p-3 min-w-max" [ngClass]="message.color" *ngFor="let message of commonService.errorMessages"
+    @fadeOut @scaleDown>
+    <div class="flex items-center w-full">
+      <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-5 w-5 mt-[2px]" fill="none"
+        viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" *ngIf="message.color === 'alert-success'"
+          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" *ngIf="message.color === 'alert-error'"
+          d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      <span class="text-sm font-semibold">{{message.text}}</span>
+      <span class="text-xs rounded-full cursor-pointer ml-auto hover:scale-125 hover:font-extrabold mt-[2px] pl-2"
+        (click)="commonService.closeError(message)">✕</span>
     </div>
   </div>
 </div>
