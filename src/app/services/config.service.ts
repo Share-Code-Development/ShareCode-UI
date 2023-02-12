@@ -9,5 +9,6 @@ export class ConfigService {
 
   public readonly defaultDialogStyles = { "max-height": "calc(100vh - 120px)", "overflow": "auto", "background-color": "transparent", "padding": "0px" };
   public readonly emailRegex: RegExp = /(.+)@(.+){2,}\.(.+){2,}/;
+  public readonly passwordMinLength: number = 6;
 
 }

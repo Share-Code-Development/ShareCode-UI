@@ -51,5 +51,8 @@ export class UserService {
     return this.http.postAsync(body, `${this.authEndpoint}/forgot-password`)
   }
 
+  public resetPasswordAsync(body: any) {
+    return this.http.postAsync(body, `${this.authEndpoint}/reset-password`)
+  }
 
 }

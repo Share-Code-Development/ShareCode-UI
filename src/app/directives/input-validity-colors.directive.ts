@@ -17,6 +17,7 @@ export class InputValidityDirective implements OnInit, OnDestroy, OnChanges {
 
   ngOnInit(): void {
     this.subscription = this.control.control?.statusChanges.subscribe((status) => {
+      console.log(this.control.control)
       if (status === 'INVALID') {
         this.classList = 'input-error';
       } else {
