@@ -47,15 +47,15 @@
 <div class="modal">
     <div class="modal-box">
         <label for="forgot-popup" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
-        <h3 class="font-bold text-lg">Enter your Email</h3>
+        <h3 class="font-bold text-lg">Forgot Password</h3>
         <div class="form-control">
             <label class="label">
                 <span class="label-text">Enter email to receive Password Reset link</span>
             </label>
-            <input type="text" placeholder="Email" class="input input-bordered" />
+            <input type="text" [formControl]="forgotEmailControl" placeholder="Email" class="input input-bordered" InputValidityColors />
         </div>
         <div class="modal-action">
-            <button class="btn">Login</button>
+            <button class="btn" (click)="onSend()">Send</button>
         </div>
     </div>
 </div>
