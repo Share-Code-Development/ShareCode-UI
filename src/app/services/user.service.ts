@@ -1,3 +1,4 @@
+import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ELocalStorage } from '../models/common.enum';
@@ -11,27 +12,37 @@ export class UserService {
 
   public authState$: BehaviorSubject<IUser | null> = new BehaviorSubject<IUser | null>(null);
   public isLoggedIn = false;
+  public isSSOLogin = false;
   private authEndpoint = 'auth';
   private userEndPoint = 'user';
 
   constructor(
-    private http: HttpService
+    private http: HttpService,
+    private socialAuthService: SocialAuthService
   ) { }
 
-  public setupAuthState(user: IUser, token?: string) {
+  public setupAuthState(user: IUser, token: string, social?: string) {
     this.authState$.next(user);
     this.isLoggedIn = true;
     localStorage.setItem(ELocalStorage.currentUser, JSON.stringify(user));
+    this.isSSOLogin = !!social;
+    if (social) {
+      localStorage.setItem(ELocalStorage.ssoType, social);
+    }
     if (token) {
       localStorage.setItem(ELocalStorage.token, token);
     }
   }
 
-  public logout() {
+  public async logout() {
     this.authState$.next(null);
     this.isLoggedIn = false;
     localStorage.removeItem(ELocalStorage.currentUser);
     localStorage.removeItem(ELocalStorage.token);
+    localStorage.removeItem(ELocalStorage.ssoType);
+    if (this.isSSOLogin) {
+      await this.socialAuthService.signOut();
+    }
   }
 
 

@@ -15,3 +15,16 @@ iframe {
 #credential_picker_container {
     margin-top: 70px;
 }
+
+.form-control:has(>input+.label) {
+    position: relative;
+    margin-bottom: 10px;
+
+    &>input+.label {
+        position: absolute;
+        bottom: -18px;
+        width: 100%;
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
+}

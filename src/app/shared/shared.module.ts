@@ -19,14 +19,12 @@ import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { CreateSnippetComponent } from './create-snippet/create-snippet.component';
 import { NgxCodejarModule } from 'ngx-codejar';
 import { RouterModule } from '@angular/router';
-import { InputValidityDirective } from '../directives/input-validity-colors.directive';
 
 const commons: any[] = [
   NavbarComponent,
   SidemenuComponent,
   CodeItemComponent,
-  CreateSnippetComponent,
-  InputValidityDirective
+  CreateSnippetComponent
 ]
 
 @NgModule({
@@ -54,7 +52,5 @@ const commons: any[] = [
     DynamicDialogModule,
     ...commons
   ],
-  providers: [
-  ]
 })
 export class SharedModule { }

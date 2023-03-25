@@ -9,6 +9,7 @@ import { SignupComponent } from './signup/signup.component';
 import { SharedModule } from '../shared/shared.module';
 import { SocialLoginModule } from '@abacritt/angularx-social-login';
 import { FormsModule } from '@angular/forms';
+import { ValidityColorsModule } from '../modules/validity-colors.module';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { FormsModule } from '@angular/forms';
     PublicRoutingModule,
     SharedModule,
     SocialLoginModule,
-    FormsModule
+    FormsModule,
+    ValidityColorsModule
   ],
   bootstrap: [HomeComponent]
 })

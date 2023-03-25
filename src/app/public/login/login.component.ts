@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { SocialAuthService } from "@abacritt/angularx-social-login";
 import { Subscription } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ConfigService } from 'src/app/services/config.service';
 import { CommonService } from 'src/app/services/common.service';
 
@@ -19,6 +19,13 @@ export class LoginComponent implements OnInit, OnDestroy {
   public forgotEmailControl = new FormControl('', [Validators.required, Validators.pattern(this.config.emailRegex)]);
   private subs: Subscription = new Subscription();
   public sendingEmail = false;
+  public loginForm = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.pattern(this.config.emailRegex)]),
+    password: new FormControl('', [Validators.required, Validators.minLength(this.config.passwordMinLength)])
+  });
+  public submitted = false;
+  public errorMessage = '';
+  public loading = false;
 
   constructor(
     private router: Router,
@@ -28,9 +35,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     private commonService: CommonService
   ) { }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.subs.add(this.authService.authState.subscribe((user) => {
-      console.log(user)
+      if (!user) return;
       const body = {
         fullName: user.name,
         email: user.email,
@@ -39,18 +46,35 @@ export class LoginComponent implements OnInit, OnDestroy {
       }
       this.userService.googleLoginAsync(body).subscribe({
         next: (res) => {
-          console.log(res);
-          this.userService.setupAuthState(res.user, res.token);
+          this.userService.setupAuthState(res.user, res.token, user.provider);
+          this.router.navigate(['/dashboard'], { replaceUrl: true })
         },
         error: (err) => {
-          console.log(err);
+          this.commonService.showError(err);
         }
       });
     }));
   }
 
   public onLogin() {
-    this.router.navigate(['/dashboard']);
+    // this.router.navigate(['/dashboard']);
+    this.submitted = true;
+    console.log(this.loginForm.value)
+    if (this.loginForm.valid) {
+      this.errorMessage = '';
+      this.loading = true;
+      this.userService.loginAsync(this.loginForm.value).subscribe({
+        next: res => {
+          this.userService.setupAuthState(res.user, res.token);
+          this.loading = false;
+          this.router.navigate(['/dashboard'], { replaceUrl: true })
+        },
+        error: err => {
+          this.loading = false;
+          this.errorMessage = this.commonService.getErrorMessages(err).join(', ')
+        }
+      })
+    }
   }
 
   public onSend() {
@@ -66,7 +90,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         },
         error: (err) => {
           this.sendingEmail = false;
-          this.commonService.showError(err.error.message);
+          this.commonService.showError(err);
         }
       });
     }

@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
 export class InputValidityDirective implements OnInit, OnDestroy, OnChanges {
 
   @HostBinding('class') private classList = '';
-  @Input() public submitted = false;
+  @Input() public submitted!: boolean;
   private subscription!: Subscription | undefined;
 
   constructor(
@@ -17,7 +17,7 @@ export class InputValidityDirective implements OnInit, OnDestroy, OnChanges {
 
   ngOnInit(): void {
     this.subscription = this.control.control?.statusChanges.subscribe((status) => {
-      console.log(this.control.control)
+      if (this.submitted !== undefined && !this.submitted) return;
       if (status === 'INVALID') {
         this.classList = 'input-error';
       } else {

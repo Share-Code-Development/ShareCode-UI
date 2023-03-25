@@ -7,6 +7,7 @@ import { ConfigService } from 'src/app/services/config.service';
 import { mismatchValidator } from 'src/app/utils/custom-validators';
 import { UserService } from 'src/app/services/user.service';
 import { CommonService } from 'src/app/services/common.service';
+import { ValidityColorsModule } from 'src/app/modules/validity-colors.module';
 
 @Component({
   selector: 'app-forgot-password',
@@ -14,7 +15,8 @@ import { CommonService } from 'src/app/services/common.service';
   imports: [
     CommonModule,
     SharedModule,
-    RouterModule
+    RouterModule,
+    ValidityColorsModule
   ],
   templateUrl: './forgot-password.component.html',
   styleUrls: ['./forgot-password.component.scss']
