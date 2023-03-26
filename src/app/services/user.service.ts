@@ -1,8 +1,10 @@
 import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { ELocalStorage } from '../models/common.enum';
 import { IUser } from '../models/user.interface';
+import { CommonService } from './common.service';
 import { HttpService } from './http.service';
 
 @Injectable({
@@ -18,8 +20,29 @@ export class UserService {
 
   constructor(
     private http: HttpService,
-    private socialAuthService: SocialAuthService
-  ) { }
+    private socialAuthService: SocialAuthService,
+    private router: Router,
+    private commonService: CommonService
+  ) {
+    this.socialAuthService.authState.subscribe((user) => {
+      if (!user) return;
+      const body = {
+        fullName: user.name,
+        email: user.email,
+        image: user.photoUrl,
+        idToken: user.idToken
+      }
+      this.googleLoginAsync(body).subscribe({
+        next: (res) => {
+          this.setupAuthState(res.user, res.token, user.provider);
+          this.router.navigate(['/dashboard'], { replaceUrl: true })
+        },
+        error: (err) => {
+          this.commonService.showError(err);
+        }
+      });
+    });
+  }
 
   public setupAuthState(user: IUser, token: string, social?: string) {
     this.authState$.next(user);
@@ -32,6 +55,7 @@ export class UserService {
     if (token) {
       localStorage.setItem(ELocalStorage.token, token);
     }
+    document.body.style.setProperty(`--google-onetap-visibility`, 'none');
   }
 
   public async logout() {
@@ -43,6 +67,7 @@ export class UserService {
     if (this.isSSOLogin) {
       await this.socialAuthService.signOut();
     }
+    document.body.style.setProperty(`--google-onetap-visibility`, 'block');
   }
 
 
@@ -64,6 +89,10 @@ export class UserService {
 
   public resetPasswordAsync(body: any) {
     return this.http.postAsync(body, `${this.authEndpoint}/reset-password`)
+  }
+
+  public getProfileAsync(params?: any) {
+    return this.http.getAsync(`${this.authEndpoint}/profile`, params)
   }
 
 }

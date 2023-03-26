@@ -35,25 +35,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private commonService: CommonService
   ) { }
 
-  async ngOnInit() {
-    this.subs.add(this.authService.authState.subscribe((user) => {
-      if (!user) return;
-      const body = {
-        fullName: user.name,
-        email: user.email,
-        image: user.photoUrl,
-        idToken: user.idToken
-      }
-      this.userService.googleLoginAsync(body).subscribe({
-        next: (res) => {
-          this.userService.setupAuthState(res.user, res.token, user.provider);
-          this.router.navigate(['/dashboard'], { replaceUrl: true })
-        },
-        error: (err) => {
-          this.commonService.showError(err);
-        }
-      });
-    }));
+  ngOnInit() {
   }
 
   public onLogin() {

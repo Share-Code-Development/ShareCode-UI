@@ -26,7 +26,7 @@ export class CommonService {
 
   public showError(message: string | any) {
     const item = {
-      text: typeof message === 'string' ? message : this.getErrorMessages(message)?.join(', '),
+      text: typeof message === 'string' ? message : this.getErrorMessages(message)[0],
       color: 'alert-error'
     }
     this.errorMessages.push(item);

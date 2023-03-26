@@ -28,3 +28,11 @@ iframe {
         padding-bottom: 0px;
     }
 }
+
+body {
+    --google-onetap-visibility: block;
+
+    #credential_picker_container {
+        display: var(--google-onetap-visibility);
+    }
+}

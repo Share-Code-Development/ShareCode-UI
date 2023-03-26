@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HighlightOptions, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { DialogService } from 'primeng/dynamicdialog';
@@ -14,6 +14,11 @@ import {
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpTokenInterceptor } from './services/resolvers/http.interceptor';
 import { environment } from 'src/environments/environment';
+import { AppInitService } from './services/resolvers/initializer.service';
+
+export function initializeApp1(appInitService: AppInitService) {
+  return () => appInitService.init()
+}
 
 @NgModule({
   declarations: [
@@ -63,6 +68,12 @@ import { environment } from 'src/environments/environment';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpTokenInterceptor,
+      multi: true
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeApp1,
+      deps: [AppInitService],
       multi: true
     }
   ],
