@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { ELocalStorage } from 'src/app/models/common.enum';
+import { CommonService } from '../common.service';
 import { UserService } from '../user.service';
 
 @Injectable({ providedIn: 'root' })
 export class AppInitService {
 
     constructor(
-        private userService: UserService
+        private userService: UserService,
+        private router: Router,
+        private commonService: CommonService
     ) { }
 
     init() {
@@ -16,7 +20,16 @@ export class AppInitService {
             const token = localStorage.getItem(ELocalStorage.token) || null;
             if (token && user) {
                 this.userService.setupAuthState(user, token, SSOType);
-                this.userService.getProfileAsync
+                this.userService.getProfileAsync().subscribe({
+                    next: res => {
+                        this.userService.setupAuthState(res.user, res.token, SSOType);
+                    },
+                    error: err => {
+                        this.userService.logout();
+                        this.router.navigate(['/']);
+                        this.commonService.showError(err);
+                    }
+                })
             }
             resolve();
         });

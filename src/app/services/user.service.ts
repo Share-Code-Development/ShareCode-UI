@@ -1,7 +1,7 @@
 import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { ELocalStorage } from '../models/common.enum';
 import { IUser } from '../models/user.interface';
 import { CommonService } from './common.service';
@@ -71,7 +71,7 @@ export class UserService {
   }
 
 
-  public loginAsync(body: any) {
+  public loginAsync(body: any): Observable<{ user: IUser, token: string }> {
     return this.http.postAsync(body, `${this.authEndpoint}/login`)
   }
 
@@ -79,7 +79,7 @@ export class UserService {
     return this.http.postAsync(body, `${this.authEndpoint}/signup`)
   }
 
-  public googleLoginAsync(body: any) {
+  public googleLoginAsync(body: any): Observable<{ user: IUser, token: string }> {
     return this.http.postAsync(body, `${this.authEndpoint}/google`)
   }
 
@@ -91,7 +91,7 @@ export class UserService {
     return this.http.postAsync(body, `${this.authEndpoint}/reset-password`)
   }
 
-  public getProfileAsync(params?: any) {
+  public getProfileAsync(params?: any): Observable<{ user: IUser, token: string }> {
     return this.http.getAsync(`${this.authEndpoint}/profile`, params)
   }
 
