@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SocialAuthService } from "@abacritt/angularx-social-login";
 import { Subscription } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -21,7 +20,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   public sendingEmail = false;
   public loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.pattern(this.config.emailRegex)]),
-    password: new FormControl('', [Validators.required, Validators.minLength(this.config.passwordMinLength)])
+    password: new FormControl('', [Validators.required])
   });
   public submitted = false;
   public errorMessage = '';
@@ -29,13 +28,13 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private authService: SocialAuthService,
     private userService: UserService,
     private config: ConfigService,
     private commonService: CommonService
   ) { }
 
   ngOnInit() {
+    this.userService.logout();
   }
 
   public onLogin() {

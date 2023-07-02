@@ -7,38 +7,51 @@
                 will get options to create private code snippets and favorites.</p>
         </div>
         <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-            <div class="card-body">
+            <form class="card-body" [formGroup]="signupForm">
                 <div class="form-control">
                     <label class="label">
                         <span class="label-text">Full Name</span>
                     </label>
-                    <input type="text" placeholder="Name" class="input input-bordered" />
+                    <input type="text" placeholder="Name" formControlName="fullName" class="input input-bordered"
+                        InputValidityColors [submitted]="submitted" />
+                    <app-error-message [show]="submitted" controlName="Full Name" [control]="signupForm.get('fullName')"
+                        [isFloating]="true"></app-error-message>
                 </div>
                 <div class="form-control">
                     <label class="label">
                         <span class="label-text">Email</span>
                     </label>
-                    <input type="text" placeholder="Email" class="input input-bordered" />
+                    <input type="text" placeholder="Email" class="input input-bordered" formControlName="email"
+                        InputValidityColors [submitted]="submitted" />
+                    <app-error-message [show]="submitted" controlName="Email" [control]="signupForm.get('email')"
+                        [isFloating]="true"></app-error-message>
                 </div>
                 <div class="form-control">
                     <label class="label">
                         <span class="label-text">Password</span>
                     </label>
-                    <input type="text" placeholder="Password" class="input input-bordered" />
+                    <input type="password" placeholder="Password" class="input input-bordered"
+                        formControlName="password" InputValidityColors [submitted]="submitted" />
+                    <app-error-message [show]="submitted" controlName="Password" [control]="signupForm.get('password')"
+                        [isFloating]="true"></app-error-message>
                 </div>
                 <div class="form-control">
                     <label class="label">
                         <span class="label-text">Confirm Password</span>
                     </label>
-                    <input type="text" placeholder="Confirm Password" class="input input-bordered" />
+                    <input type="text" formControlName="confirmPassword" InputValidityColors [submitted]="submitted"
+                        placeholder="Confirm Password" class="input input-bordered" />
+                    <app-error-message [show]="submitted" controlName="Confirm Password" [control]="signupForm.get('confirmPassword')"
+                        [isFloating]="true"></app-error-message>
                 </div>
                 <div class="text-center mt-3">
                     <p>Already have an account? <a routerLink="/login" class="link">Login Now</a></p>
                 </div>
+                <app-error-message [errorMessage]="errorMsg"></app-error-message>
                 <div class="form-control mt-3">
-                    <button class="btn btn-primary">SignUp</button>
+                    <button class="btn btn-primary" [class.loading]="loading" (click)="onSignup()">SignUp</button>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>

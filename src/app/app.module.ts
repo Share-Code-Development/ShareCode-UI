@@ -15,6 +15,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpTokenInterceptor } from './services/resolvers/http.interceptor';
 import { environment } from 'src/environments/environment';
 import { AppInitService } from './services/resolvers/initializer.service';
+import { UserService } from './services/user.service';
 
 export function initializeApp1(appInitService: AppInitService) {
   return () => appInitService.init()
@@ -31,6 +32,7 @@ export function initializeApp1(appInitService: AppInitService) {
     HttpClientModule
   ],
   providers: [
+    UserService,
     DialogService,
     {
       provide: HIGHLIGHT_OPTIONS,
@@ -51,7 +53,7 @@ export function initializeApp1(appInitService: AppInitService) {
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {
-        autoLogin: false,
+        autoLogin: true,
         providers: [
           {
             id: GoogleLoginProvider.PROVIDER_ID,

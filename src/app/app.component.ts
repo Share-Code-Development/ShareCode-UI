@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { fadeOut, scaleDown } from './animations/animations';
 import { CommonService } from './services/common.service';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -11,11 +12,25 @@ import { CommonService } from './services/common.service';
     scaleDown
   ]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'shareCodeUI';
   constructor(
-    public commonService: CommonService
+    public commonService: CommonService,
+    private router: Router
   ) {
-    // document.designMode = 'on';
+  }
+
+  ngOnInit(): void {
+    this.router.events.subscribe({
+      next: event => {
+        if (event instanceof NavigationEnd) {
+          if (['/', '/login', '/signup'].includes(event.urlAfterRedirects)) {
+            document.body.style.setProperty(`--google-onetap-visibility`, 'block');
+          } else {
+            document.body.style.setProperty(`--google-onetap-visibility`, 'none');
+          }
+        }
+      }
+    })
   }
 }

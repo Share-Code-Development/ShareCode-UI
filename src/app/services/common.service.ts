@@ -1,4 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +13,7 @@ export class CommonService {
   public authRedirectUrl: string = '';
 
   constructor(
+    private http: HttpClient
   ) {
   }
 
@@ -42,7 +46,7 @@ export class CommonService {
   public getErrorMessages(error: any) {
     // recursively get all strings from all the keys of the error object
     const errorObj = error.error;
-    const getErrorMessages = (error: any): string[] => {
+    const errorFinder = (error: any): string[] => {
       const messages = [];
       for (const key in error) {
         if (error.hasOwnProperty(key)) {
@@ -50,7 +54,7 @@ export class CommonService {
           if (typeof value === 'string') {
             messages.push(value);
           } else if (typeof value === 'object') {
-            messages.push(...getErrorMessages(value));
+            messages.push(...errorFinder(value));
           }
         }
       }
@@ -58,13 +62,29 @@ export class CommonService {
     }
     let allErrors: string[] = [];
     if (typeof errorObj === 'object') {
-      allErrors = getErrorMessages(errorObj);
+      allErrors = errorFinder(errorObj);
     }
     if (allErrors.length) {
       return allErrors.filter(el => el); // removing empty strings
     } else {
       return [error?.statusText ?? error?.message ?? 'Something went wrong'];
     }
+  }
+
+  private nameGenderCache = new Map<string, boolean>();
+  public isUserFemaleAsync(name: string) {
+    if (this.nameGenderCache.has(name)) {
+      return of(this.nameGenderCache.get(name));
+    }
+    return this.http.get(`https://api.genderize.io/?name=${name}`).pipe(map(
+      (res: any) => {
+        let value = res.gender === 'female' ? true : false;
+        this.nameGenderCache.set(name, value);
+        return value;
+      }
+    ), catchError(() => {
+      return of(false)
+    }))
   }
 
 }

@@ -22,40 +22,23 @@
                     </label>
                     <input type="text" placeholder="Email" class="input input-bordered" formControlName="email"
                         InputValidityColors [submitted]="submitted" />
-                    <label class="label">
-                        <span class="label-text-alt text-red-300"
-                            *ngIf="submitted && loginForm.get('email')?.hasError('required')">Email is Required</span>
-                        <span class="label-text-alt text-red-300"
-                            *ngIf="submitted && loginForm.get('email')?.hasError('pattern')">Email is Invalid</span>
-                    </label>
+                    <app-error-message [show]="submitted" controlName="Email" [control]="loginForm.get('email')"
+                        [isFloating]="true"></app-error-message>
                 </div>
                 <div class="form-control">
                     <label class="label">
                         <span class="label-text">Password</span>
                     </label>
-                    <input type="text" placeholder="Password" class="input input-bordered" formControlName="password"
+                    <input type="password" placeholder="Password" class="input input-bordered" formControlName="password"
                         InputValidityColors [submitted]="submitted" />
-                    <label class="label">
-                        <span class="label-text-alt text-red-300"
-                            *ngIf="submitted && loginForm.get('password')?.hasError('required')">Password is Required</span>
-                        <span class="label-text-alt text-red-300"
-                            *ngIf="submitted && loginForm.get('password')?.hasError('minlength')">Password is too short</span>
-                    </label>
+                    <app-error-message [show]="submitted" controlName="Password" [control]="loginForm.get('password')"
+                        [isFloating]="true"></app-error-message>
                 </div>
                 <label for="forgot-popup" class="link link-hover label-text-alt block text-right">Forgot password?</label>
                 <div class="text-center mt-2">
                     <p>Don't have an account? <a routerLink="/signup" class="link">Create One</a></p>
                 </div>
-                <div class="alert alert-error shadow-lg p-2 mt-2 flex justify-center" *ngIf="errorMessage">
-                    <div>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none"
-                            viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        <span>{{errorMessage}}</span>
-                    </div>
-                </div>
+                <app-error-message [errorMessage]="errorMessage"></app-error-message>
                 <div class="form-control mt-3">
                     <button class="btn btn-primary" [class.loading]="loading" (click)="onLogin()">Login</button>
                 </div>

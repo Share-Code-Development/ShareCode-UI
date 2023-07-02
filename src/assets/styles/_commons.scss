@@ -29,6 +29,20 @@ iframe {
     }
 }
 
+.form-control:has(>input+app-error-message) {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+
+
+.error-msg-custom-label {
+    position: absolute;
+    width: 100%;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
 body {
     --google-onetap-visibility: block;
 

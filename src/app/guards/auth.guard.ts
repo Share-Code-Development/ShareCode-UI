@@ -30,6 +30,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
   }
 
   private checkLogin() {
+    console.log(this.userService.isLoggedIn)
     return this.userService.isLoggedIn || this.router.parseUrl('/login');
   }
 }
