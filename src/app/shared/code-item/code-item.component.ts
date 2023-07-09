@@ -35,4 +35,10 @@ export class CodeItemComponent implements OnInit {
     }).catch(() => this.commonService.showError('Failed to copy to clipboard'));
   }
 
+  public onDelete() {
+    this.commonService.showDeleteConfirmationAsync().then(res => {
+      console.log(res);
+    })
+  }
+
 }

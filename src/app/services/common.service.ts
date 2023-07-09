@@ -1,7 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
+import { DialogService } from 'primeng/dynamicdialog';
+import { firstValueFrom, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { DeleteConfirmationComponent } from '../shared/delete-confirmation/delete-confirmation.component';
+import { ConfigService } from './config.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +16,9 @@ export class CommonService {
   public authRedirectUrl: string = '';
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    public dialogService: DialogService,
+    private config: ConfigService
   ) {
   }
 
@@ -85,6 +90,17 @@ export class CommonService {
     ), catchError(() => {
       return of(false)
     }))
+  }
+
+  public showDeleteConfirmationAsync() {
+    return firstValueFrom(this.dialogService.open(DeleteConfirmationComponent, {
+      header: 'Create',
+      // width: '50%',
+      contentStyle: this.config.defaultDialogStyles,
+      showHeader: false,
+      baseZIndex: 10000,
+      dismissableMask: true,
+    }).onClose)
   }
 
 }

@@ -52,6 +52,7 @@ export class UserService {
     if (!user) return;
     this.authState$.next(user);
     this.isLoggedIn = true;
+    user.image = user.image ? user.image : (await firstValueFrom(this.profileImage(user.fullName))) || this.config.maleAvatarUrl;
     localStorage.setItem(ELocalStorage.currentUser, JSON.stringify(user));
     this.isSSOLogin = !!social;
     if (social) {
@@ -60,7 +61,7 @@ export class UserService {
     if (token) {
       localStorage.setItem(ELocalStorage.token, token);
     }
-    this.profileUrl = user.image ? user.image : (await firstValueFrom(this.profileImage(user.fullName))) || this.config.maleAvatarUrl;
+    this.profileUrl = user.image;
   }
 
   public async logout() {

@@ -1,0 +1,22 @@
+<div class="bg-base-200 rounded-2xl p-2">
+  <div class="px-0 pb-0 pt-2">
+    <div class="text-xl px-1 pb-1 flex justify-between">
+      <span>Confirmation</span>
+      <span class="flex ml-auto">
+        <button class="btn btn-circle btn-outline btn-xs" (click)="close()" tabindex="-1">
+          <span class="material-icons">close</span>
+        </button>
+      </span>
+    </div>
+  </div>
+  <div class="px-2 py-8 pr-10">
+    <i class="material-icons text-4xl align-middle pr-1 text-error">delete</i>
+    Are you sure you want to delete?
+  </div>
+  <div class="mt-2 px-1 pb-1">
+    <div class="flex justify-end gap-3 m-2">
+      <button class="btn btn-sm btn-outline" (click)="onDelete(false)" tabindex="-1">Close</button>
+      <button class="btn btn-sm btn-error"(click)="onDelete(true)" tabindex="-1">Delete</button>
+    </div>
+  </div>
+</div>

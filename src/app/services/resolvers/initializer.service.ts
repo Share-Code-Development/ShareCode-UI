@@ -19,6 +19,7 @@ export class AppInitService {
             const SSOType = localStorage.getItem(ELocalStorage.ssoType) || undefined;
             const token = localStorage.getItem(ELocalStorage.token) || null;
             if (token && user) { // if sso login, google will handle the auth state in user service
+                this.userService.setupAuthState(user, token, SSOType);
                 this.userService.getProfileAsync().subscribe({
                     next: res => {
                         this.userService.setupAuthState(res.user, res.token, SSOType);
