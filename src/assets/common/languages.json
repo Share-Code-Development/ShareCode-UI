@@ -1,0 +1,286 @@
+[
+    {
+        "name": "JavaScript",
+        "value": "javascript"
+    },
+    {
+        "name": "Python",
+        "value": "python"
+    },
+    {
+        "name": "Java",
+        "value": "java"
+    },
+    {
+        "name": "C++",
+        "value": "cpp"
+    },
+    {
+        "name": "Ruby",
+        "value": "ruby"
+    },
+    {
+        "name": "C#",
+        "value": "csharp"
+    },
+    {
+        "name": "Go",
+        "value": "go"
+    },
+    {
+        "name": "Swift",
+        "value": "swift"
+    },
+    {
+        "name": "TypeScript",
+        "value": "typescript"
+    },
+    {
+        "name": "PHP",
+        "value": "php"
+    },
+    {
+        "name": "Rust",
+        "value": "rust"
+    },
+    {
+        "name": "Kotlin",
+        "value": "kotlin"
+    },
+    {
+        "name": "Perl",
+        "value": "perl"
+    },
+    {
+        "name": "Scala",
+        "value": "scala"
+    },
+    {
+        "name": "R",
+        "value": "r"
+    },
+    {
+        "name": "Objective-C",
+        "value": "objective-c"
+    },
+    {
+        "name": "Haskell",
+        "value": "haskell"
+    },
+    {
+        "name": "Lua",
+        "value": "lua"
+    },
+    {
+        "name": "Matlab",
+        "value": "matlab"
+    },
+    {
+        "name": "Groovy",
+        "value": "groovy"
+    },
+    {
+        "name": "HTML",
+        "value": "html"
+    },
+    {
+        "name": "CSS",
+        "value": "css"
+    },
+    {
+        "name": "SQL",
+        "value": "sql"
+    },
+    {
+        "name": "VB.NET",
+        "value": "vbnet"
+    },
+    {
+        "name": "Shell",
+        "value": "shell"
+    },
+    {
+        "name": "C",
+        "value": "c"
+    },
+    {
+        "name": "Ruby on Rails",
+        "value": "rails"
+    },
+    {
+        "name": "Perl 6",
+        "value": "perl6"
+    },
+    {
+        "name": "Elixir",
+        "value": "elixir"
+    },
+    {
+        "name": "Groovy",
+        "value": "groovy"
+    },
+    {
+        "name": "Dart",
+        "value": "dart"
+    },
+    {
+        "name": "Assembly",
+        "value": "assembly"
+    },
+    {
+        "name": "PowerShell",
+        "value": "powershell"
+    },
+    {
+        "name": "Objective-C++",
+        "value": "objective-cpp"
+    },
+    {
+        "name": "CoffeeScript",
+        "value": "coffeescript"
+    },
+    {
+        "name": "VBScript",
+        "value": "vbscript"
+    },
+    {
+        "name": "F#",
+        "value": "fsharp"
+    },
+    {
+        "name": "VB6",
+        "value": "vb6"
+    },
+    {
+        "name": "Ada",
+        "value": "ada"
+    },
+    {
+        "name": "D",
+        "value": "d"
+    },
+    {
+        "name": "Julia",
+        "value": "julia"
+    },
+    {
+        "name": "Scheme",
+        "value": "scheme"
+    },
+    {
+        "name": "Prolog",
+        "value": "prolog"
+    },
+    {
+        "name": "PL/SQL",
+        "value": "plsql"
+    },
+    {
+        "name": "COBOL",
+        "value": "cobol"
+    },
+    {
+        "name": "Fortran",
+        "value": "fortran"
+    },
+    {
+        "name": "Lisp",
+        "value": "lisp"
+    },
+    {
+        "name": "AutoHotkey",
+        "value": "autohotkey"
+    },
+    {
+        "name": "Erlang",
+        "value": "erlang"
+    },
+    {
+        "name": "Apex",
+        "value": "apex"
+    },
+    {
+        "name": "Bash",
+        "value": "bash"
+    },
+    {
+        "name": "Tcl",
+        "value": "tcl"
+    },
+    {
+        "name": "Racket",
+        "value": "racket"
+    },
+    {
+        "name": "Verilog",
+        "value": "verilog"
+    },
+    {
+        "name": "ABAP",
+        "value": "abap"
+    },
+    {
+        "name": "ActionScript",
+        "value": "actionscript"
+    },
+    {
+        "name": "Clojure",
+        "value": "clojure"
+    },
+    {
+        "name": "Crystal",
+        "value": "crystal"
+    },
+    {
+        "name": "Erlang",
+        "value": "erlang"
+    },
+    {
+        "name": "Forth",
+        "value": "forth"
+    },
+    {
+        "name": "LabVIEW",
+        "value": "labview"
+    },
+    {
+        "name": "Nim",
+        "value": "nim"
+    },
+    {
+        "name": "Pascal",
+        "value": "pascal"
+    },
+    {
+        "name": "OpenEdge ABL",
+        "value": "openedgeabl"
+    },
+    {
+        "name": "PostScript",
+        "value": "postscript"
+    },
+    {
+        "name": "PureScript",
+        "value": "purescript"
+    },
+    {
+        "name": "Red",
+        "value": "red"
+    },
+    {
+        "name": "Scratch",
+        "value": "scratch"
+    },
+    {
+        "name": "SML",
+        "value": "sml"
+    },
+    {
+        "name": "Turing",
+        "value": "turing"
+    },
+    {
+        "name": "UnrealScript",
+        "value": "unrealscript"
+    }
+]
