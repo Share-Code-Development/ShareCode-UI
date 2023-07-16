@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import hljs from 'highlight.js';
-import { CodeJarContainer } from 'ngx-codejar';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
@@ -17,16 +15,6 @@ export class CreateSnippetComponent implements OnInit {
   ) { }
 
   content = ``;
-
-
-  highlightMethod(editor: CodeJarContainer) {
-    if (editor.textContent !== null && editor.textContent !== undefined) {
-      editor.innerHTML = hljs.highlight(editor.textContent, {
-        language: 'javascript'
-      }).value;
-    }
-  }
-
 
   onCodeChanged(value: any) {
     console.log('CODE', value);
