@@ -12,8 +12,8 @@
             <input type="text" placeholder="Title" class="input input-sm w-full" tabindex="-1">
         </h2>
     </div>
-    <div id="editor" class="m-1 mt-2 bg-base-100 p-0 rounded-lg">
-        <app-code-highlighter [code]="content" [language]="'javascript'"></app-code-highlighter>
+    <div id="editor" class="m-1 mt-2 bg-base-100 p-0 rounded-lg overflow-hidden">
+        <app-code-highlighter [code]="content" [language]="'javascript'" class="h-52 block"></app-code-highlighter>
     </div>
     <div class="mt-2 px-1 pb-1">
         <textarea class="w-full textarea" placeholder="Brief Summary" tabindex="-1"></textarea>

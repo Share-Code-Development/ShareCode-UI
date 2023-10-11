@@ -1,10 +1,14 @@
-import { AfterViewInit, Component, ElementRef, Input, OnDestroy, Renderer2 } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnDestroy, Renderer2, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 import hljs from 'highlight.js';
 import { CodeJarContainer } from 'ngx-codejar';
+// import guessProgrammingLanguage from 'guess-programming-language'
+import { EditorComponent } from 'ngx-monaco-editor-v2';
 // @ts-ignore - no types available
-import guessProgrammingLanguage from 'guess-programming-language'
+import langDetector from 'lang-detector';
+
+declare const monaco: typeof import('monaco-editor');
 
 
 @Component({
@@ -19,12 +23,13 @@ import guessProgrammingLanguage from 'guess-programming-language'
   ]
 })
 export class CodeHighlighterComponent implements ControlValueAccessor, AfterViewInit, OnDestroy {
+  @ViewChild('editorComponent') editorComponent!: EditorComponent;
 
   @Input() public code: string = '';
 
   @Input() language: string = 'javascript';
   public readOnlyMode$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  editorOptions = { theme: 'vs-dark', language: null };
+  protected editorOptions: any = { theme: 'vs-dark', automaticLayout: true };
   private editor: any;
 
   constructor(
@@ -35,22 +40,34 @@ export class CodeHighlighterComponent implements ControlValueAccessor, AfterView
 
   @Input()
   public set readOnlyMode(val: boolean) {
-    this.readOnlyMode$.next(val);
+    this.editorOptions = { ...this.editorOptions, readOnly: val };
   }
 
   guessCode() {
-    console.log('language')
-    guessProgrammingLanguage(this.code).then((language: string) => {
-      console.log(language)
-      if (language) {
-        this.language = language;
-        this.editor?.updateOptions({ language: this.language });
+    let language = langDetector(this.code);
+    console.log(language)
+    if (language) {
+      this.language = language;
+      if (this.editor && language && language.toLowerCase() !== 'unknown') {
+        language = language.replace('C#', 'csharp');
+        language = language.replace('C++', 'cpp');
+        monaco.editor.setModelLanguage(this.editor.getModel(), language.toLowerCase());
       }
-    })
+    }
+    // guessProgrammingLanguage(this.code).then((language: string) => {
+    //   if (language) {
+    //     this.language = language;
+    //     if (this.editor) {
+    //       monaco.editor.setModelLanguage(this.editor.getModel(), language);
+    //       console.log(language)
+    //     }
+    //   }
+    // })
   }
 
   onEditorInit(editor: any) {
     this.editor = editor;
+    this.guessCode()
   }
 
   ngAfterViewInit(): void {

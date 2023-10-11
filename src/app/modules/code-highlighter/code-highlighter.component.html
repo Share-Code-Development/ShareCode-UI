@@ -1,6 +1,7 @@
-<div id="customEditor">
+<div id="customEditor" style="height: 100%;">
   <!-- <ngx-codejar [highlightMethod]="highlightMethod" [(code)]="code" [highlighter]="'hljs'"
     [showLineNumbers]="true"></ngx-codejar> -->
-    <ngx-monaco-editor [options]="editorOptions" [(ngModel)]="code" (ngModelChange)="guessCode()" (onInit)="onEditorInit($event)"></ngx-monaco-editor>
+  <ngx-monaco-editor [options]="editorOptions" [(ngModel)]="code" (ngModelChange)="guessCode()"
+    (onInit)="onEditorInit($event)" style="height: 100%;" #editorComponent></ngx-monaco-editor>
 
 </div>

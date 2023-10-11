@@ -29,8 +29,9 @@
                 <span>12345</span>
             </span>
         </div>
-        <div class="mockup-code min-w-0 w-full h-52">
-        <app-code-highlighter [code]="code" [language]="'javascript'" [readOnlyMode]="true"></app-code-highlighter>
+        <div class="mockup-code min-w-0 w-full h-52 pb-0 overflow-hidden">
+            <app-code-highlighter [code]="code" [language]="'javascript'" [readOnlyMode]="true"
+                class="block h-full"></app-code-highlighter>
         </div>
     </div>
 </div>

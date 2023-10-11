@@ -6,8 +6,8 @@ import { OverviewComponent } from './overview/overview.component';
 const routes: Routes = [
   {
     path: '', component: DashboardComponent, children: [
-      { path: '', component: OverviewComponent }      
-    ],
+      { path: '', component: OverviewComponent },
+    ]
   },
 ];
 
