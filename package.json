@@ -23,6 +23,7 @@
     "@ng-icons/material-icons": "^22.4.0",
     "codejar": "^3.6.0",
     "daisyui": "^2.33.0",
+    "guess-programming-language": "^1.0.0",
     "highlight.js": "^11.7.0",
     "material-icons": "^1.12.0",
     "ngx-codejar": "^5.1.2",

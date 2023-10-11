@@ -14,7 +14,7 @@ export class CreateSnippetComponent implements OnInit {
     public ref: DynamicDialogRef
   ) { }
 
-  content = ``;
+  public content = ``;
 
   onCodeChanged(value: any) {
     console.log('CODE', value);

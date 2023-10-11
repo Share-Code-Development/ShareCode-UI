@@ -1,10 +1,10 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { DialogService } from 'primeng/dynamicdialog';
-import { firstValueFrom, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
-import { DeleteConfirmationComponent } from '../shared/delete-confirmation/delete-confirmation.component';
-import { ConfigService } from './config.service';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {DialogService} from 'primeng/dynamicdialog';
+import {firstValueFrom, of} from 'rxjs';
+import {catchError, map} from 'rxjs/operators';
+import {DeleteConfirmationComponent} from '../shared/delete-confirmation/delete-confirmation.component';
+import {ConfigService} from './config.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +14,7 @@ export class CommonService {
   public wrapCode: boolean = false;
   public errorMessages = new Array<{ text: string, color: string }>();
   public authRedirectUrl: string = '';
+  private nameGenderCache = new Map<string, boolean>();
 
   constructor(
     private http: HttpClient,
@@ -76,14 +77,19 @@ export class CommonService {
     }
   }
 
-  private nameGenderCache = new Map<string, boolean>();
   public isUserFemaleAsync(name: string) {
+    JSON.stringify(JSON.parse('{}'), (k, v) => {
+      if (k === 'password') {
+        return undefined;
+      }
+      return v;
+    });
     if (this.nameGenderCache.has(name)) {
       return of(this.nameGenderCache.get(name));
     }
     return this.http.get(`https://api.genderize.io/?name=${name}`).pipe(map(
       (res: any) => {
-        let value = res.gender === 'female' ? true : false;
+        let value = res.gender === 'female';
         this.nameGenderCache.set(name, value);
         return value;
       }
