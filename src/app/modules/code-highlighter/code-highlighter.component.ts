@@ -1,8 +1,8 @@
-import {AfterViewInit, Component, ElementRef, Input, OnDestroy, Renderer2} from '@angular/core';
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
-import {BehaviorSubject} from 'rxjs';
+import { AfterViewInit, Component, ElementRef, Input, OnDestroy, Renderer2 } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { BehaviorSubject } from 'rxjs';
 import hljs from 'highlight.js';
-import {CodeJarContainer} from 'ngx-codejar';
+import { CodeJarContainer } from 'ngx-codejar';
 // @ts-ignore - no types available
 import guessProgrammingLanguage from 'guess-programming-language'
 
@@ -24,6 +24,8 @@ export class CodeHighlighterComponent implements ControlValueAccessor, AfterView
 
   @Input() language: string = 'javascript';
   public readOnlyMode$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  editorOptions = { theme: 'vs-dark', language: null };
+  private editor: any;
 
   constructor(
     private renderer: Renderer2,
@@ -36,32 +38,47 @@ export class CodeHighlighterComponent implements ControlValueAccessor, AfterView
     this.readOnlyMode$.next(val);
   }
 
-  ngAfterViewInit(): void {
-    this.readOnlyMode$.subscribe(val => {
-      if (val) {
-        this.renderer.setAttribute(this.element.nativeElement?.querySelector('.editor.hljs.ngx-codejar-editor'), 'contenteditable', 'false');
-      } else {
-        this.renderer.setAttribute(this.element.nativeElement?.querySelector('.editor.hljs.ngx-codejar-editor'), 'contenteditable', 'plaintext-only');
+  guessCode() {
+    console.log('language')
+    guessProgrammingLanguage(this.code).then((language: string) => {
+      console.log(language)
+      if (language) {
+        this.language = language;
+        this.editor?.updateOptions({ language: this.language });
       }
     })
+  }
+
+  onEditorInit(editor: any) {
+    this.editor = editor;
+  }
+
+  ngAfterViewInit(): void {
+    // this.readOnlyMode$.subscribe(val => {
+    //   if (val) {
+    //     this.renderer.setAttribute(this.element.nativeElement?.querySelector('.editor.hljs.ngx-codejar-editor'), 'contenteditable', 'false');
+    //   } else {
+    //     this.renderer.setAttribute(this.element.nativeElement?.querySelector('.editor.hljs.ngx-codejar-editor'), 'contenteditable', 'plaintext-only');
+    //   }
+    // })
   }
 
   ngOnDestroy(): void {
     this.readOnlyMode$.unsubscribe();
   }
 
-  public highlightMethod = (editor: CodeJarContainer) => {
-    if (editor.textContent !== null && editor.textContent !== undefined) {
-      editor.innerHTML = hljs.highlight(editor.textContent, {
-        language: this.language
-      }).value;
-      guessProgrammingLanguage(editor.textContent).then((language: string) => {
-        if (language) {
-          this.language = language;
-        }
-      })
-    }
-  }
+  // public highlightMethod = (editor: CodeJarContainer) => {
+  //   if (editor.textContent !== null && editor.textContent !== undefined) {
+  //     editor.innerHTML = hljs.highlight(editor.textContent, {
+  //       language: this.language
+  //     }).value;
+  //     guessProgrammingLanguage(editor.textContent).then((language: string) => {
+  //       if (language) {
+  //         this.language = language;
+  //       }
+  //     })
+  //   }
+  // }
 
   writeValue(obj: string): void {
     this.code = obj;
