@@ -4,6 +4,7 @@ import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Subscription } from 'rxjs';
 import { CommonService } from 'src/app/services/common.service';
 import { ConfigService } from 'src/app/services/config.service';
+import { SnippetService } from 'src/app/services/snippet.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -35,7 +36,8 @@ export class CreateSnippetComponent implements OnInit, OnDestroy {
     public ref: DynamicDialogRef,
     private common: CommonService,
     protected config: ConfigService,
-    private user: UserService
+    private user: UserService,
+    private snippet: SnippetService
   ) { }
 
   ngOnInit(): void {
@@ -67,6 +69,18 @@ export class CreateSnippetComponent implements OnInit, OnDestroy {
     if (!this.snippetForm.get('title')?.value) {
       this.snippetForm.patchValue({ title: this.defaultTitle });
     }
+    this.loading = true;
+    this.snippet.snippetPostAsync(this.snippetForm.value).subscribe({
+      next: (res) => {
+        this.loading = false;
+        this.common.showSuccess('Snippet created successfully');
+        this.ref.close(res);
+      },
+      error: (err) => {
+        this.loading = false;
+        this.common.showError(err);
+      }
+    })
   }
 
   protected languageChange(language: string) {
