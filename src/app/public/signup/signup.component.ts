@@ -36,7 +36,6 @@ export class SignupComponent implements OnInit {
 
   public onSignup() {
     this.submitted = true;
-    console.log(this.signupForm.value);
     if (this.signupForm.valid) {
       this.errorMsg = '';
       const body: any = {

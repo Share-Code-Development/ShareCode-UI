@@ -40,7 +40,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   public onLogin() {
     // this.router.navigate(['/dashboard']);
     this.submitted = true;
-    console.log(this.loginForm.value)
     if (this.loginForm.valid) {
       this.errorMessage = '';
       this.loading = true;

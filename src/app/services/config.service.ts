@@ -27,5 +27,45 @@ export class ConfigService {
     tagsPerSnippet: 10,
   } as const;
 
+  private languageExtensions: { [key: string]: string[] } = {
+    "html": ['html', 'htm'],
+    "xml": ['xml'],
+    "json": ['json'],
+    "javascript": ['js'],
+    "typescript": ['ts'],
+    "css": ['css'],
+    "scss": ['scss', 'sass'],
+    "markdown": ['md'],
+    "sql": ['sql'],
+    "python": ['py'],
+    "c#": ['cs'],
+    "c++": ['cpp', 'h', 'hpp'],
+    "java": ['java'],
+    "ruby": ['rb'],
+    "php": ['php'],
+    "go": ['go'],
+    "rust": ['rs'],
+    "swift": ['swift'],
+    "perl": ['pl'],
+    "matlab": ['m'],
+    "r": ['r'],
+    "shell": ['sh'],
+    "powershell": ['ps1'],
+    "lua": ['lua'],
+    "objective-c": ['m', 'mm'],
+    "kotlin": ['kt'],
+    "dart": ['dart'],
+    "haskell": ['hs'],
+    "coffeescript": ['coffee'],
+  };
 
+  public getLanguageByExtension(extension: string): string | null {
+    extension = extension.toLowerCase();
+    for (const language in this.languageExtensions) {
+      if (this.languageExtensions[language].includes(extension)) {
+        return language;
+      }
+    }
+    return null;
+  }
 }

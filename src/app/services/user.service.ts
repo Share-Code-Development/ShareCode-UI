@@ -35,7 +35,6 @@ export class UserService {
         image: user.photoUrl,
         idToken: user.idToken
       }
-      console.log(body);
       this.googleLoginAsync(body).subscribe({
         next: (res) => {
           this.setupAuthState(res.user, res.token, user.provider);

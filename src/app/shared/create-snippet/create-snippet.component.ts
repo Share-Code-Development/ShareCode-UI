@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { Subscription } from 'rxjs';
 import { CommonService } from 'src/app/services/common.service';
 import { ConfigService } from 'src/app/services/config.service';
 import { UserService } from 'src/app/services/user.service';
@@ -16,7 +17,9 @@ export class CreateSnippetComponent implements OnInit {
   public languageList: { id: string; name: string }[] = [];
   protected errorMessage = '';
   protected submitted = false;
-  protected defaultTitle = `Untitled - ${new Date().toDateString()}`
+  protected defaultTitle = `Untitled - ${new Date().toDateString()}`;
+  private subs: Subscription = new Subscription();
+  protected languageFormatDetected = false;
 
   public snippetForm = new FormGroup({
     title: new FormControl('', [Validators.maxLength(this.config.maxLengths.title)]),
@@ -44,6 +47,15 @@ export class CreateSnippetComponent implements OnInit {
     this.common.getLanguages().subscribe((res: any) => {
       this.languageList = res;
     });
+    this.subs.add(this.snippetForm.get('title')?.valueChanges.subscribe((res: any) => {
+      if (res && !this.snippetForm.get('language')?.dirty) {
+        const extension = this.snippetForm.get('title')?.value?.split('.').at(-1) || '';
+        const language = this.config.getLanguageByExtension(extension);
+        if (!language || !this.languageList.find(l => l.id === language)) return;
+        this.snippetForm.patchValue({ language });
+        this.languageFormatDetected = true;
+      }
+    }))
   }
 
   protected close() {

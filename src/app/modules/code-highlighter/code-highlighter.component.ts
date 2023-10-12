@@ -58,7 +58,6 @@ export class CodeHighlighterComponent implements ControlValueAccessor {
       if (language) {
         language = language.toLowerCase()
         if (this.editor && language && language !== 'unknown' && language !== this.language) {
-          console.log(language)
           this.language = language;
           language = language.replace('c#', 'csharp');
           language = language.replace('c++', 'cpp');

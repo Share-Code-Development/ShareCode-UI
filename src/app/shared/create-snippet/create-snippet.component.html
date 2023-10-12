@@ -21,7 +21,7 @@
     <div id="editor" class="m-1 mt-2 bg-base-100 p-0 rounded-lg overflow-hidden">
         <app-code-highlighter [code]="content" class="h-60 block" formControlName="code"
             (onLanguageChanged)="languageChange($event)" [language]="snippetForm.get('language')?.value || ''"
-            [autoDetectLanguage]="!snippetForm.get('language')?.dirty"></app-code-highlighter>
+            [autoDetectLanguage]="!snippetForm.get('language')?.dirty && !languageFormatDetected"></app-code-highlighter>
     </div>
     <div class="px-1 pb-1 mt-2">
         <textarea class="w-full textarea" placeholder="Brief Summary" formControlName="summary"
