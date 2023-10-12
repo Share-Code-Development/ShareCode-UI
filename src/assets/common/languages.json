@@ -1,286 +1,182 @@
 [
     {
-        "name": "JavaScript",
-        "value": "javascript"
+        "id": "plaintext",
+        "name": "Plain Text"
     },
     {
-        "name": "Python",
-        "value": "python"
+        "id": "apex",
+        "name": "Apex"
     },
     {
-        "name": "Java",
-        "value": "java"
+        "id": "bat",
+        "name": "Batch"
     },
     {
-        "name": "C++",
-        "value": "cpp"
+        "id": "c",
+        "name": "C"
     },
     {
-        "name": "Ruby",
-        "value": "ruby"
+        "id": "cpp",
+        "name": "C++"
     },
     {
-        "name": "C#",
-        "value": "csharp"
+        "id": "csharp",
+        "name": "C#"
     },
     {
-        "name": "Go",
-        "value": "go"
+        "id": "css",
+        "name": "CSS"
     },
     {
-        "name": "Swift",
-        "value": "swift"
+        "id": "dockerfile",
+        "name": "Dockerfile"
     },
     {
-        "name": "TypeScript",
-        "value": "typescript"
+        "id": "fsharp",
+        "name": "F#"
     },
     {
-        "name": "PHP",
-        "value": "php"
+        "id": "go",
+        "name": "Go"
     },
     {
-        "name": "Rust",
-        "value": "rust"
+        "id": "html",
+        "name": "HTML"
     },
     {
-        "name": "Kotlin",
-        "value": "kotlin"
+        "id": "java",
+        "name": "Java"
     },
     {
-        "name": "Perl",
-        "value": "perl"
+        "id": "javascript",
+        "name": "JavaScript"
     },
     {
-        "name": "Scala",
-        "value": "scala"
+        "id": "json",
+        "name": "JSON"
     },
     {
-        "name": "R",
-        "value": "r"
+        "id": "kotlin",
+        "name": "Kotlin"
     },
     {
-        "name": "Objective-C",
-        "value": "objective-c"
+        "id": "less",
+        "name": "Less"
     },
     {
-        "name": "Haskell",
-        "value": "haskell"
+        "id": "lua",
+        "name": "Lua"
     },
     {
-        "name": "Lua",
-        "value": "lua"
+        "id": "markdown",
+        "name": "Markdown"
     },
     {
-        "name": "Matlab",
-        "value": "matlab"
+        "id": "objective-c",
+        "name": "Objective-C"
     },
     {
-        "name": "Groovy",
-        "value": "groovy"
+        "id": "perl",
+        "name": "Perl"
     },
     {
-        "name": "HTML",
-        "value": "html"
+        "id": "php",
+        "name": "PHP"
     },
     {
-        "name": "CSS",
-        "value": "css"
+        "id": "plaintext",
+        "name": "Plain Text"
     },
     {
-        "name": "SQL",
-        "value": "sql"
+        "id": "powershell",
+        "name": "PowerShell"
     },
     {
-        "name": "VB.NET",
-        "value": "vbnet"
+        "id": "python",
+        "name": "Python"
     },
     {
-        "name": "Shell",
-        "value": "shell"
+        "id": "ruby",
+        "name": "Ruby"
     },
     {
-        "name": "C",
-        "value": "c"
+        "id": "rust",
+        "name": "Rust"
     },
     {
-        "name": "Ruby on Rails",
-        "value": "rails"
+        "id": "scss",
+        "name": "SCSS"
     },
     {
-        "name": "Perl 6",
-        "value": "perl6"
+        "id": "sql",
+        "name": "SQL"
     },
     {
-        "name": "Elixir",
-        "value": "elixir"
+        "id": "swift",
+        "name": "Swift"
     },
     {
-        "name": "Groovy",
-        "value": "groovy"
+        "id": "typescript",
+        "name": "TypeScript"
     },
     {
-        "name": "Dart",
-        "value": "dart"
+        "id": "vb",
+        "name": "Visual Basic"
     },
     {
-        "name": "Assembly",
-        "value": "assembly"
+        "id": "xml",
+        "name": "XML"
     },
     {
-        "name": "PowerShell",
-        "value": "powershell"
+        "id": "yaml",
+        "name": "YAML"
     },
     {
-        "name": "Objective-C++",
-        "value": "objective-cpp"
+        "id": "powershell",
+        "name": "PowerShell"
     },
     {
-        "name": "CoffeeScript",
-        "value": "coffeescript"
+        "id": "perl",
+        "name": "Perl"
     },
     {
-        "name": "VBScript",
-        "value": "vbscript"
+        "id": "ruby",
+        "name": "Ruby"
     },
     {
-        "name": "F#",
-        "value": "fsharp"
+        "id": "rust",
+        "name": "Rust"
     },
     {
-        "name": "VB6",
-        "value": "vb6"
+        "id": "scala",
+        "name": "Scala"
     },
     {
-        "name": "Ada",
-        "value": "ada"
+        "id": "shell",
+        "name": "Shell"
     },
     {
-        "name": "D",
-        "value": "d"
+        "id": "sql",
+        "name": "SQL"
     },
     {
-        "name": "Julia",
-        "value": "julia"
+        "id": "swift",
+        "name": "Swift"
     },
     {
-        "name": "Scheme",
-        "value": "scheme"
+        "id": "vb",
+        "name": "Visual Basic"
     },
     {
-        "name": "Prolog",
-        "value": "prolog"
+        "id": "vhdl",
+        "name": "VHDL"
     },
     {
-        "name": "PL/SQL",
-        "value": "plsql"
+        "id": "verilog",
+        "name": "Verilog"
     },
     {
-        "name": "COBOL",
-        "value": "cobol"
-    },
-    {
-        "name": "Fortran",
-        "value": "fortran"
-    },
-    {
-        "name": "Lisp",
-        "value": "lisp"
-    },
-    {
-        "name": "AutoHotkey",
-        "value": "autohotkey"
-    },
-    {
-        "name": "Erlang",
-        "value": "erlang"
-    },
-    {
-        "name": "Apex",
-        "value": "apex"
-    },
-    {
-        "name": "Bash",
-        "value": "bash"
-    },
-    {
-        "name": "Tcl",
-        "value": "tcl"
-    },
-    {
-        "name": "Racket",
-        "value": "racket"
-    },
-    {
-        "name": "Verilog",
-        "value": "verilog"
-    },
-    {
-        "name": "ABAP",
-        "value": "abap"
-    },
-    {
-        "name": "ActionScript",
-        "value": "actionscript"
-    },
-    {
-        "name": "Clojure",
-        "value": "clojure"
-    },
-    {
-        "name": "Crystal",
-        "value": "crystal"
-    },
-    {
-        "name": "Erlang",
-        "value": "erlang"
-    },
-    {
-        "name": "Forth",
-        "value": "forth"
-    },
-    {
-        "name": "LabVIEW",
-        "value": "labview"
-    },
-    {
-        "name": "Nim",
-        "value": "nim"
-    },
-    {
-        "name": "Pascal",
-        "value": "pascal"
-    },
-    {
-        "name": "OpenEdge ABL",
-        "value": "openedgeabl"
-    },
-    {
-        "name": "PostScript",
-        "value": "postscript"
-    },
-    {
-        "name": "PureScript",
-        "value": "purescript"
-    },
-    {
-        "name": "Red",
-        "value": "red"
-    },
-    {
-        "name": "Scratch",
-        "value": "scratch"
-    },
-    {
-        "name": "SML",
-        "value": "sml"
-    },
-    {
-        "name": "Turing",
-        "value": "turing"
-    },
-    {
-        "name": "UnrealScript",
-        "value": "unrealscript"
+        "id": "xml",
+        "name": "XML"
     }
 ]

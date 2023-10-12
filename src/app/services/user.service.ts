@@ -13,7 +13,7 @@ import { ConfigService } from './config.service';
 })
 export class UserService {
 
-  public authState$: BehaviorSubject<IUser | null> = new BehaviorSubject<IUser | null>(null);
+  public authUser$: BehaviorSubject<IUser | null> = new BehaviorSubject<IUser | null>(null);
   public isLoggedIn = false;
   public isSSOLogin = false;
   private authEndpoint = 'auth';
@@ -50,7 +50,7 @@ export class UserService {
 
   public async setupAuthState(user: IUser, token: string, social?: string) {
     if (!user) return;
-    this.authState$.next(user);
+    this.authUser$.next(user);
     this.isLoggedIn = true;
     user.image = user.image ? user.image : (await firstValueFrom(this.profileImage(user.fullName))) || this.config.maleAvatarUrl;
     localStorage.setItem(ELocalStorage.currentUser, JSON.stringify(user));
@@ -65,7 +65,7 @@ export class UserService {
   }
 
   public async logout() {
-    this.authState$.next(null);
+    this.authUser$.next(null);
     this.isLoggedIn = false;
     this.profileUrl = '';
     localStorage.removeItem(ELocalStorage.currentUser);

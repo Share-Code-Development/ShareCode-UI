@@ -1,4 +1,4 @@
-<div class="bg-base-200 rounded-2xl p-2">
+<div class="bg-base-200 rounded-2xl p-2" [formGroup]="snippetForm">
     <div class="px-0 pb-0 pt-2">
         <div class="text-xl px-1 pb-1 flex justify-between">
             <span>Create Snippet</span>
@@ -9,14 +9,19 @@
             </span>
         </div>
         <h2 class="card-title px-1 flex justify-items-start items-center">
-            <input type="text" placeholder="Title" class="input input-sm w-full" tabindex="-1">
+            <input type="text" placeholder="Title" class="input input-sm w-full" tabindex="-1" formControlName="title">
+            <select class="select select-sm w-60" placeholder="Title" formControlName="language">
+                <option *ngFor="let lang of languageList" [value]="lang.id">{{lang.name}}</option>
+            </select>
         </h2>
     </div>
     <div id="editor" class="m-1 mt-2 bg-base-100 p-0 rounded-lg overflow-hidden">
-        <app-code-highlighter [code]="content" [language]="'javascript'" class="h-52 block"></app-code-highlighter>
+        <app-code-highlighter [code]="content" class="h-52 block" formControlName="code"
+            (onLanguageChanged)="languageChange($event)" [language]="snippetForm.get('language')?.value || ''"></app-code-highlighter>
     </div>
     <div class="mt-2 px-1 pb-1">
-        <textarea class="w-full textarea" placeholder="Brief Summary" tabindex="-1"></textarea>
+        <textarea class="w-full textarea" placeholder="Brief Summary" tabindex="-1"
+            formControlName="summary"></textarea>
         <div class="flex justify-end gap-3 m-2">
             <button class="btn btn-sm btn-outline" (click)="close()" tabindex="-1">Close</button>
             <button class="btn btn-sm" [class.loading]="loading" (click)="onSave()" tabindex="-1">Save</button>

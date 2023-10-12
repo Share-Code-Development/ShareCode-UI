@@ -1,7 +1,7 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {DialogService} from 'primeng/dynamicdialog';
-import {firstValueFrom, of} from 'rxjs';
+import {Observable, firstValueFrom, of} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {DeleteConfirmationComponent} from '../shared/delete-confirmation/delete-confirmation.component';
 import {ConfigService} from './config.service';
@@ -107,6 +107,11 @@ export class CommonService {
       baseZIndex: 10000,
       dismissableMask: true,
     }).onClose)
+  }
+
+  public getLanguages(): Observable<any[]> {
+    // get languages json from assets/common/languages.json
+    return this.http.get<any[]>('/assets/common/languages.json');
   }
 
 }

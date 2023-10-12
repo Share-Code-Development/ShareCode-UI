@@ -12,6 +12,19 @@ export class ConfigService {
   public readonly passwordMinLength: number = 6;
   public readonly nameMinLength: number = 3;
   public readonly maleAvatarUrl = '/assets/images/male-avatar.svg'
-  public readonly femaleAvatarUrl = '/assets/images/female-avatar.svg'
+  public readonly femaleAvatarUrl = '/assets/images/female-avatar.svg';
+
+  public readonly maxLengths = {
+    title: 500,
+    name: 100,
+    email: 100,
+    password: 100,
+    description: 1000,
+    code: 10000,
+    comment: 1000,
+    tag: 100,
+    language: 100,
+  } as const;
+
 
 }

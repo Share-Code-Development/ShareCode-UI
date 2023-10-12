@@ -23,7 +23,7 @@ export class CodeHighlighterComponent implements ControlValueAccessor {
   @Input() public code: string = '';
 
   public language: string = 'plain';
-  @Input('language') set setLanguage(val: string) {
+  @Input('language') public set setLanguage(val: string) {
     if (this.editor && val) {
       monaco.editor.setModelLanguage(this.editor.getModel(), val.toLowerCase());
     }
@@ -50,7 +50,7 @@ export class CodeHighlighterComponent implements ControlValueAccessor {
 
   constructor(
   ) {
-    this.customInput.pipe(debounceTime(1000)).subscribe(() => {
+    this.customInput.pipe(debounceTime(500)).subscribe(() => {
       let language = langDetector(this.code);
       if (language) {
         language = language.toLowerCase()
@@ -60,6 +60,7 @@ export class CodeHighlighterComponent implements ControlValueAccessor {
           language = language.replace('c#', 'csharp');
           language = language.replace('c++', 'cpp');
           monaco.editor.setModelLanguage(this.editor.getModel(), language);
+          this.onLanguageChanged.emit(language);
         }
       }
     });
@@ -78,7 +79,7 @@ export class CodeHighlighterComponent implements ControlValueAccessor {
 
   onEditorInit(editor: any) {
     this.editor = editor;
-    this.guessCode()
+    this.customInput.next();
   }
 
   writeValue(obj: string): void {
@@ -90,7 +91,7 @@ export class CodeHighlighterComponent implements ControlValueAccessor {
   }
 
   registerOnTouched(fn: any): void {
-    this.onChange = fn;
+    this.onTouched = fn;
   }
 
 
