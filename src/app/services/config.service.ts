@@ -24,6 +24,7 @@ export class ConfigService {
     comment: 1000,
     tag: 100,
     language: 100,
+    tagsPerSnippet: 10,
   } as const;
 
 

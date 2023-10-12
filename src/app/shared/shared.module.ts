@@ -19,6 +19,10 @@ import { CreateSnippetComponent } from './create-snippet/create-snippet.componen
 import { RouterModule } from '@angular/router';
 import { ErrorMessageComponent } from './error-message/error-message.component';
 import { CodeHighlighterModule } from '../modules/code-highlighter/code-highlighter.module';
+import { ChipModule } from 'primeng/chip';
+import { ValidityColorsModule } from '../modules/validity-colors.module';
+
+
 
 const commons: any[] = [
   NavbarComponent,
@@ -44,7 +48,9 @@ const commons: any[] = [
     FocusTrapModule,
     RouterModule,
     ReactiveFormsModule,
-    CodeHighlighterModule
+    CodeHighlighterModule,
+    ChipModule,
+    ValidityColorsModule
   ],
   exports: [
     FormsModule,

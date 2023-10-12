@@ -3,29 +3,45 @@
         <div class="text-xl px-1 pb-1 flex justify-between">
             <span>Create Snippet</span>
             <span class="flex ml-auto">
-                <button class="btn btn-circle btn-outline btn-xs" (click)="close()" tabindex="-1">
+                <button class="btn btn-circle btn-outline btn-xs" (click)="close()">
                     <span class="material-icons">close</span>
                 </button>
             </span>
         </div>
         <h2 class="card-title px-1 flex justify-items-start items-center">
-            <input type="text" placeholder="Title" class="input input-sm w-full" tabindex="-1" formControlName="title">
+            <div class="w-full">
+                <input type="text" [placeholder]="defaultTitle" class="input input-sm w-full" formControlName="title"
+                    [maxlength]="config.maxLengths.title">
+            </div>
             <select class="select select-sm w-60" placeholder="Title" formControlName="language">
                 <option *ngFor="let lang of languageList" [value]="lang.id">{{lang.name}}</option>
             </select>
         </h2>
     </div>
     <div id="editor" class="m-1 mt-2 bg-base-100 p-0 rounded-lg overflow-hidden">
-        <app-code-highlighter [code]="content" class="h-52 block" formControlName="code"
+        <app-code-highlighter [code]="content" class="h-60 block" formControlName="code"
             (onLanguageChanged)="languageChange($event)" [language]="snippetForm.get('language')?.value || ''"
             [autoDetectLanguage]="!snippetForm.get('language')?.dirty"></app-code-highlighter>
     </div>
-    <div class="mt-2 px-1 pb-1">
-        <textarea class="w-full textarea" placeholder="Brief Summary" tabindex="-1"
-            formControlName="summary"></textarea>
-        <div class="flex justify-end gap-3 m-2">
-            <button class="btn btn-sm btn-outline" (click)="close()" tabindex="-1">Close</button>
-            <button class="btn btn-sm" [class.loading]="loading" (click)="onSave()" tabindex="-1">Save</button>
+    <div class="px-1 pb-1 mt-2">
+        <textarea class="w-full textarea" placeholder="Brief Summary" formControlName="summary"
+            [maxlength]="config.maxLengths.description"></textarea>
+        <div class="tags flex flex-wrap gap-2">
+            <input type="text" placeholder="Tags" class="input input-sm w-1/2" #tagInput
+                (keydown.enter)="onTagAdd(tagInput.value); tagInput.value = ''"
+                *ngIf="(this.snippetForm.get('tags')?.value || []).length <= config.maxLengths.tagsPerSnippet"
+                (keydown.space)="onTagAdd(tagInput.value); tagInput.value = ''" [maxLength]="config.maxLengths.tag">
+            <p-chip [label]="tag" styleClass="text-xs" class="block" [removable]="true" (onRemove)="onTagRemove(tag)"
+                *ngFor="let tag of this.snippetForm.get('tags')?.value || []"></p-chip>
+        </div>
+        <div class="flex justify-between items-center pb-2 mt-2 min-h-[56px]">
+            <div class="error text-sm flex-grow pr-4">
+                <app-error-message [show]="!!errorMessage" [errorMessage]="errorMessage"></app-error-message>
+            </div>
+            <div class="buttons flex gap-2">
+                <button class="btn btn-sm btn-outline" (click)="close()">Close</button>
+                <button class="btn btn-sm" [class.loading]="loading" (click)="onSave()">Save</button>
+            </div>
         </div>
     </div>
 </div>
