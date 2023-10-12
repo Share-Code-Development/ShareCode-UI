@@ -17,7 +17,7 @@ export class CreateSnippetComponent implements OnInit, OnDestroy {
   public languageList: { id: string; name: string }[] = [];
   protected errorMessage = '';
   protected submitted = false;
-  protected defaultTitle = `Untitled - ${new Date().toDateString()}`;
+  protected defaultTitle = `Untitled - ${new Date().toLocaleString()}`;
   private subs: Subscription = new Subscription();
   protected languageFormatDetected = false;
 
@@ -27,7 +27,7 @@ export class CreateSnippetComponent implements OnInit, OnDestroy {
     summary: new FormControl('', [Validators.maxLength(this.config.maxLengths.description)]),
     language: new FormControl('plaintext', [Validators.required, Validators.maxLength(this.config.maxLengths.language)]),
     tags: new FormControl<string[]>([], [Validators.maxLength(this.config.maxLengths.tagsPerSnippet)]),
-    isPublic: new FormControl(false),
+    isPublic: new FormControl(true),
     createdBy: new FormControl(this.user.authUser$.value?._id),
   })
 
@@ -92,6 +92,10 @@ export class CreateSnippetComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();
+  }
+
+  protected togglePublic(val: boolean) {
+    this.snippetForm.patchValue({ isPublic: val });
   }
 
 }

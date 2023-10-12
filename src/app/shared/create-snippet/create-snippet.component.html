@@ -9,22 +9,30 @@
             </span>
         </div>
         <h2 class="card-title px-1 flex justify-items-start items-center">
-            <div class="w-full">
+            <div class="flex-grow">
                 <input type="text" [placeholder]="defaultTitle" class="input input-sm w-full" formControlName="title"
                     [maxlength]="config.maxLengths.title">
             </div>
-            <select class="select select-sm w-60" placeholder="Title" formControlName="language">
+            <select class="select select-sm w-72" placeholder="Title" formControlName="language">
                 <option *ngFor="let lang of languageList" [value]="lang.id">{{lang.name}}</option>
             </select>
             <div class="join">
-                <button class="btn btn-sm btn-outline join-item">Private</button>
-                <button class="btn btn-sm btn-outline join-item">Public</button>
+                <button class="btn btn-sm btn-outline join-item" (click)="togglePublic(false)"
+                    [ngClass]="{'btn-active': !this.snippetForm.get('isPublic')?.value}">
+                    Private
+                    <span class="material-icons">lock</span>
+                </button>
+                <button class="btn btn-sm btn-outline join-item" (click)="togglePublic(true)"
+                    [ngClass]="{'btn-active': this.snippetForm.get('isPublic')?.value}">
+                    Public
+                    <span class="material-icons">public</span>
+                </button>
             </div>
         </h2>
     </div>
     <div id="editor" class="m-1 mt-2 bg-base-100 p-0 rounded-lg overflow-hidden">
-        <app-code-highlighter class="h-60 block" formControlName="code"
-            (onLanguageChanged)="languageChange($event)" [language]="snippetForm.get('language')?.value || ''"
+        <app-code-highlighter class="h-60 block" formControlName="code" (onLanguageChanged)="languageChange($event)"
+            [language]="snippetForm.get('language')?.value || ''"
             [autoDetectLanguage]="!snippetForm.get('language')?.dirty && !languageFormatDetected"></app-code-highlighter>
     </div>
     <div class="px-1 pb-1 mt-2">
@@ -44,7 +52,7 @@
             </div>
             <div class="buttons flex gap-2">
                 <button class="btn btn-sm btn-outline" (click)="close()">Close</button>
-                <button class="btn btn-sm" (click)="onSave()">
+                <button class="btn btn-sm btn-neutral" (click)="onSave()">
                     <span class="loading loading-spinner" *ngIf="loading"></span>
                     Save
                 </button>
