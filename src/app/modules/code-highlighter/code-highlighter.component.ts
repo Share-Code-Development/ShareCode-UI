@@ -2,6 +2,7 @@ import { Component, Input, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 // @ts-ignore - no types available
 import langDetector from 'lang-detector';
+import { Subject, debounceTime } from 'rxjs';
 
 declare const monaco: typeof import('monaco-editor');
 
@@ -32,13 +33,30 @@ export class CodeHighlighterComponent implements ControlValueAccessor {
     theme: 'vs-dark',
     automaticLayout: true,
     scrollBeyondLastLine: false,
-    language: this.language
+    language: this.language,
+    scrollbar: {
+      alwaysConsumeMouseWheel: false
+    }
   };
+  private customInput: Subject<void> = new Subject();
 
   private editor: any;
 
   constructor(
   ) {
+    this.customInput.pipe(debounceTime(1000)).subscribe(() => {
+      let language = langDetector(this.code);
+      if (language) {
+        language = language.toLowerCase()
+        if (this.editor && language && language !== 'unknown' && language !== this.language) {
+          console.log(language)
+          this.language = language;
+          language = language.replace('c#', 'csharp');
+          language = language.replace('c++', 'cpp');
+          monaco.editor.setModelLanguage(this.editor.getModel(), language);
+        }
+      }
+    });
   }
 
   @Input()
@@ -47,17 +65,7 @@ export class CodeHighlighterComponent implements ControlValueAccessor {
   }
 
   guessCode() {
-    let language = langDetector(this.code);
-    console.log(language)
-    if (language) {
-      language = language.toLowerCase()
-      if (this.editor && language && language !== 'unknown') {
-        this.language = language;
-        language = language.replace('c#', 'csharp');
-        language = language.replace('c++', 'cpp');
-        monaco.editor.setModelLanguage(this.editor.getModel(), language);
-      }
-    }
+    this.customInput.next();
   }
 
   onEditorInit(editor: any) {
