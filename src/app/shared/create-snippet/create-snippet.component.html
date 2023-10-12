@@ -16,6 +16,10 @@
             <select class="select select-sm w-60" placeholder="Title" formControlName="language">
                 <option *ngFor="let lang of languageList" [value]="lang.id">{{lang.name}}</option>
             </select>
+            <div class="join">
+                <button class="btn btn-sm btn-outline join-item">Private</button>
+                <button class="btn btn-sm btn-outline join-item">Public</button>
+            </div>
         </h2>
     </div>
     <div id="editor" class="m-1 mt-2 bg-base-100 p-0 rounded-lg overflow-hidden">
@@ -40,7 +44,10 @@
             </div>
             <div class="buttons flex gap-2">
                 <button class="btn btn-sm btn-outline" (click)="close()">Close</button>
-                <button class="btn btn-sm" [class.loading]="loading" (click)="onSave()">Save</button>
+                <button class="btn btn-sm" (click)="onSave()">
+                    <span class="loading loading-spinner" *ngIf="loading"></span>
+                    Save
+                </button>
             </div>
         </div>
     </div>

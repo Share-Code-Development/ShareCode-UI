@@ -49,7 +49,10 @@
                 </div>
                 <app-error-message [errorMessage]="errorMsg" class="mt-3"></app-error-message>
                 <div class="form-control mt-3">
-                    <button class="btn btn-primary" [class.loading]="loading" (click)="onSignup()">SignUp</button>
+                    <button class="btn btn-primary" (click)="onSignup()">
+                        <span class="loading loading-spinner" *ngIf="loading"></span>
+                        SignUp
+                    </button>
                 </div>
             </form>
         </div>
