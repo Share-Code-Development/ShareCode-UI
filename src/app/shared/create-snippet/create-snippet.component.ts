@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Subscription } from 'rxjs';
@@ -11,7 +11,7 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './create-snippet.component.html',
   styleUrls: ['./create-snippet.component.scss']
 })
-export class CreateSnippetComponent implements OnInit {
+export class CreateSnippetComponent implements OnInit, OnDestroy {
 
   public loading = false;
   public languageList: { id: string; name: string }[] = [];
@@ -37,11 +37,6 @@ export class CreateSnippetComponent implements OnInit {
     protected config: ConfigService,
     private user: UserService
   ) { }
-
-  public content = ``;
-
-  onCodeChanged(value: any) {
-  }
 
   ngOnInit(): void {
     this.common.getLanguages().subscribe((res: any) => {
@@ -93,6 +88,10 @@ export class CreateSnippetComponent implements OnInit {
       tags.splice(index, 1);
     }
     this.snippetForm.patchValue({ tags });
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
   }
 
 }
