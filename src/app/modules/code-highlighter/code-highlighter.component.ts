@@ -29,6 +29,8 @@ export class CodeHighlighterComponent implements ControlValueAccessor {
     }
   }
 
+  @Input() public autoDetectLanguage: boolean = true;
+
   @Input() public set options(val: any) {
     if (!val) return;
     this.editorOptions = { ...this.editorOptions, ...val };
@@ -51,6 +53,7 @@ export class CodeHighlighterComponent implements ControlValueAccessor {
   constructor(
   ) {
     this.customInput.pipe(debounceTime(500)).subscribe(() => {
+      if (!this.autoDetectLanguage) return;
       let language = langDetector(this.code);
       if (language) {
         language = language.toLowerCase()
