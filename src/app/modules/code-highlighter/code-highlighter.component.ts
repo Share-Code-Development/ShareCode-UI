@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 // @ts-ignore - no types available
 import langDetector from 'lang-detector';
@@ -22,13 +22,20 @@ export class CodeHighlighterComponent implements ControlValueAccessor {
 
   @Input() public code: string = '';
 
-  public language: string = 'text';
+  public language: string = 'plain';
   @Input('language') set setLanguage(val: string) {
     if (this.editor && val) {
       monaco.editor.setModelLanguage(this.editor.getModel(), val.toLowerCase());
     }
   }
 
+  @Input() public set options(val: any) {
+    if (!val) return;
+    this.editorOptions = { ...this.editorOptions, ...val };
+  }
+
+  @Output() public onLanguageChanged: EventEmitter<string> = new EventEmitter();
+  
   protected editorOptions: any = {
     theme: 'vs-dark',
     automaticLayout: true,
@@ -39,7 +46,6 @@ export class CodeHighlighterComponent implements ControlValueAccessor {
     }
   };
   private customInput: Subject<void> = new Subject();
-
   private editor: any;
 
   constructor(
@@ -66,6 +72,8 @@ export class CodeHighlighterComponent implements ControlValueAccessor {
 
   guessCode() {
     this.customInput.next();
+    this.onChange(this.code);
+    this.onTouched();
   }
 
   onEditorInit(editor: any) {
@@ -86,10 +94,8 @@ export class CodeHighlighterComponent implements ControlValueAccessor {
   }
 
 
-  private onChange: any = () => {
-  };
+  private onChange: any = () => {};
 
-  private onTouched: any = () => {
-  };
+  private onTouched: any = () => {};
 
 }
