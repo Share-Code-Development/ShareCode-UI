@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ISnippet } from 'src/app/models/snippet.interface';
 import { CommonService } from 'src/app/services/common.service';
+import { SnippetService } from 'src/app/services/snippet.service';
 
 @Component({
   selector: 'app-code-item',
@@ -14,7 +15,8 @@ export class CodeItemComponent implements OnInit {
   public copied: boolean = false;
 
   constructor(
-    public commonService: CommonService
+    public commonService: CommonService,
+    private snippetService: SnippetService
   ) { }
 
   ngOnInit(): void {
@@ -30,8 +32,18 @@ export class CodeItemComponent implements OnInit {
   }
 
   public onDelete() {
-    this.commonService.showDeleteConfirmationAsync().then(res => {
-      console.log(res);
+    this.commonService.showDeleteConfirmationAsync().then(() => {
+      if (this.codeItem) {
+        this.snippetService.deleteSnippetAsync(this.codeItem._id!).subscribe({
+          next: () => {
+            this.commonService.showSuccess('Snippet deleted successfully');
+            this.snippetService.triggerRefreshSnippets();
+          },
+          error: (err: any) => {
+            this.commonService.showError(err);
+          }
+        })
+      }
     })
   }
 

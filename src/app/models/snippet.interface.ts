@@ -23,4 +23,5 @@ export interface ISnippet {
     createdAt: string,
     commentsCount?: number,
     likeCount?: number,
+    _id?: string,
 }
