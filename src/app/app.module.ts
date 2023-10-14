@@ -16,6 +16,7 @@ import { environment } from 'src/environments/environment';
 import { AppInitService } from './services/resolvers/initializer.service';
 import { UserService } from './services/user.service';
 import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
+import { DATE_PIPE_DEFAULT_OPTIONS } from '@angular/common';
 
 export function initializeApp1(appInitService: AppInitService) {
   return () => appInitService.init()
@@ -63,10 +64,10 @@ export function initializeApp1(appInitService: AppInitService) {
       deps: [AppInitService],
       multi: true
     },
-    // {
-    //   provide: DATE_PIPE_DEFAULT_OPTIONS,
-    //   useValue: { dateFormat: 'mm/DD/yy' }
-    // }
+    {
+      provide: DATE_PIPE_DEFAULT_OPTIONS,
+      useValue: { dateFormat: 'dd/MM/yyyy hh:mm:ss a' }
+    }
   ],
   bootstrap: [AppComponent]
 })

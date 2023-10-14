@@ -29,6 +29,19 @@ export class CodeHighlighterComponent implements ControlValueAccessor {
     }
   }
 
+  @Input()
+  public set readOnlyMiniMode(val: boolean) {
+    this.editorOptions = {
+      ...this.editorOptions,
+      readOnly: val,
+      scrollbar: {
+        vertical: "hidden",
+        horizontal: "hidden",
+        handleMouseWheel: false,
+      }
+    };
+  }
+
   @Input() public autoDetectLanguage: boolean = true;
 
   @Input() public set options(val: any) {
@@ -37,7 +50,7 @@ export class CodeHighlighterComponent implements ControlValueAccessor {
   }
 
   @Output() public onLanguageChanged: EventEmitter<string> = new EventEmitter();
-  
+
   protected editorOptions: any = {
     theme: 'vs-dark',
     automaticLayout: true,
@@ -68,11 +81,6 @@ export class CodeHighlighterComponent implements ControlValueAccessor {
     });
   }
 
-  @Input()
-  public set readOnlyMode(val: boolean) {
-    this.editorOptions = { ...this.editorOptions, readOnly: val };
-  }
-
   guessCode() {
     this.customInput.next();
     this.onChange(this.code);
@@ -82,6 +90,19 @@ export class CodeHighlighterComponent implements ControlValueAccessor {
   onEditorInit(editor: any) {
     this.editor = editor;
     this.customInput.next();
+    const matches = editor.getModel().findMatches(/TRUNCATED/g, false, true, true, null, true); // Find matches using the regex source
+    const decorations = matches.map((match: any) => {
+      console.log(match)
+      return {
+        range: match.range, // Range of the matched text
+        options: {
+          isWholeLine: true,
+          className: 'highlighted-line-truncated'
+        },
+      };
+    });
+
+    editor.deltaDecorations([], decorations);
   }
 
   writeValue(obj: string): void {
@@ -97,8 +118,8 @@ export class CodeHighlighterComponent implements ControlValueAccessor {
   }
 
 
-  private onChange: any = () => {};
+  private onChange: any = () => { };
 
-  private onTouched: any = () => {};
+  private onTouched: any = () => { };
 
 }
