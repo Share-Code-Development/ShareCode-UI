@@ -25,6 +25,10 @@ export class SnippetService {
     return this.http.getAsync(`${this.snippetEndpoint}/my-snippets`, params);
   }
 
+  public trendingSnippetsListAsync(params: any = {}): Observable<any> {
+    return this.http.getAsync(`${this.snippetEndpoint}/trending`, params);
+  }
+
   public deleteSnippetAsync(id: string): Observable<any> {
     return this.http.deleteByIdAsync(this.snippetEndpoint, id);
   }

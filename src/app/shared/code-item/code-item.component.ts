@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ISnippet } from 'src/app/models/snippet.interface';
 import { CommonService } from 'src/app/services/common.service';
 import { SnippetService } from 'src/app/services/snippet.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-code-item',
@@ -14,10 +15,12 @@ export class CodeItemComponent implements OnInit {
 
   public copied: boolean = false;
   protected languageName: string = '';
+  protected isAuthor: boolean = false;
 
   constructor(
     public commonService: CommonService,
-    private snippetService: SnippetService
+    private snippetService: SnippetService,
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
@@ -25,6 +28,7 @@ export class CodeItemComponent implements OnInit {
       const language = res.find((l: any) => l.id === this.codeItem.language);
       this.languageName = language?.name || '';
     });
+    this.isAuthor = this.userService.authUser$.value?._id === this.codeItem.createdBy;
   }
 
   onCopy() {

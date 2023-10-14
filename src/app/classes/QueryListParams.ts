@@ -8,12 +8,15 @@ export class QueryListParams implements IQueryListParams {
     public order: string;
     public search: string;
 
+    private initialQuery?: IQueryListParams;
+
     constructor(queryList?: IQueryListParams) {
         this.skip = queryList?.skip || 0;
         this.limit = queryList?.limit || ConfigService.defaultQueryLimit;
         this.sort = queryList?.sort || '';
         this.order = queryList?.order || '';
         this.search = queryList?.search || '';
+        this.initialQuery = queryList;
     }
 
     public getQuery() {
@@ -35,11 +38,11 @@ export class QueryListParams implements IQueryListParams {
     }
 
     public resetQuery(queryList?: IQueryListParams) {
-        this.skip = queryList?.skip || 0;
-        this.limit = queryList?.limit || ConfigService.defaultQueryLimit;
-        this.sort = queryList?.sort || '';
-        this.order = queryList?.order || '';
-        this.search = queryList?.search || '';
+        this.skip = queryList?.skip || this.initialQuery?.skip || 0;
+        this.limit = queryList?.limit || this.initialQuery?.limit || ConfigService.defaultQueryLimit;
+        this.sort = queryList?.sort || this.initialQuery?.sort || '';
+        this.order = queryList?.order || this.initialQuery?.order || '';
+        this.search = queryList?.search || this.initialQuery?.search || '';
         return this.getQuery();
     }
 }

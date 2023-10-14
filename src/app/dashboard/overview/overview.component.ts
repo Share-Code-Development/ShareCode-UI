@@ -14,8 +14,11 @@ import { SnippetService } from 'src/app/services/snippet.service';
 export class OverviewComponent implements OnInit, OnDestroy {
 
   protected mySnippets: ISnippet[] = [];
-  protected mySnippetQuery = new QueryListParams({ limit: 6 });
+  protected mySnippetQuery = new QueryListParams({ limit: 3 });
   protected loadingMySnippets = false;
+  protected trendingSnippets: ISnippet[] = [];
+  protected trendingSnippetQuery = new QueryListParams({ limit: 6 });
+  protected loadingTrendingSnippets = false;
   private subs: Subscription = new Subscription();
 
   constructor(
@@ -25,6 +28,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getMySnippets();
+    this.getTrendingSnippets();
     this.subs.add(this.snippetService.refreshSnippets$.subscribe(() => {
       this.getMySnippets();
     }))
@@ -34,12 +38,35 @@ export class OverviewComponent implements OnInit, OnDestroy {
     this.subs.unsubscribe();
   }
 
+  private getTrendingSnippets(next: boolean = false) {
+    let params = {};
+    if (next) {
+      params = this.trendingSnippetQuery.getNextQuery();
+    } else {
+      params = this.trendingSnippetQuery.resetQuery();
+      this.trendingSnippets = [];
+    }
+    this.loadingTrendingSnippets = true;
+    this.snippetService.trendingSnippetsListAsync(params).subscribe({
+      next: (res: IListResponse) => {
+        this.loadingTrendingSnippets = false;
+        if (res?.result?.length) {
+          this.trendingSnippets = [...this.trendingSnippets, ...res.result];
+        }
+      },
+      error: (err: any) => {
+        this.commonService.showError(err);
+        this.loadingTrendingSnippets = false;
+      }
+    })
+  }
+
   private getMySnippets(next: boolean = false) {
     let params = {};
     if (next) {
       params = this.mySnippetQuery.getNextQuery();
     } else {
-      params = this.mySnippetQuery.resetQuery({ limit: 6 });
+      params = this.mySnippetQuery.resetQuery();
       this.mySnippets = [];
     }
     this.loadingMySnippets = true;
