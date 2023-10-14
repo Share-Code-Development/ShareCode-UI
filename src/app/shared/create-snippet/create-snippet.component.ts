@@ -74,6 +74,7 @@ export class CreateSnippetComponent implements OnInit, OnDestroy {
       next: (res) => {
         this.loading = false;
         this.common.showSuccess('Snippet created successfully');
+        this.snippet.triggerRefreshSnippets();
         this.ref.close(res);
       },
       error: (err) => {

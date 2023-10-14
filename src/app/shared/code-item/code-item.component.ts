@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ISnippet } from 'src/app/models/snippet.interface';
 import { CommonService } from 'src/app/services/common.service';
 
 @Component({
@@ -8,14 +9,7 @@ import { CommonService } from 'src/app/services/common.service';
 })
 export class CodeItemComponent implements OnInit {
 
-  @Input()
-  public code = `int myFunction() {
-  int a = 0;
-  a=1;
-  a=2;
-  a=4;
-  return a;
-}`;
+  @Input() public codeItem!: ISnippet;
 
   public copied: boolean = false;
 
@@ -27,12 +21,12 @@ export class CodeItemComponent implements OnInit {
   }
 
   onCopy() {
-    navigator.clipboard.writeText(this.code.trim()).then(() => {
-      this.copied = true;
-      setTimeout(() => {
-        this.copied = false;
-      }, 2000);
-    }).catch(() => this.commonService.showError('Failed to copy to clipboard'));
+    // navigator.clipboard.writeText(this.code.trim()).then(() => {
+    //   this.copied = true;
+    //   setTimeout(() => {
+    //     this.copied = false;
+    //   }, 2000);
+    // }).catch(() => this.commonService.showError('Failed to copy to clipboard'));
   }
 
   public onDelete() {
