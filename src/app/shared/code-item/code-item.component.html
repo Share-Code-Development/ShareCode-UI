@@ -20,7 +20,7 @@
             </span>
         </h2>
         <div class="px-4 -my-1 flex gap-3 justify-between text-slate-500">
-            <div class="flex gap-3 ">
+            <div class="flex gap-3">
                 <span class="text-xs flex align-center" pTooltip="Likes" tooltipPosition="top" [showDelay]="1000">
                     <span class="material-icons mt-[1px] mr-1">thumb_up</span>
                     <span>{{codeItem.likeCount}}</span>
@@ -37,9 +37,14 @@
                     <span class="material-icons mt-[1px] mr-1">content_copy</span>
                     <span>{{codeItem.copies}}</span>
                 </span>
+                <!-- <span class="text-xs flex align-center" pTooltip="Language" tooltipPosition="top" [showDelay]="1000">
+                    <span class="material-icons mt-[1px] mr-1">data_object</span>
+                    <span>{{languageName}}</span>
+                </span> -->
             </div>
-            <div class="created-date">
+            <div class="flex gap-3">
                 <span class="text-xs flex align-center" pTooltip="Created At" tooltipPosition="top" [showDelay]="1000">
+                    <span class="material-icons mt-[1px] mr-1">schedule</span>
                     <span>{{codeItem.createdAt | date}}</span>
                 </span>
             </div>

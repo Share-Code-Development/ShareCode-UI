@@ -90,7 +90,7 @@ export class CodeHighlighterComponent implements ControlValueAccessor {
   onEditorInit(editor: any) {
     this.editor = editor;
     this.customInput.next();
-    const matches = editor.getModel().findMatches(/TRUNCATED/g, false, true, true, null, true); // Find matches using the regex source
+    const matches = editor.getModel().findMatches(/\(TRUNCATED:.+COPY.+OPEN.+\)/g, false, true, true, null, true); // Find matches using the regex source
     const decorations = matches.map((match: any) => {
       console.log(match)
       return {

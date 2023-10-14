@@ -13,6 +13,7 @@ export class CodeItemComponent implements OnInit {
   @Input() public codeItem!: ISnippet;
 
   public copied: boolean = false;
+  protected languageName: string = '';
 
   constructor(
     public commonService: CommonService,
@@ -20,6 +21,10 @@ export class CodeItemComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.commonService.getLanguages().subscribe((res: any) => {
+      const language = res.find((l: any) => l.id === this.codeItem.language);
+      this.languageName = language?.name || '';
+    });
   }
 
   onCopy() {
