@@ -32,7 +32,8 @@ export class CodeItemComponent implements OnInit {
   }
 
   public onDelete() {
-    this.commonService.showDeleteConfirmationAsync().then(() => {
+    this.commonService.showDeleteConfirmationAsync().then((confirmation) => {
+      if (!confirmation) return;
       if (this.codeItem) {
         this.snippetService.deleteSnippetAsync(this.codeItem._id!).subscribe({
           next: () => {
