@@ -21,6 +21,7 @@ import { ErrorMessageComponent } from './error-message/error-message.component';
 import { CodeHighlighterModule } from '../modules/code-highlighter/code-highlighter.module';
 import { ChipModule } from 'primeng/chip';
 import { ValidityColorsModule } from '../modules/validity-colors.module';
+import { EmptyListComponent } from './empty-list/empty-list.component';
 
 
 
@@ -29,7 +30,8 @@ const commons: any[] = [
   SidemenuComponent,
   CodeItemComponent,
   CreateSnippetComponent,
-  ErrorMessageComponent
+  ErrorMessageComponent,
+  EmptyListComponent
 ]
 
 @NgModule({

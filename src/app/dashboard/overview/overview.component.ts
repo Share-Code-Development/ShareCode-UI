@@ -31,6 +31,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
     this.getTrendingSnippets();
     this.subs.add(this.snippetService.refreshSnippets$.subscribe(() => {
       this.getMySnippets();
+      this.getTrendingSnippets();
     }))
   }
 
