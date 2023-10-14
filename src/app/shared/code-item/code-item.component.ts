@@ -35,13 +35,14 @@ export class CodeItemComponent implements OnInit {
     this.commonService.showDeleteConfirmationAsync().then((confirmation) => {
       if (!confirmation) return;
       if (this.codeItem) {
+        const loader = this.commonService.showLoading("Deleting snippet...");
         this.snippetService.deleteSnippetAsync(this.codeItem._id!).subscribe({
           next: () => {
-            this.commonService.showSuccess('Snippet deleted successfully');
+            loader.success('Snippet deleted successfully');
             this.snippetService.triggerRefreshSnippets();
           },
           error: (err: any) => {
-            this.commonService.showError(err);
+            loader.error(err);
           }
         })
       }

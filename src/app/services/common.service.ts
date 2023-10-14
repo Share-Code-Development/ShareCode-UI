@@ -1,10 +1,11 @@
-import {HttpClient} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {DialogService} from 'primeng/dynamicdialog';
-import {Observable, firstValueFrom, of} from 'rxjs';
-import {catchError, map} from 'rxjs/operators';
-import {DeleteConfirmationComponent} from '../shared/delete-confirmation/delete-confirmation.component';
-import {ConfigService} from './config.service';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { DialogService } from 'primeng/dynamicdialog';
+import { Observable, firstValueFrom, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import { DeleteConfirmationComponent } from '../shared/delete-confirmation/delete-confirmation.component';
+import { ConfigService } from './config.service';
+import { INotificationConfig } from '../models/common.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ import {ConfigService} from './config.service';
 export class CommonService {
 
   public wrapCode: boolean = false;
-  public errorMessages = new Array<{ text: string, color: string }>();
+  public errorMessages = new Array<INotificationConfig>();
   public authRedirectUrl: string = '';
   private nameGenderCache = new Map<string, boolean>();
 
@@ -23,10 +24,42 @@ export class CommonService {
   ) {
   }
 
+  public showLoading(message?: string): Required<INotificationConfig> {
+    const item: Required<INotificationConfig> = {
+      text: message || 'Please wait...',
+      color: 'alert-info',
+      isLoading: true,
+      stop: () => {
+        this.errorMessages = this.errorMessages.filter(el => el !== item);
+      },
+      success: (text) => {
+        item.color = 'alert-success';
+        item.isLoading = false;
+        item.text = text;
+        setTimeout(() => {
+          this.errorMessages = this.errorMessages.filter(el => el !== item);
+        }, 5000);
+      },
+      error: (error) => {
+        item.color = 'alert-error';
+        item.isLoading = false;
+        item.text = typeof error === 'string' ? error : this.getErrorMessages(error).join('\n')
+        setTimeout(() => {
+          this.errorMessages = this.errorMessages.filter(el => el !== item);
+        }, 5000);
+      }
+    }
+    this.errorMessages.push(item);
+    return item;
+  }
+
   public showSuccess(message: string) {
     const item = {
       text: message,
-      color: 'alert-success'
+      color: 'alert-success',
+      error() { },
+      success() { },
+      stop() { }
     }
     this.errorMessages.push(item);
     setTimeout(() => {
@@ -36,7 +69,7 @@ export class CommonService {
 
   public showError(message: string | any) {
     const item = {
-      text: typeof message === 'string' ? message : this.getErrorMessages(message)[0],
+      text: typeof message === 'string' ? message : this.getErrorMessages(message).join('\n'),
       color: 'alert-error'
     }
     this.errorMessages.push(item);
@@ -101,7 +134,6 @@ export class CommonService {
   public showDeleteConfirmationAsync() {
     return firstValueFrom(this.dialogService.open(DeleteConfirmationComponent, {
       header: 'Create',
-      // width: '50%',
       contentStyle: this.config.defaultDialogStyles,
       showHeader: false,
       baseZIndex: 10000,
@@ -110,7 +142,6 @@ export class CommonService {
   }
 
   public getLanguages(): Observable<any[]> {
-    // get languages json from assets/common/languages.json
     return this.http.get<any[]>('/assets/common/languages.json');
   }
 
