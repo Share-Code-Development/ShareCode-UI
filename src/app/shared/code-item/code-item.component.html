@@ -19,23 +19,30 @@
                 </button>
             </span>
         </h2>
-        <div class="px-4 -my-1 flex gap-3">
-            <span class="text-xs flex align-center" pTooltip="Likes" tooltipPosition="top" [showDelay]="1000">
-                <span class="material-icons mt-[1px] mr-1">thumb_up</span>
-                <span>{{codeItem.likeCount}}</span>
-            </span>
-            <span class="text-xs flex align-center" pTooltip="Comments" tooltipPosition="top" [showDelay]="1000">
-                <span class="material-icons mt-[1px] mr-1">chat_bubble</span>
-                <span>{{codeItem.commentsCount}}</span>
-            </span>
-            <span class="text-xs flex align-center" pTooltip="Views" tooltipPosition="top" [showDelay]="1000">
-                <span class="material-icons mt-[1px] mr-1">visibility</span>
-                <span>{{codeItem.views}}</span>
-            </span>
-            <span class="text-xs flex align-center" pTooltip="Copies" tooltipPosition="top" [showDelay]="1000">
-                <span class="material-icons mt-[1px] mr-1">content_copy</span>
-                <span>{{codeItem.copies}}</span>
-            </span>
+        <div class="px-4 -my-1 flex gap-3 justify-between">
+            <div class="px-4 flex gap-3">
+                <span class="text-xs flex align-center" pTooltip="Likes" tooltipPosition="top" [showDelay]="1000">
+                    <span class="material-icons mt-[1px] mr-1">thumb_up</span>
+                    <span>{{codeItem.likeCount}}</span>
+                </span>
+                <span class="text-xs flex align-center" pTooltip="Comments" tooltipPosition="top" [showDelay]="1000">
+                    <span class="material-icons mt-[1px] mr-1">chat_bubble</span>
+                    <span>{{codeItem.commentsCount}}</span>
+                </span>
+                <span class="text-xs flex align-center" pTooltip="Views" tooltipPosition="top" [showDelay]="1000">
+                    <span class="material-icons mt-[1px] mr-1">visibility</span>
+                    <span>{{codeItem.views}}</span>
+                </span>
+                <span class="text-xs flex align-center" pTooltip="Copies" tooltipPosition="top" [showDelay]="1000">
+                    <span class="material-icons mt-[1px] mr-1">content_copy</span>
+                    <span>{{codeItem.copies}}</span>
+                </span>
+            </div>
+            <div class="created-date">
+                <span class="text-xs flex align-center" pTooltip="Created At" tooltipPosition="top" [showDelay]="1000">
+                    <span>{{codeItem.createdAt | date}}</span>
+                </span>
+            </div>
         </div>
         <div class="mockup-code min-w-0 w-full h-52 pb-0 overflow-hidden">
             <app-code-highlighter [code]="codeItem.code" [language]="'javascript'" [readOnlyMode]="true"

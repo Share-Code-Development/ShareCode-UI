@@ -62,7 +62,11 @@ export function initializeApp1(appInitService: AppInitService) {
       useFactory: initializeApp1,
       deps: [AppInitService],
       multi: true
-    }
+    },
+    // {
+    //   provide: DATE_PIPE_DEFAULT_OPTIONS,
+    //   useValue: { dateFormat: 'mm/DD/yy' }
+    // }
   ],
   bootstrap: [AppComponent]
 })
