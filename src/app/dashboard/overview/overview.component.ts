@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { QueryListParams } from 'src/app/classes/QueryListParams';
 import { IListResponse } from 'src/app/models/queryList.model';
-import { ISnippet } from 'src/app/models/snippet.interface';
+import { ISnippet, TSnippetResponse } from 'src/app/models/snippet.interface';
 import { CommonService } from 'src/app/services/common.service';
 import { SnippetService } from 'src/app/services/snippet.service';
 
@@ -13,10 +13,10 @@ import { SnippetService } from 'src/app/services/snippet.service';
 })
 export class OverviewComponent implements OnInit, OnDestroy {
 
-  protected mySnippets: ISnippet[] = [];
+  protected mySnippets: TSnippetResponse[] = [];
   protected mySnippetQuery = new QueryListParams({ limit: 3 });
   protected loadingMySnippets = false;
-  protected trendingSnippets: ISnippet[] = [];
+  protected trendingSnippets: TSnippetResponse[] = [];
   protected trendingSnippetQuery = new QueryListParams({ limit: 6 });
   protected loadingTrendingSnippets = false;
   private subs: Subscription = new Subscription();

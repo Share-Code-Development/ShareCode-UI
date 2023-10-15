@@ -1,3 +1,4 @@
+import { Prettify } from "./common.model";
 import { IUser } from "./user.interface";
 
 export interface IComment {
@@ -14,14 +15,21 @@ export interface ISnippet {
     language?: string,
     tags: string[],
     isPublic: boolean,
-    createdBy: string | IUser,
-    copies?: number,
-    views?: number,
-    comments?: string[] | IUser[],
-    likes?: string,
-    isDeleted?: string,
+    createdBy: string,
+    copies: number,
+    views: number,
+    comments: string[],
+    likes: string,
     createdAt: string,
-    commentsCount?: number,
-    likeCount?: number,
     _id?: string,
 }
+
+export type TSnippetResponse = Prettify<Omit<ISnippet, 'createdBy' | 'comments' | 'likes'> & {
+    createdBy: IUser;
+    comments: Omit<IComment, 'createdBy'> & {
+        createdBy: IUser;
+    }[],
+    likes: IUser[],
+    commentsCount?: number,
+    likeCount?: number,
+}>;

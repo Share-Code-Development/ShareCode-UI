@@ -6,3 +6,8 @@ export interface INotificationConfig {
     success?: (text: string) => void,
     error?: (error: any) => void
 }
+
+
+export type Prettify<T> = {
+    [k in keyof T]: T[k]
+} & {}

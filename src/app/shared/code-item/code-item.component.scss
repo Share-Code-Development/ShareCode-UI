@@ -2,3 +2,38 @@ pre.wrap-code {
     white-space: pre-wrap;
     word-wrap: break-word;
 }
+
+.card-footer-content {
+    display: flex;
+    /* Change the default display to flex */
+    // min-height: 0;
+    max-height: 0px;
+    /* Set the initial height to 0 */
+    overflow: hidden;
+    /* Hide any overflowing content */
+    // display: none;
+    background: linear-gradient(0deg, #000, #000000d5, #000000b0, #00000000);
+    // min-height: 60px;
+    z-index: 999;
+    left: 0;
+    right: 0;
+    bottom: -20px;
+    transition: all 0.3s ease-in-out;
+    border-bottom: 1px solid hsl(var(--b2) / var(--tw-bg-opacity));
+    border-left: 1px solid hsl(var(--b2) / var(--tw-bg-opacity));
+    border-right: 1px solid hsl(var(--b2) / var(--tw-bg-opacity));
+    border-bottom-left-radius: var(--rounded-box, 1rem);
+    border-bottom-right-radius: var(--rounded-box, 1rem);
+    padding-top: 20px;
+    opacity: 0;
+}
+
+.code-card:hover {
+    .card-footer-content {
+        // display: flex;
+        // min-height: 80px;
+        bottom: 0px;
+        max-height: 200px;
+        opacity: 1;
+    }
+}

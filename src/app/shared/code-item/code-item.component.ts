@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ISnippet } from 'src/app/models/snippet.interface';
+import { TSnippetResponse } from 'src/app/models/snippet.interface';
 import { CommonService } from 'src/app/services/common.service';
+import { ConfigService } from 'src/app/services/config.service';
 import { SnippetService } from 'src/app/services/snippet.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -11,7 +12,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class CodeItemComponent implements OnInit {
 
-  @Input() public codeItem!: ISnippet;
+  @Input() public codeItem!: TSnippetResponse;
 
   public copied: boolean = false;
   protected languageName: string = '';
@@ -21,7 +22,8 @@ export class CodeItemComponent implements OnInit {
   constructor(
     public commonService: CommonService,
     private snippetService: SnippetService,
-    private userService: UserService
+    private userService: UserService,
+    protected config: ConfigService
   ) { }
 
   ngOnInit(): void {
@@ -29,7 +31,7 @@ export class CodeItemComponent implements OnInit {
       const language = res.find((l: any) => l.id === this.codeItem.language);
       this.languageName = language?.name || '';
     });
-    this.isAuthor = this.userService.authUser$.value?._id === this.codeItem.createdBy;
+    this.isAuthor = this.userService.authUser$.value?._id === this.codeItem.createdBy._id;
   }
 
   onCopy() {
@@ -49,12 +51,6 @@ export class CodeItemComponent implements OnInit {
         this.commonService.showError(err);
       }
     })
-    // navigator.clipboard.writeText(this.code.trim()).then(() => {
-    //   this.copied = true;
-    //   setTimeout(() => {
-    //     this.copied = false;
-    //   }, 2000);
-    // }).catch(() => this.commonService.showError('Failed to copy to clipboard'));
   }
 
   public onDelete() {
