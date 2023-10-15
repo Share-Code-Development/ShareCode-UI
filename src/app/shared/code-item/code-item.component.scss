@@ -5,15 +5,9 @@ pre.wrap-code {
 
 .card-footer-content {
     display: flex;
-    /* Change the default display to flex */
-    // min-height: 0;
-    max-height: 0px;
-    /* Set the initial height to 0 */
+    max-height: 100px;
     overflow: hidden;
-    /* Hide any overflowing content */
-    // display: none;
-    background: linear-gradient(0deg, #000, #000000d5, #000000b0, #00000000);
-    // min-height: 60px;
+    background: linear-gradient(0deg, #000, #000000d5, #00000091, #00000000);
     z-index: 999;
     left: 0;
     right: 0;
@@ -30,8 +24,6 @@ pre.wrap-code {
 
 .code-card:hover {
     .card-footer-content {
-        // display: flex;
-        // min-height: 80px;
         bottom: 0px;
         max-height: 200px;
         opacity: 1;
