@@ -35,12 +35,15 @@ export class UserService {
         image: user.photoUrl,
         idToken: user.idToken
       }
+      const loader = this.commonService.showLoading();
       this.googleLoginAsync(body).subscribe({
         next: (res) => {
+          loader.stop();
           this.setupAuthState(res.user, res.token, user.provider);
           this.router.navigate(['/dashboard'], { replaceUrl: true })
         },
         error: (err) => {
+          loader.stop();
           this.commonService.showError(err);
         }
       });
