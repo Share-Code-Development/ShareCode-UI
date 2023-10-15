@@ -8,7 +8,7 @@ module.exports = {
   },
   plugins: [require("daisyui")],
   daisyui: {
-    themes: ["light", "dark", {
+    themes: ["light", {
       shareCode: {
         "primary": "#04a08e",
         "secondary": "#619bbf",
