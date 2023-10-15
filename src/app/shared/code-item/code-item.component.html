@@ -44,9 +44,8 @@
                 </span> -->
             </div>
             <div class="flex gap-3">
-                <span class="text-xs flex align-center" pTooltip="Created At" tooltipPosition="top" [showDelay]="1000">
-                    <span class="material-icons mt-[1px] mr-1">schedule</span>
-                    <span>{{codeItem.createdAt | date}}</span>
+                <span class="text-xs flex align-center" pTooltip="Language" tooltipPosition="top" [showDelay]="1000">
+                    <span class="w-full truncate flex-grow">{{languageName}}</span>
                 </span>
             </div>
         </div>
@@ -56,8 +55,8 @@
         </div>
     </div>
     <div class="absolute card-footer-content flex px-2 flex-col">
-        <div class="row1 flex justify-between">
-            <div class="flex justify-between items-center">
+        <div class="row1 flex justify-between pb-1">
+            <div class="flex justify-between items-center flex-grow">
                 <div class="profile-pic flex items-center gap-3">
                     <div class="avatar">
                         <div class="w-10 rounded-full">
@@ -66,18 +65,25 @@
                     </div>
                     <div class="flex flex-col">
                         <span class="font-bold">{{codeItem.createdBy.fullName}}</span>
-                        <span class="text-xs flex align-center" pTooltip="Created At" tooltipPosition="top" [showDelay]="1000">
-                            <span>{{codeItem.createdAt | date}}</span>
+                        <span class="text-xs flex align-center gap-1" pTooltip="Created At" tooltipPosition="top"
+                            [showDelay]="1000">
+                            <span>{{codeItem.createdAt | timeAgo}}</span>
+
                         </span>
                     </div>
                 </div>
-            </div>
-            <div>
-                likes and Comments
+                <div>
+                    likes and Comments
+                </div>
             </div>
         </div>
-        <div class="row2 p-1 truncate text-xs">
-            {{codeItem.summary}}
+        <div *ngIf="(codeItem.summary || '') | trim">
+            <div class="row2 truncate text-xs border-t border-slate-800">
+                {{codeItem.summary}}
+            </div>
+            <div class="row3 pb-1 truncate text-xs text-slate-500" *ngIf="codeItem.tags.length">
+                {{codeItem.tags.join(', ')}}
+            </div>
         </div>
     </div>
 </div>

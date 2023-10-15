@@ -22,6 +22,7 @@ import { CodeHighlighterModule } from '../modules/code-highlighter/code-highligh
 import { ChipModule } from 'primeng/chip';
 import { ValidityColorsModule } from '../modules/validity-colors.module';
 import { EmptyListComponent } from './empty-list/empty-list.component';
+import { NgPipesModule } from 'ngx-pipes';
 
 
 
@@ -52,12 +53,14 @@ const commons: any[] = [
     ReactiveFormsModule,
     CodeHighlighterModule,
     ChipModule,
-    ValidityColorsModule
+    ValidityColorsModule,
+    NgPipesModule
   ],
   exports: [
     FormsModule,
     ReactiveFormsModule,
     DynamicDialogModule,
+    NgPipesModule,
     ...commons
   ],
 })

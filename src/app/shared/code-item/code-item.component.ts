@@ -32,6 +32,7 @@ export class CodeItemComponent implements OnInit {
       this.languageName = language?.name || '';
     });
     this.isAuthor = this.userService.authUser$.value?._id === this.codeItem.createdBy._id;
+    this.codeItem.createdAt = new Date(this.codeItem.createdAt);
   }
 
   onCopy() {

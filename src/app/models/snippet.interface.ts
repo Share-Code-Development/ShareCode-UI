@@ -20,7 +20,7 @@ export interface ISnippet {
     views: number,
     comments: string[],
     likes: string,
-    createdAt: string,
+    createdAt: string | Date,
     _id?: string,
 }
 
