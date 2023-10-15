@@ -38,10 +38,6 @@
                     <span class="material-icons mt-[1px] mr-1">content_copy</span>
                     <span>{{codeItem.copies}}</span>
                 </span>
-                <!-- <span class="text-xs flex align-center" pTooltip="Language" tooltipPosition="top" [showDelay]="1000">
-                    <span class="material-icons mt-[1px] mr-1">data_object</span>
-                    <span>{{languageName}}</span>
-                </span> -->
             </div>
             <div class="flex gap-3">
                 <span class="text-xs flex align-center" pTooltip="Language" tooltipPosition="top" [showDelay]="1000">
@@ -72,13 +68,25 @@
                         </span>
                     </div>
                 </div>
-                <div>
-                    likes and Comments
+                <div class="flex gap-2">
+                    <button class="btn btn-square btn-sm btn-ghost btn-secondary" pTooltip="Like" tooltipPosition="top"
+                        [showDelay]="1000" (click)="onLike()">
+                        <span class="custom-icon"
+                            [ngClass]="codeItem.selfLiked ? 'material-icons text-primary' : 'material-icons-outlined'">thumb_up</span>
+                    </button>
+                    <button class="btn btn-square btn-sm btn-ghost btn-secondary" pTooltip="Like" tooltipPosition="top"
+                        [showDelay]="1000">
+                        <span class="material-symbols-outlined custom-icon">chat_bubble</span>
+                    </button>
+                    <button class="btn btn-square btn-sm btn-ghost btn-secondary" pTooltip="Save" tooltipPosition="top"
+                        [showDelay]="1000">
+                        <span class="material-symbols-outlined custom-icon">bookmark</span>
+                    </button>
                 </div>
             </div>
         </div>
-        <div *ngIf="(codeItem.summary || '') | trim">
-            <div class="row2 truncate text-xs border-t border-slate-800">
+        <div *ngIf="(codeItem.summary || '') | trim" class="border-t border-slate-800">
+            <div class="row2 truncate text-xs">
                 {{codeItem.summary}}
             </div>
             <div class="row3 pb-1 truncate text-xs text-slate-500" *ngIf="codeItem.tags.length">

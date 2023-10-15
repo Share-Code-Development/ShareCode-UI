@@ -30,6 +30,7 @@ export type TSnippetResponse = Prettify<Omit<ISnippet, 'createdBy' | 'comments' 
         createdBy: IUser;
     }[],
     likes: IUser[],
-    commentsCount?: number,
-    likeCount?: number,
+    commentsCount: number,
+    likeCount: number,
+    selfLiked: boolean,
 }>;

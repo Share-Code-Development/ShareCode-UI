@@ -37,5 +37,25 @@ export class SnippetService {
     return this.http.getAsync(`${this.snippetEndpoint}/${id}/code`);
   }
 
+  public postLikeAsync(id: string): Observable<any> {
+    return this.http.postAsync({}, `${this.snippetEndpoint}/${id}/like`);
+  }
+
+  public deleteLikeAsync(snippetId: string, userId: string): Observable<any> {
+    return this.http.deleteByIdAsync(`${this.snippetEndpoint}/${snippetId}/like`, userId);
+  }
+
+  public postCommentAsync(id: string, body: any): Observable<any> {
+    return this.http.postAsync(body, `${this.snippetEndpoint}/${id}/comment`);
+  }
+
+  public deleteCommentAsync(snippetId: string, commentId: string): Observable<any> {
+    return this.http.deleteByIdAsync(`${this.snippetEndpoint}/${snippetId}/comment`, commentId);
+  }
+
+  public patchCopyAsync(id: string): Observable<any> {
+    return this.http.patchAsync(`${this.snippetEndpoint}/${id}/copies`);
+  }
+
 
 }

@@ -18,6 +18,8 @@ export class CodeItemComponent implements OnInit {
   protected languageName: string = '';
   protected isAuthor: boolean = false;
   protected copyLoading: boolean = false;
+  protected loadingLike: boolean = false;
+  private copiedOnce: boolean = false;
 
   constructor(
     public commonService: CommonService,
@@ -45,6 +47,17 @@ export class CodeItemComponent implements OnInit {
           setTimeout(() => {
             this.copied = false;
           }, 2000);
+          if (!this.copiedOnce) {
+            this.snippetService.patchCopyAsync(this.codeItem._id!).subscribe({
+              next: () => {
+                this.codeItem.copies++;
+                this.copiedOnce = true;
+              },
+              error: (err) => {
+                this.commonService.showError(err);
+              }
+            });
+          }
         }).catch(() => this.commonService.showError('Failed to copy to clipboard'));
       },
       error: (err) => {
@@ -70,6 +83,40 @@ export class CodeItemComponent implements OnInit {
         })
       }
     })
+  }
+
+  protected onLike() {
+    if (this.codeItem.selfLiked) {
+      this.loadingLike = true;
+      this.codeItem.likeCount--;
+      this.codeItem.selfLiked = false;
+      this.snippetService.deleteLikeAsync(this.codeItem._id!, this.userService.authUser$.value?._id!).subscribe({
+        next: () => {
+          this.loadingLike = false;
+        },
+        error: (err) => {
+          this.loadingLike = false;
+          this.codeItem.likeCount++;
+          this.codeItem.selfLiked = true;
+          this.commonService.showError(err);
+        }
+      })
+    } else {
+      this.loadingLike = true;
+      this.codeItem.likeCount++;
+      this.codeItem.selfLiked = true;
+      this.snippetService.postLikeAsync(this.codeItem._id!).subscribe({
+        next: () => {
+          this.loadingLike = false;
+        },
+        error: (err) => {
+          this.loadingLike = false;
+          this.codeItem.likeCount--;
+          this.codeItem.selfLiked = false;
+          this.commonService.showError(err);
+        }
+      })
+    }
   }
 
 }

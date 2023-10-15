@@ -54,7 +54,7 @@ export class CodeHighlighterComponent implements ControlValueAccessor {
   protected editorOptions: any = {
     theme: 'vs-dark',
     automaticLayout: true,
-    scrollBeyondLastLine: false,
+    // scrollBeyondLastLine: false,
     language: this.language,
     scrollbar: {
       alwaysConsumeMouseWheel: false

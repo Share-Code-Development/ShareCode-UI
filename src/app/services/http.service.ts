@@ -42,5 +42,9 @@ export class HttpService {
     return this.http.get<any>([this.baseUrl, endpoint, id].join('/'));
   }
 
+  patchAsync(endpoint: string, body?: any): Observable<any> {
+    return this.http.patch<any>([this.baseUrl, endpoint].join('/'), body);
+  }
+
 
 }
