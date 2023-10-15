@@ -35,7 +35,7 @@ export class UserService {
         image: user.photoUrl,
         idToken: user.idToken
       }
-      const loader = this.commonService.showLoading();
+      const loader = this.commonService.showLoading('Logging in...');
       this.googleLoginAsync(body).subscribe({
         next: (res) => {
           loader.stop();
