@@ -16,6 +16,7 @@ export class CodeItemComponent implements OnInit {
   public copied: boolean = false;
   protected languageName: string = '';
   protected isAuthor: boolean = false;
+  protected copyLoading: boolean = false;
 
   constructor(
     public commonService: CommonService,
@@ -32,6 +33,22 @@ export class CodeItemComponent implements OnInit {
   }
 
   onCopy() {
+    this.copyLoading = true;
+    this.snippetService.getCodeByIdAsync(this.codeItem._id!).subscribe({
+      next: (res) => {
+        this.copyLoading = false;
+        navigator.clipboard.writeText(res?.code?.trim() || '').then(() => {
+          this.copied = true;
+          setTimeout(() => {
+            this.copied = false;
+          }, 2000);
+        }).catch(() => this.commonService.showError('Failed to copy to clipboard'));
+      },
+      error: (err) => {
+        this.copyLoading = false;
+        this.commonService.showError(err);
+      }
+    })
     // navigator.clipboard.writeText(this.code.trim()).then(() => {
     //   this.copied = true;
     //   setTimeout(() => {

@@ -4,10 +4,11 @@
             <span class="truncate">{{codeItem.title}}</span>
             <span class="flex align-middle gap-2">
                 <button (click)="onCopy()" [ngClass]="{'swap-active': copied, 'btn-outline': !copied}"
-                    class="btn btn-square btn-sm btn-outline btn-accent swap swap-rotate" pTooltip="Copy"
-                    tooltipPosition="top" [showDelay]="1000">
+                    class="btn btn-square btn-sm btn-outline btn-accent swap swap-rotate" [pTooltip]="!copied ? 'Copy' : 'Copied'"
+                    tooltipPosition="top" [showDelay]="!copied ? 1000 : 0">
                     <span class="material-icons swap-on">done</span>
-                    <span class="material-icons swap-off">content_copy</span>
+                    <span class="material-icons swap-off" *ngIf="!copyLoading">content_copy</span>
+                    <span class="loading loading-infinity swap-off" *ngIf="copyLoading"></span>
                 </button>
                 <button class="btn btn-square btn-sm btn-outline btn-secondary" pTooltip="Open" tooltipPosition="top"
                     [showDelay]="1000">

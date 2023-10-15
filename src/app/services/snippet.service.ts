@@ -33,5 +33,9 @@ export class SnippetService {
     return this.http.deleteByIdAsync(this.snippetEndpoint, id);
   }
 
+  public getCodeByIdAsync(id: string): Observable<any> {
+    return this.http.getAsync(`${this.snippetEndpoint}/${id}/code`);
+  }
+
 
 }
