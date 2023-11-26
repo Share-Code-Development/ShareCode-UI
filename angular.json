@@ -57,7 +57,10 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+                "lang-detector"
+              ]
           },
           "configurations": {
             "production": {
@@ -96,10 +99,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "shareCodeUI:build:production"
+              "buildTarget": "shareCodeUI:build:production"
             },
             "development": {
-              "browserTarget": "shareCodeUI:build:development"
+              "buildTarget": "shareCodeUI:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -107,7 +110,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "shareCodeUI:build"
+            "buildTarget": "shareCodeUI:build"
           }
         },
         "test": {
