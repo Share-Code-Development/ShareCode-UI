@@ -22,12 +22,50 @@
       "es2022",
       "dom"
     ],
-    "useDefineForClassFields": false
+    "useDefineForClassFields": false,
+    "paths": {
+      "@app/*": [
+        "src/app/*"
+      ],
+      "@environment": [
+        "src/environments/environment"
+      ],
+      "@shared/*": [
+        "src/app/shared/*"
+      ],
+      "@modules" : [
+        "src/app/modules/*"
+      ],
+      "@services" : [
+        "src/app/services/*"
+      ],
+      "@models" : [
+        "src/app/models/*"
+      ],
+      "@guards" : [
+        "src/app/guards/*"
+      ],
+      "@classes" : [
+        "src/app/classes/*"
+      ],
+      "@animations" : [
+        "src/app/animations/*"
+      ],
+      "@directives" : [
+        "src/app/directives/*"
+      ],
+      "@pipes" : [
+        "src/app/pipes/*"
+      ],
+      "@utils" : [
+        "src/app/utils/*"
+      ],
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
-  }
+  },
 }

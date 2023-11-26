@@ -5,13 +5,13 @@ import { AuthGuard } from './guards/auth.guard';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./public/public.module').then(m => m.PublicModule)
+    loadChildren: () => import('./pages/public/public.module').then(m => m.PublicModule)
   },
   {
     path: 'dashboard',
     canActivate: [AuthGuard],
     canLoad: [AuthGuard],
-    loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
+    loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardModule)
   },
   {
     path: 'reset-password/:userId/:token',
