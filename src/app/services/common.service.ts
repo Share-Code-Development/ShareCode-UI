@@ -83,6 +83,9 @@ export class CommonService {
   }
 
   public getErrorMessages(error: any) {
+    if (error?.error?.message) {
+      return [error.error.message];
+    }
     // recursively get all strings from all the keys of the error object
     const errorObj = error.error;
     const errorFinder = (error: any): string[] => {

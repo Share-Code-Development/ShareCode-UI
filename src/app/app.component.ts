@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { fadeOut, scaleDown } from './animations/animations';
 import { CommonService } from './services/common.service';
 import { NavigationEnd, Router } from '@angular/router';
+import { UserService } from './services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,8 @@ import { NavigationEnd, Router } from '@angular/router';
   ]
 })
 export class AppComponent implements OnInit {
-  title = 'shareCodeUI';
+  public showWaveAnimation = true;
+
   constructor(
     public commonService: CommonService,
     private router: Router
@@ -21,6 +23,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.showWaveAnimation = !this.router.url.startsWith('/dashboard');
     this.router.events.subscribe({
       next: event => {
         if (event instanceof NavigationEnd) {

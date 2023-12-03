@@ -29,12 +29,6 @@ iframe {
     }
 }
 
-.form-control:has(>input+app-error-message) {
-    position: relative;
-    margin-bottom: 10px;
-}
-
-
 
 .error-msg-custom-label {
     position: absolute;

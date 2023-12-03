@@ -1,5 +1,10 @@
-<div class="min-h-screen bg-base-300">
+<div class="min-h-screen bg-base-300 relative">
+
   <router-outlet></router-outlet>
+
+  @if (showWaveAnimation) {
+  <div class="absolute bg-custom-gradient bottom-0 w-full -z-1"></div>
+  }
 </div>
 <div class="toast toast-center z-[999]">
   <div class="alert p-3 min-w-max" [ngClass]="message.color" *ngFor="let message of commonService.errorMessages"

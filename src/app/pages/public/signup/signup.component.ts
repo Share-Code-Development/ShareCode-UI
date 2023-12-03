@@ -17,8 +17,10 @@ export class SignupComponent implements OnInit {
   public submitted = false;
   public errorMsg = ''
   public signupForm = new FormGroup({
-    fullName: new FormControl('', [Validators.required, Validators.minLength(this.config.nameMinLength)]),
-    email: new FormControl('', [Validators.required, Validators.pattern(this.config.emailRegex)]),
+    firstName: new FormControl('', [Validators.required, Validators.minLength(this.config.nameMinLength)]),
+    middleName: new FormControl(''),
+    lastName: new FormControl('', [Validators.required, Validators.minLength(this.config.nameMinLength)]),
+    emailAddress: new FormControl('', [Validators.required, Validators.pattern(this.config.emailRegex)]),
     password: new FormControl('', [Validators.required, Validators.minLength(this.config.passwordMinLength)]),
     confirmPassword: new FormControl('', [Validators.required, Validators.minLength(this.config.passwordMinLength)])
   }, { validators: mismatchValidator('password', 'confirmPassword') });

@@ -20,9 +20,9 @@
                     <label class="label">
                         <span class="label-text">Email</span>
                     </label>
-                    <input type="text" placeholder="Email" class="input input-bordered" formControlName="email"
+                    <input type="text" placeholder="Email" class="input input-bordered" formControlName="emailAddress"
                         InputValidityColors [submitted]="submitted" />
-                    <app-error-message [show]="submitted" controlName="Email" [control]="loginForm.get('email')"
+                    <app-error-message [show]="submitted" controlName="Email" [control]="loginForm.get('emailAddress')"
                         [isFloating]="true"></app-error-message>
                 </div>
                 <div class="form-control">

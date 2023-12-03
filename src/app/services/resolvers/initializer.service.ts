@@ -24,7 +24,6 @@ export class AppInitService {
                 this.userService.getProfileAsync().subscribe({
                     next: res => {
                         this.userService.setupAuthState(res.user, res.token, SSOType);
-                        resolve();
                     },
                     error: err => {
                         this.userService.logout();

@@ -5,6 +5,7 @@ import { UserService } from 'src/app/services/user.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ConfigService } from 'src/app/services/config.service';
 import { CommonService } from 'src/app/services/common.service';
+import { EAuthType } from '@app/models/auth.model';
 
 @Component({
   selector: 'app-login',
@@ -19,8 +20,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   private subs: Subscription = new Subscription();
   public sendingEmail = false;
   public loginForm = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.pattern(this.config.emailRegex)]),
-    password: new FormControl('', [Validators.required])
+    emailAddress: new FormControl('', [Validators.required, Validators.pattern(this.config.emailRegex)]),
+    password: new FormControl('', [Validators.required]),
+    type: new FormControl(EAuthType.general)
   });
   public submitted = false;
   public errorMessage = '';
@@ -38,7 +40,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   public onLogin() {
-    // this.router.navigate(['/dashboard']);
     this.submitted = true;
     if (this.loginForm.valid) {
       this.errorMessage = '';
@@ -60,7 +61,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   public onSend() {
     if (this.forgotEmailControl.valid) {
       this.sendingEmail = true;
-      this.userService.forgotPasswordAsync({ email: this.forgotEmailControl.value }).subscribe({
+      this.userService.forgotPasswordAsync({ emailAddress: this.forgotEmailControl.value }).subscribe({
         next: (res) => {
           if (res.success) {
             this.showForgotModel = false;

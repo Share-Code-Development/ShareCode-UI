@@ -49,7 +49,7 @@ export class UserService {
       });
     });
   }
-
+  
   public async setupAuthState(user: IUser, token: string, social?: string) {
     if (!user) return;
     this.authUser$.next(user);
@@ -88,7 +88,7 @@ export class UserService {
   }
 
   public signupAsync(body: IUser) {
-    return this.http.postAsync(body, `${this.authEndpoint}/signup`)
+    return this.http.postAsync(body, `${this.authEndpoint}/register`)
   }
 
   public googleLoginAsync(body: any): Observable<{ user: IUser, token: string }> {

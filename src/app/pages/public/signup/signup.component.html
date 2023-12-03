@@ -1,48 +1,67 @@
 <div class="hero min-h-screen pt-16">
-    <div class="hero-content flex-col lg:flex-row-reverse  z-50 gap-4 gap-y-5 gap-x-20">
-        <div class="text-center lg:text-left">
+    <div class="hero-content flex-col lg:flex-row-reverse  z-50 gap-4 gap-y-5 gap-x-20 w-full p-0 md:p-4">
+        <div class="text-center lg:text-left pt-4">
             <h1 class="text-5xl font-bold">Login to &lt;ShareCode/&gt;</h1>
             <p class="py-6 text-lg">Login now to start creating code snippets and save for later use. As a logged in
                 user, you
                 will get options to create private code snippets and favorites.</p>
         </div>
-        <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+        <div class="card flex-shrink-0 md:max-w-xl w-screen shadow-2xl bg-base-100">
             <form class="card-body" [formGroup]="signupForm">
-                <div class="form-control">
-                    <label class="label">
-                        <span class="label-text">Full Name</span>
-                    </label>
-                    <input type="text" placeholder="Name" formControlName="fullName" class="input input-bordered"
-                        InputValidityColors [submitted]="submitted" />
-                    <app-error-message [show]="submitted" controlName="Full Name" [control]="signupForm.get('fullName')"
-                        [isFloating]="true"></app-error-message>
+                <div class="flex gap-[0.5rem] flex-col">
+                    <div class="form-control flex-grow">
+                        <label class="label">
+                            <span class="label-text">First Name</span>
+                        </label>
+                        <input type="text" placeholder="First Name" formControlName="firstName" class="input input-bordered"
+                            InputValidityColors [submitted]="submitted" />
+                        <app-error-message [show]="submitted" controlName="First Name" [control]="signupForm.get('firstName')"
+                            [isFloating]="true"></app-error-message>
+                    </div>
+                    <div class="form-control flex-grow">
+                        <label class="label">
+                            <span class="label-text">Middle Name</span>
+                        </label>
+                        <input type="text" placeholder="Middle Name" formControlName="middleName" class="input input-bordered"/>
+                    </div>
+                    <div class="form-control flex-grow">
+                        <label class="label">
+                            <span class="label-text">Last Name</span>
+                        </label>
+                        <input type="text" placeholder="Last Name" formControlName="lastName" class="input input-bordered"
+                            InputValidityColors [submitted]="submitted" />
+                        <app-error-message [show]="submitted" controlName="Last Name" [control]="signupForm.get('lastName')"
+                            [isFloating]="true"></app-error-message>
+                    </div>
                 </div>
                 <div class="form-control">
                     <label class="label">
                         <span class="label-text">Email</span>
                     </label>
-                    <input type="text" placeholder="Email" class="input input-bordered" formControlName="email"
+                    <input type="text" placeholder="Email" class="input input-bordered" formControlName="emailAddress"
                         InputValidityColors [submitted]="submitted" />
-                    <app-error-message [show]="submitted" controlName="Email" [control]="signupForm.get('email')"
+                    <app-error-message [show]="submitted" controlName="Email" [control]="signupForm.get('emailAddress')"
                         [isFloating]="true"></app-error-message>
                 </div>
-                <div class="form-control">
-                    <label class="label">
-                        <span class="label-text">Password</span>
-                    </label>
-                    <input type="password" placeholder="Password" class="input input-bordered"
-                        formControlName="password" InputValidityColors [submitted]="submitted" />
-                    <app-error-message [show]="submitted" controlName="Password" [control]="signupForm.get('password')"
-                        [isFloating]="true"></app-error-message>
-                </div>
-                <div class="form-control">
-                    <label class="label">
-                        <span class="label-text">Confirm Password</span>
-                    </label>
-                    <input type="text" formControlName="confirmPassword" InputValidityColors [submitted]="submitted"
-                        placeholder="Confirm Password" class="input input-bordered" />
-                    <app-error-message [show]="submitted" controlName="Confirm Password" [control]="signupForm.get('confirmPassword')"
-                        [isFloating]="true"></app-error-message>
+                <div class="flex gap-[0.5rem] flex-col md:flex-row">
+                    <div class="form-control flex-grow">
+                        <label class="label">
+                            <span class="label-text">Password</span>
+                        </label>
+                        <input type="password" placeholder="Password" class="input input-bordered"
+                            formControlName="password" InputValidityColors [submitted]="submitted" />
+                        <app-error-message [show]="submitted" controlName="Password" [control]="signupForm.get('password')"
+                            [isFloating]="true"></app-error-message>
+                    </div>
+                    <div class="form-control flex-grow">
+                        <label class="label">
+                            <span class="label-text">Confirm Password</span>
+                        </label>
+                        <input type="text" formControlName="confirmPassword" InputValidityColors [submitted]="submitted"
+                            placeholder="Confirm Password" class="input input-bordered" />
+                        <app-error-message [show]="submitted" controlName="Confirm Password" [control]="signupForm.get('confirmPassword')"
+                            [isFloating]="true"></app-error-message>
+                    </div>
                 </div>
                 <div class="text-center mt-3">
                     <p>Already have an account? <a routerLink="/login" class="link">Login Now</a></p>
