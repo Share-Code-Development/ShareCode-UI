@@ -82,18 +82,20 @@ export class CommonService {
     this.errorMessages = this.errorMessages.filter(el => el !== item);
   }
 
-  public getErrorMessages(error: any) {
-    if (error?.error?.message) {
-      return [error.error.message];
+  public getErrorMessages(errorResponse: any) {
+    if (errorResponse?.error?.errors?.length) {
+      errorResponse.error = errorResponse.error.errors;
+    } else if (errorResponse?.error?.message) {
+      return [errorResponse?.error?.type || 'Error', errorResponse.error.message];
     }
     // recursively get all strings from all the keys of the error object
-    const errorObj = error.error;
+    const errorObj = errorResponse.error;
     const errorFinder = (error: any): string[] => {
       const messages = [];
       for (const key in error) {
         if (error.hasOwnProperty(key)) {
           const value = error[key];
-          if (typeof value === 'string') {
+          if (typeof value === 'string' && !['propertyName'].includes(key)) {
             messages.push(value);
           } else if (typeof value === 'object') {
             messages.push(...errorFinder(value));
@@ -107,9 +109,9 @@ export class CommonService {
       allErrors = errorFinder(errorObj);
     }
     if (allErrors.length) {
-      return allErrors.filter(el => el); // removing empty strings
+      return [...new Set(allErrors.filter(el => el))]; // removing empty strings
     } else {
-      return [error?.statusText ?? error?.message ?? 'Something went wrong'];
+      return [errorResponse?.statusText ?? errorResponse?.message ?? 'Something went wrong'];
     }
   }
 

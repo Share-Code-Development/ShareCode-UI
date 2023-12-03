@@ -44,13 +44,16 @@ export function initializeApp1(appInitService: AppInitService) {
           {
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider(
-              environment.googleClientId
+              environment.googleClientId,
+              {
+                oneTapEnabled: false //disabling  because lack of control over the UI
+              }
             ),
           }
         ],
         onError: (err) => {
           console.error(err);
-        },
+        },        
       } as SocialAuthServiceConfig,
     },
     {

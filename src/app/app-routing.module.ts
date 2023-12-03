@@ -8,6 +8,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/public/public.module').then(m => m.PublicModule)
   },
   {
+    path: 'common',
+    loadChildren: () => import('./pages/common/common.module').then(m => m.CommonPagesModule)
+  },
+  {
     path: 'dashboard',
     canActivate: [AuthGuard],
     canLoad: [AuthGuard],

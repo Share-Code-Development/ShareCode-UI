@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { fadeOut, scaleDown } from './animations/animations';
 import { CommonService } from './services/common.service';
 import { NavigationEnd, Router } from '@angular/router';
-import { UserService } from './services/user.service';
+import { environment } from '@environment';
 
 @Component({
   selector: 'app-root',
@@ -23,14 +23,14 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.showWaveAnimation = !this.router.url.startsWith('/dashboard');
+    this.showWaveAnimation = !this.router.url.startsWith('/dashboard') && environment.production;
     this.router.events.subscribe({
       next: event => {
         if (event instanceof NavigationEnd) {
           if (['/', '/login', '/signup'].includes(event.urlAfterRedirects)) {
-            document.body.style.setProperty(`--google-onetap-visibility`, 'block');
+            document.documentElement.style.setProperty(`--google-onetap-visibility`, 'block');
           } else {
-            document.body.style.setProperty(`--google-onetap-visibility`, 'none');
+            document.documentElement.style.setProperty(`--google-onetap-visibility`, 'none');
           }
         }
       }

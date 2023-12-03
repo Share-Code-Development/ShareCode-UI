@@ -46,14 +46,9 @@ export class SignupComponent implements OnInit {
       }
       this.loading = true;
       this.userService.signupAsync(body).subscribe({
-        next: res => {
-          if(!res?.success) {
-            this.errorMsg = res?.message || 'Signup failed, please try again later';
-            return;
-          }
-          this.commonService.showSuccess('Signup successful, Please login to continue');
+        next: () => {
           this.loading = false;
-          this.router.navigate(['/login'])
+          this.router.navigate(['/common/success'], { queryParams: { message: 'Signup successful', description: 'Please check your email for verification link' } })
         },
         error: err => {
           this.loading = false;
@@ -61,7 +56,7 @@ export class SignupComponent implements OnInit {
         }
       });
     } else if (!this.signupForm.hasError('required', ['confirmPassword']) && this.signupForm.hasError('mismatch')) {
-      this.errorMsg = 'Oops! Passwords do not match';
+      this.errorMsg = 'Oops! Passwords does not match';
     } else {
       this.errorMsg = '';
     }

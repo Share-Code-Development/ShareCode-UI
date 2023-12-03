@@ -6,32 +6,33 @@
                 user, you
                 will get options to create private code snippets and favorites.</p>
         </div>
-        <div class="card flex-shrink-0 md:max-w-xl w-screen shadow-2xl bg-base-100">
+        <div class="card flex-shrink-0 max-w-lg w-screen shadow-2xl bg-base-100">
             <form class="card-body" [formGroup]="signupForm">
                 <div class="flex gap-[0.5rem] flex-col">
                     <div class="form-control flex-grow">
                         <label class="label">
                             <span class="label-text">First Name</span>
                         </label>
-                        <input type="text" placeholder="First Name" formControlName="firstName" class="input input-bordered"
-                            InputValidityColors [submitted]="submitted" />
-                        <app-error-message [show]="submitted" controlName="First Name" [control]="signupForm.get('firstName')"
-                            [isFloating]="true"></app-error-message>
+                        <input type="text" placeholder="First Name" formControlName="firstName"
+                            class="input input-bordered" InputValidityColors [submitted]="submitted" />
+                        <app-error-message [show]="submitted" controlName="First Name"
+                            [control]="signupForm.get('firstName')" [isFloating]="true"></app-error-message>
                     </div>
                     <div class="form-control flex-grow">
                         <label class="label">
                             <span class="label-text">Middle Name</span>
                         </label>
-                        <input type="text" placeholder="Middle Name" formControlName="middleName" class="input input-bordered"/>
+                        <input type="text" placeholder="Middle Name" formControlName="middleName"
+                            class="input input-bordered" />
                     </div>
                     <div class="form-control flex-grow">
                         <label class="label">
                             <span class="label-text">Last Name</span>
                         </label>
-                        <input type="text" placeholder="Last Name" formControlName="lastName" class="input input-bordered"
-                            InputValidityColors [submitted]="submitted" />
-                        <app-error-message [show]="submitted" controlName="Last Name" [control]="signupForm.get('lastName')"
-                            [isFloating]="true"></app-error-message>
+                        <input type="text" placeholder="Last Name" formControlName="lastName"
+                            class="input input-bordered" InputValidityColors [submitted]="submitted" />
+                        <app-error-message [show]="submitted" controlName="Last Name"
+                            [control]="signupForm.get('lastName')" [isFloating]="true"></app-error-message>
                     </div>
                 </div>
                 <div class="form-control">
@@ -43,24 +44,40 @@
                     <app-error-message [show]="submitted" controlName="Email" [control]="signupForm.get('emailAddress')"
                         [isFloating]="true"></app-error-message>
                 </div>
-                <div class="flex gap-[0.5rem] flex-col md:flex-row">
+                <div class="flex gap-[0.5rem] flex-col ">
                     <div class="form-control flex-grow">
                         <label class="label">
                             <span class="label-text">Password</span>
                         </label>
-                        <input type="password" placeholder="Password" class="input input-bordered"
-                            formControlName="password" InputValidityColors [submitted]="submitted" />
-                        <app-error-message [show]="submitted" controlName="Password" [control]="signupForm.get('password')"
-                            [isFloating]="true"></app-error-message>
+                        <div class="join w-full">
+                            <input type="password" placeholder="Password"
+                                class="input input-bordered join-item flex-grow" formControlName="password"
+                                InputValidityColors [submitted]="submitted" #password />
+                            <button
+                                class="btn join-item btn-outline btn-square border-opacity-20 custom-password-toggle"
+                                (click)="password.type = password.type === 'password' ? 'text' : 'password'">
+                                <span class="material-symbols-outlined">{{password.type === 'password' ? 'visibility' :
+                                    'visibility_off'}}</span>
+                            </button>
+                        </div>
+                        <app-error-message [show]="submitted" controlName="Password"
+                            [control]="signupForm.get('password')" [isFloating]="true"></app-error-message>
                     </div>
                     <div class="form-control flex-grow">
                         <label class="label">
                             <span class="label-text">Confirm Password</span>
                         </label>
-                        <input type="text" formControlName="confirmPassword" InputValidityColors [submitted]="submitted"
-                            placeholder="Confirm Password" class="input input-bordered" />
-                        <app-error-message [show]="submitted" controlName="Confirm Password" [control]="signupForm.get('confirmPassword')"
-                            [isFloating]="true"></app-error-message>
+                        <div class="join w-full">
+                            <input type="password" placeholder="Confirm Password" class="input input-bordered join-item flex-grow"
+                                formControlName="confirmPassword" InputValidityColors [submitted]="submitted" #confirmPassword />
+                            <button class="btn join-item btn-outline btn-square border-opacity-20 custom-password-toggle"
+                                (click)="confirmPassword.type = confirmPassword.type === 'password' ? 'text' : 'password'">
+                                <span class="material-symbols-outlined">{{confirmPassword.type === 'password' ? 'visibility' :
+                                    'visibility_off'}}</span>
+                            </button>
+                        </div>
+                        <app-error-message [show]="submitted" controlName="Confirm Password"
+                            [control]="signupForm.get('confirmPassword')" [isFloating]="true"></app-error-message>
                     </div>
                 </div>
                 <div class="text-center mt-3">
@@ -69,7 +86,7 @@
                 <app-error-message [errorMessage]="errorMsg" class="mt-3"></app-error-message>
                 <div class="form-control mt-3">
                     <button class="btn btn-primary" (click)="onSignup()">
-                        <span class="loading loading-spinner" *ngIf="loading"></span>
+                        <span class="loading loading-infinity" *ngIf="loading"></span>
                         SignUp
                     </button>
                 </div>
