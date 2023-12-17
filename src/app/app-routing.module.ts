@@ -18,9 +18,9 @@ const routes: Routes = [
     loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardModule)
   },
   {
-    path: 'reset-password/:userId/:token',
-    loadComponent: () => import('./components/forgot-password/forgot-password.component').then(m => m.ForgotPasswordComponent)
-  },
+    path: 'gateway',
+    loadChildren: () => import('./pages/gateway/gateway.module').then(m => m.GatewayModule)
+  }
 ];
 
 @NgModule({

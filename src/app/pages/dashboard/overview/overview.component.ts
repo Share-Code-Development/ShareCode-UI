@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { QueryListParams } from 'src/app/classes/QueryListParams';
 import { IListResponse } from 'src/app/models/queryList.model';
-import { ISnippet, TSnippetResponse } from 'src/app/models/snippet.interface';
+import { TSnippetResponse } from 'src/app/models/snippet.interface';
 import { CommonService } from 'src/app/services/common.service';
 import { SnippetService } from 'src/app/services/snippet.service';
 
@@ -27,8 +27,9 @@ export class OverviewComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.getMySnippets();
-    this.getTrendingSnippets();
+    // waiting for api to be ready
+    // this.getMySnippets();
+    // this.getTrendingSnippets();
     this.subs.add(this.snippetService.refreshSnippets$.subscribe(() => {
       this.getMySnippets();
       this.getTrendingSnippets();
