@@ -1,29 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { SharedModule } from 'src/app/shared/shared.module';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ConfigService } from 'src/app/services/config.service';
 import { mismatchValidator } from 'src/app/utils/custom-validators';
 import { UserService } from 'src/app/services/user.service';
 import { CommonService } from 'src/app/services/common.service';
-import { ValidityColorsModule } from 'src/app/modules/validity-colors.module';
+import { GatewayService } from '@app/services/gateway.service';
+import { EGatewayType } from '@app/models/auth.model';
 
 @Component({
   selector: 'app-forgot-password',
-  standalone: true,
-  imports: [
-    CommonModule,
-    SharedModule,
-    RouterModule,
-    ValidityColorsModule
-  ],
   templateUrl: './forgot-password.component.html',
   styleUrls: ['./forgot-password.component.scss']
 })
 export class ForgotPasswordComponent implements OnInit {
 
-  private userId: string = '';
   private token: string = '';
   public resetForm = new FormGroup({
     password: new FormControl<string>('', [Validators.required, Validators.minLength(this.config.passwordMinLength)]),
@@ -36,14 +27,13 @@ export class ForgotPasswordComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private config: ConfigService,
-    private userService: UserService,
     private commonService: CommonService,
-    private router: Router
+    private router: Router,
+    private gatewayService: GatewayService
   ) { }
 
   ngOnInit(): void {
-    const { userId, token } = this.route.snapshot.params;
-    this.userId = userId;
+    const { id: token } = this.route.snapshot.params;
     this.token = token;
   }
 
@@ -52,12 +42,10 @@ export class ForgotPasswordComponent implements OnInit {
     if (this.resetForm.valid && !this.loading) {
       this.errorMessage = '';
       this.loading = true;
-      this.userService.resetPasswordAsync({
-        userId: this.userId,
-        token: this.token,
-        password: this.resetForm.value.password
+      this.gatewayService.forgotPasswordAsync(EGatewayType.forgotPassword, this.token, {
+        newPassword: this.resetForm.value.password!
       }).subscribe({
-        next: (res) => {
+        next: () => {
           this.loading = false;
           this.commonService.showSuccess('Password reset successfully');
           this.router.navigate(['/login'], { replaceUrl: true });

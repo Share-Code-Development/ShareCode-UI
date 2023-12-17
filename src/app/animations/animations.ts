@@ -18,6 +18,15 @@ const fadeOutTransition = transition(':leave', [
     }))
 ])
 
+const scaleUpTransition = transition(':enter', [
+    style({
+        transform: 'scale(0.95)'
+    }),
+    animate('0.2s ease-in', style({
+        transform: 'scale(1)'
+    }))
+]);
+
 const scaleDownTransition = transition(':leave', [
     style({
         transform: 'scale(1)'
@@ -39,4 +48,8 @@ export const fadeIn = trigger('fadeIn', [
 
 export const fadeOut = trigger('fadeOut', [
     fadeOutTransition
+]);
+
+export const scaleUp = trigger('scaleUp', [
+    scaleUpTransition
 ]);

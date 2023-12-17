@@ -1,12 +1,12 @@
 <div class="flex h-screen w-screen items-center justify-center">
-  <div class="card flex-shrink-0 w-full max-w-lg shadow-2xl bg-base-100">
+  <div class="card flex-shrink-0 w-full max-w-lg shadow-2xl bg-base-100 z-10" @fadeIn @scaleUp>
     <div class="card-body justify-center p-20">
       @if (type === 'success') {
-      <span class="material-symbols-outlined text-9xl text-green-600 self-center">
+      <span class="material-symbols-outlined text-9xl text-green-600 self-center" @fadeIn @scaleUp>
         task_alt
       </span>
       } @else {
-      <span class="material-symbols-outlined text-9xl text-red-600 self-center">
+      <span class="material-symbols-outlined text-9xl text-red-600 self-center" @fadeIn @scaleUp>
         error
       </span>
       }

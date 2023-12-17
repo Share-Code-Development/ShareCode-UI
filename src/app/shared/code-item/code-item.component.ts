@@ -33,7 +33,7 @@ export class CodeItemComponent implements OnInit {
       const language = res.find((l: any) => l.id === this.codeItem.language);
       this.languageName = language?.name || '';
     });
-    this.isAuthor = this.userService.authUser$.value?._id === this.codeItem.createdBy._id;
+    this.isAuthor = this.userService.authUser$.value?.userId === this.codeItem.createdBy.userId;
     this.codeItem.createdAt = new Date(this.codeItem.createdAt);
   }
 
@@ -90,7 +90,7 @@ export class CodeItemComponent implements OnInit {
       this.loadingLike = true;
       this.codeItem.likeCount--;
       this.codeItem.selfLiked = false;
-      this.snippetService.deleteLikeAsync(this.codeItem._id!, this.userService.authUser$.value?._id!).subscribe({
+      this.snippetService.deleteLikeAsync(this.codeItem._id!, this.userService.authUser$.value?.userId!).subscribe({
         next: () => {
           this.loadingLike = false;
         },

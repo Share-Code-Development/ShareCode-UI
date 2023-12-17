@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.loading = true;
       this.userService.loginAsync(this.loginForm.value).subscribe({
         next: res => {
-          this.userService.setupAuthState(res.user, res.token);
+          this.userService.setupAuthState(res, res.accessToken);
           this.loading = false;
           this.router.navigate(['/dashboard'], { replaceUrl: true })
         },
@@ -62,12 +62,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     if (this.forgotEmailControl.valid) {
       this.sendingEmail = true;
       this.userService.forgotPasswordAsync({ emailAddress: this.forgotEmailControl.value }).subscribe({
-        next: (res) => {
-          if (res.success) {
-            this.showForgotModel = false;
-            this.sendingEmail = false;
-            this.commonService.showSuccess('Email sent successfully, Check your inbox');
-          }
+        next: () => {
+          this.showForgotModel = false;
+          this.sendingEmail = false;
+          this.commonService.showSuccess('Email sent successfully, Check your inbox');
         },
         error: (err) => {
           this.sendingEmail = false;

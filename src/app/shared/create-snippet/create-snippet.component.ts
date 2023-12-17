@@ -29,7 +29,7 @@ export class CreateSnippetComponent implements OnInit, OnDestroy {
     language: new FormControl('plaintext', [Validators.required, Validators.maxLength(this.config.maxLengths.language)]),
     tags: new FormControl<string[]>([], [Validators.maxLength(this.config.maxLengths.tagsPerSnippet)]),
     isPublic: new FormControl(true),
-    createdBy: new FormControl(this.user.authUser$.value?._id),
+    createdBy: new FormControl(this.user.authUser$.value?.userId),
   })
 
   constructor(

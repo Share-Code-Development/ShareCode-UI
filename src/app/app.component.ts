@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.showWaveAnimation = !this.router.url.startsWith('/dashboard') && environment.production;
+    this.showWaveAnimation = !this.router.url.startsWith('/dashboard') && (environment.production || false);
     this.router.events.subscribe({
       next: event => {
         if (event instanceof NavigationEnd) {
