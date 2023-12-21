@@ -43,8 +43,7 @@ export class UserService {
           this.router.navigate(['/dashboard'], { replaceUrl: true })
         },
         error: (err) => {
-          loader.stop();
-          this.commonService.showError(err);
+          loader.error(err);
         }
       });
     });
@@ -63,7 +62,7 @@ export class UserService {
     if (token) {
       localStorage.setItem(ELocalStorage.token, token);
     }
-    // this.profileUrl = user.image;
+    this.profileUrl = user.image || `https://api.dicebear.com/7.x/thumbs/svg?seed=${user.emailAddress}`;
   }
 
   public async logout() {

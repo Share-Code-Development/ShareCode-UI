@@ -6,7 +6,7 @@
                 user, you
                 will get options to create private code snippets and favorites.</p>
         </div>
-        <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+        <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100" @fadeIn @scaleUp>
             <form class="card-body" [formGroup]="loginForm">
                 <div class="form-control mt-2 mb-4" id="social-login-container">
                     <div class="flex justify-center">
@@ -61,7 +61,7 @@
 <input type="checkbox" id="forgot-popup" class="modal-toggle" [(ngModel)]="showForgotModel" />
 <div class="modal">
     <div class="modal-box">
-        <label for="forgot-popup" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+        <label for="forgot-popup" class="btn btn-sm btn-circle absolute right-2 top-2 btn-neutral">✕</label>
         <h3 class="font-bold text-lg">Forgot Password</h3>
         <div class="form-control">
             <label class="label">
@@ -71,7 +71,7 @@
                 InputValidityColors />
         </div>
         <div class="modal-action">
-            <button class="btn btn-sm" (click)="onSend()" [disabled]="forgotEmailControl.invalid">
+            <button class="btn btn-sm btn-neutral" (click)="onSend()" [disabled]="forgotEmailControl.invalid">
                 <span class="loading loading-infinity" *ngIf="sendingEmail"></span>
                 Send
             </button>

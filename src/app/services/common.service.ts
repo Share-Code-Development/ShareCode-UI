@@ -67,9 +67,9 @@ export class CommonService {
     }, 5000);
   }
 
-  public showError(message: string | any) {
+  public showError(message: string | any, replaceContext?: Record<string, string>) {
     const item = {
-      text: typeof message === 'string' ? message : this.getErrorMessages(message).join('\n'),
+      text: typeof message === 'string' ? message : this.getErrorMessages(message, replaceContext).join('\n'),
       color: 'alert-error'
     }
     this.errorMessages.push(item);
@@ -82,37 +82,46 @@ export class CommonService {
     this.errorMessages = this.errorMessages.filter(el => el !== item);
   }
 
-  public getErrorMessages(errorResponse: any) {
+  public getErrorMessages(errorResponse: any, replaceContext?: Record<string, string>) {
+    let finalMessages: string[] = [];
     if (errorResponse?.error?.errors?.length) {
       errorResponse.error = errorResponse.error.errors;
     } else if (errorResponse?.error?.message) {
-      return [errorResponse?.error?.type || 'Error', errorResponse.error.message];
-    }
-    // recursively get all strings from all the keys of the error object
-    const errorObj = errorResponse.error;
-    const errorFinder = (error: any): string[] => {
-      const messages = [];
-      for (const key in error) {
-        if (error.hasOwnProperty(key)) {
-          const value = error[key];
-          if (typeof value === 'string' && !['propertyName'].includes(key)) {
-            messages.push(value);
-          } else if (typeof value === 'object') {
-            messages.push(...errorFinder(value));
+      finalMessages = [errorResponse.error.message];
+    } else {
+      // recursively get all strings from all the keys of the error object
+      const errorObj = errorResponse.error;
+      const errorFinder = (error: any): string[] => {
+        const messages = [];
+        for (const key in error) {
+          if (error.hasOwnProperty(key)) {
+            const value = error[key];
+            if (typeof value === 'string' && !['propertyName'].includes(key)) {
+              messages.push(value);
+            } else if (typeof value === 'object') {
+              messages.push(...errorFinder(value));
+            }
           }
         }
+        return messages;
       }
-      return messages;
+      let allErrors: string[] = [];
+      if (typeof errorObj === 'object') {
+        allErrors = errorFinder(errorObj);
+      }
+      if (allErrors.length) {
+        finalMessages = [...new Set(allErrors.filter(el => el))]; // removing empty strings
+      } else {
+        finalMessages = [errorResponse?.statusText ?? errorResponse?.message ?? 'Something went wrong'];
+      }
     }
-    let allErrors: string[] = [];
-    if (typeof errorObj === 'object') {
-      allErrors = errorFinder(errorObj);
+    if (replaceContext) {
+      finalMessages = finalMessages.map(el => {
+        el = el.replace(/\[(.*?)\]/g, (match, key) => replaceContext[key] || match); // replace all occurrences of [key] with value
+        return el;
+      })
     }
-    if (allErrors.length) {
-      return [...new Set(allErrors.filter(el => el))]; // removing empty strings
-    } else {
-      return [errorResponse?.statusText ?? errorResponse?.message ?? 'Something went wrong'];
-    }
+    return finalMessages;
   }
 
   public isUserFemaleAsync(name: string) {
