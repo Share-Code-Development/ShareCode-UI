@@ -6,6 +6,8 @@ import { DashboardComponent } from './dashboard.component';
 import { SharedModule } from '@shared/shared.module';
 import { OverviewComponent } from './overview/overview.component';
 import { CarouselModule } from 'primeng/carousel';
+import { AppLayoutModule } from '@app/modules/app-layout/app-layout.module';
+import { SnippetModule } from '@app/modules/snippet/snippet.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { CarouselModule } from 'primeng/carousel';
     CommonModule,
     DashboardRoutingModule,
     SharedModule,
-    CarouselModule
+    CarouselModule,
+    AppLayoutModule,
+    SnippetModule
   ],
 })
 export class DashboardModule { }

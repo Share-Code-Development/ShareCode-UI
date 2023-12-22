@@ -83,7 +83,7 @@ export class CreateSnippetComponent implements OnInit, OnDestroy {
       },
       error: (err) => {
         this.loading = false;
-        this.common.showError(err);
+        this.errorMessage = this.common.getErrorMessages(err).join(', ');
       }
     })
   }
