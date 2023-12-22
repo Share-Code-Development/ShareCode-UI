@@ -6,7 +6,7 @@ import { Observable, Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class SnippetService {
-  private snippetEndpoint = 'snippets';
+  private snippetEndpoint = 'snippet';
   public refreshSnippets$ = new Subject<void>();
 
   constructor(

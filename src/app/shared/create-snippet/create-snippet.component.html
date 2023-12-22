@@ -18,12 +18,12 @@
             </select>
             <div class="join">
                 <button class="btn btn-sm btn-outline join-item" (click)="togglePublic(false)"
-                    [ngClass]="{'btn-active': !this.snippetForm.get('isPublic')?.value}">
+                    [ngClass]="{'btn-active': !this.snippetForm.get('public')?.value}">
                     Private
                     <span class="material-icons">lock</span>
                 </button>
                 <button class="btn btn-sm btn-outline join-item" (click)="togglePublic(true)"
-                    [ngClass]="{'btn-active': this.snippetForm.get('isPublic')?.value}">
+                    [ngClass]="{'btn-active': this.snippetForm.get('public')?.value}">
                     Public
                     <span class="material-icons">public</span>
                 </button>
@@ -36,7 +36,7 @@
             [autoDetectLanguage]="!snippetForm.get('language')?.dirty && !languageFormatDetected"></app-code-highlighter>
     </div>
     <div class="px-1 pb-1 mt-2">
-        <textarea class="w-full textarea" placeholder="Brief Summary" formControlName="summary"
+        <textarea class="w-full textarea" placeholder="Brief Summary" formControlName="description"
             [maxlength]="config.maxLengths.description"></textarea>
         <div class="tags flex flex-wrap gap-2">
             <input type="text" placeholder="Tags" class="input input-sm w-1/2" #tagInput

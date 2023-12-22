@@ -24,11 +24,11 @@ export class CreateSnippetComponent implements OnInit, OnDestroy {
 
   public snippetForm = new FormGroup({
     title: new FormControl('', [Validators.maxLength(this.config.maxLengths.title)]),
-    code: new FormControl('', [Validators.required, Validators.maxLength(this.config.maxLengths.code)]),
-    summary: new FormControl('', [Validators.maxLength(this.config.maxLengths.description)]),
+    code: new FormControl('', [Validators.required]),
+    description: new FormControl('', [Validators.maxLength(this.config.maxLengths.description)]),
     language: new FormControl('plaintext', [Validators.required, Validators.maxLength(this.config.maxLengths.language)]),
     tags: new FormControl<string[]>([], [Validators.maxLength(this.config.maxLengths.tagsPerSnippet)]),
-    isPublic: new FormControl(true),
+    public: new FormControl(true),
     createdBy: new FormControl(this.user.authUser$.value?.userId),
   })
 
@@ -70,7 +70,11 @@ export class CreateSnippetComponent implements OnInit, OnDestroy {
       this.snippetForm.patchValue({ title: this.defaultTitle });
     }
     this.loading = true;
-    this.snippet.snippetPostAsync(this.snippetForm.value).subscribe({
+    const formData = new FormData();
+    const codeFile: Blob = new File([this.snippetForm.value.code!], this.snippetForm.value.title!, { type: 'text/plain' });
+    formData.append('body', JSON.stringify({ ...this.snippetForm.value, code: undefined }));
+    formData.append('code', codeFile);
+    this.snippet.snippetPostAsync(formData).subscribe({
       next: (res) => {
         this.loading = false;
         this.common.showSuccess('Snippet created successfully');
@@ -110,7 +114,7 @@ export class CreateSnippetComponent implements OnInit, OnDestroy {
   }
 
   protected togglePublic(val: boolean) {
-    this.snippetForm.patchValue({ isPublic: val });
+    this.snippetForm.patchValue({ public: val });
   }
 
 }

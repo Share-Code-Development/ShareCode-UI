@@ -16,15 +16,15 @@ export class ConfigService {
   public static readonly defaultQueryLimit: number = 20;
 
   public readonly maxLengths = {
-    title: 500,
+    title: 100,
     name: 100,
     email: 100,
     password: 100,
-    description: 1000,
+    description: 500,
     code: 10000,
     comment: 1000,
     tag: 100,
-    language: 100,
+    language: 20,
     tagsPerSnippet: 10,
   } as const;
 
