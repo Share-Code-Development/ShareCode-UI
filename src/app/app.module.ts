@@ -17,6 +17,7 @@ import { AppInitService } from './services/resolvers/initializer.service';
 import { UserService } from './services/user.service';
 import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
 import { DATE_PIPE_DEFAULT_OPTIONS } from '@angular/common';
+import { RefreshTokenInterceptor } from './services/resolvers/refresh-token.interceptor';
 
 export function initializeApp1(appInitService: AppInitService) {
   return () => appInitService.init()
@@ -59,6 +60,11 @@ export function initializeApp1(appInitService: AppInitService) {
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpTokenInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RefreshTokenInterceptor,
       multi: true
     },
     {

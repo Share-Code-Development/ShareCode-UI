@@ -60,7 +60,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.loading = true;
       this.userService.loginAsync(this.loginForm.value).subscribe({
         next: res => {
-          this.userService.setupAuthState(res, res.accessToken);
+          this.userService.setupAuthState(res, res.accessToken, res.refreshToken);
           this.loading = false;
           this.router.navigate(['/dashboard'], { replaceUrl: true })
         },

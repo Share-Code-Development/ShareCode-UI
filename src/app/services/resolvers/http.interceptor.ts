@@ -44,6 +44,7 @@ export class HttpTokenInterceptor implements HttpInterceptor {
           withCredentials: true,
           setHeaders: this.commonService.doBurstNextAPICache ? newCacheBurstHeaders : {}
         });
+        this.commonService.doBurstNextAPICache = false;
       }
     }
     return next.handle(request);

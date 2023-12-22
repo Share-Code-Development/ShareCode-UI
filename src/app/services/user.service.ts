@@ -18,8 +18,8 @@ export class UserService {
   public authUser$: BehaviorSubject<IUser | null> = new BehaviorSubject<IUser | null>(null);
   public isLoggedIn = false;
   public isSSOLogin = false;
-  private authEndpoint = 'auth';
-  private userEndPoint = 'user';
+  public readonly authEndpoint = 'auth';
+  public readonly userEndPoint = 'user';
   public profileUrl: string = '';
 
   constructor(
@@ -39,7 +39,7 @@ export class UserService {
       this.loginAsync(body).subscribe({
         next: (res) => {
           loader.stop();
-          this.setupAuthState(res, res.accessToken, user.provider);
+          this.setupAuthState(res, res.accessToken, res.refreshToken, user.provider);
           this.router.navigate(['/dashboard'], { replaceUrl: true })
         },
         error: (err) => {
@@ -49,7 +49,7 @@ export class UserService {
     });
   }
   
-  public async setupAuthState(user: IUser, token: string, social?: string) {
+  public async setupAuthState(user: IUser, token: string, refreshToken: string | null, social?: string) {
     if (!user) return;
     this.authUser$.next(user);
     this.isLoggedIn = true;
@@ -62,6 +62,9 @@ export class UserService {
     if (token) {
       localStorage.setItem(ELocalStorage.token, token);
     }
+    if (refreshToken) {
+      localStorage.setItem(ELocalStorage.refreshToken, refreshToken);
+    }
     this.profileUrl = user.image || `https://api.dicebear.com/7.x/thumbs/svg?seed=${user.emailAddress}`;
   }
 
@@ -71,6 +74,7 @@ export class UserService {
     this.profileUrl = '';
     localStorage.removeItem(ELocalStorage.currentUser);
     localStorage.removeItem(ELocalStorage.token);
+    localStorage.removeItem(ELocalStorage.refreshToken);
     localStorage.removeItem(ELocalStorage.ssoType);
     if (this.isSSOLogin) {
       await this.socialAuthService.signOut();

@@ -19,19 +19,22 @@ export class AppInitService {
             const user: IUser = localStorage.getItem(ELocalStorage.currentUser) ? JSON.parse(localStorage.getItem(ELocalStorage.currentUser) || '') : null;
             const SSOType = localStorage.getItem(ELocalStorage.ssoType) || undefined;
             const token = localStorage.getItem(ELocalStorage.token) || null;
+            const refreshToken = localStorage.getItem(ELocalStorage.refreshToken) || null;
             if (token && user) { // if sso login, google will handle the auth state in user service
-                this.userService.setupAuthState(user, token, SSOType);
+                this.userService.setupAuthState(user, token, refreshToken, SSOType);
                 resolve();
                 this.commonService.doBurstNextAPICache = true;
                 this.userService.getByIdAsync(user.userId!).subscribe({
-                    next: res => {
-                        this.userService.setupAuthState(res, res.accessToken, SSOType);
+                    next: (res) => {
+                        this.userService.setupAuthState(res, res.accessToken, null, SSOType);
                     },
-                    error: () => {
+                    error: (error) => {
                         this.userService.logout();
                         if (this.router.url !== '/login' && !this.router.url.includes('/common') && !this.router.url.includes('/gateway')) {
                             this.router.navigate(['/login']);
-                            this.commonService.showError('Session expired. Please login again.');
+                            if (error.status !== 401) { // 401 case, we will show the error in interceptor
+                                this.commonService.showError('Session expired. Please login again.');
+                            }
                         }
                         resolve();
                     }
