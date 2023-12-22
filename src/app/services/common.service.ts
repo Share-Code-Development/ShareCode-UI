@@ -15,7 +15,7 @@ export class CommonService {
   public wrapCode: boolean = false;
   public errorMessages = new Array<INotificationConfig>();
   public authRedirectUrl: string = '';
-  private nameGenderCache = new Map<string, boolean>();
+  public doBurstNextAPICache = false;
 
   constructor(
     private http: HttpClient,
@@ -56,10 +56,7 @@ export class CommonService {
   public showSuccess(message: string) {
     const item = {
       text: message,
-      color: 'alert-success',
-      error() { },
-      success() { },
-      stop() { }
+      color: 'alert-success'
     }
     this.errorMessages.push(item);
     setTimeout(() => {
@@ -86,7 +83,8 @@ export class CommonService {
     let finalMessages: string[] = [];
     if (errorResponse?.error?.errors?.length) {
       errorResponse.error = errorResponse.error.errors;
-    } else if (errorResponse?.error?.message) {
+    }
+    if (errorResponse?.error?.message) {
       finalMessages = [errorResponse.error.message];
     } else {
       // recursively get all strings from all the keys of the error object
@@ -122,27 +120,6 @@ export class CommonService {
       })
     }
     return finalMessages;
-  }
-
-  public isUserFemaleAsync(name: string) {
-    JSON.stringify(JSON.parse('{}'), (k, v) => {
-      if (k === 'password') {
-        return undefined;
-      }
-      return v;
-    });
-    if (this.nameGenderCache.has(name)) {
-      return of(this.nameGenderCache.get(name));
-    }
-    return this.http.get(`https://api.genderize.io/?name=${name}`).pipe(map(
-      (res: any) => {
-        let value = res.gender === 'female';
-        this.nameGenderCache.set(name, value);
-        return value;
-      }
-    ), catchError(() => {
-      return of(false)
-    }))
   }
 
   public showDeleteConfirmationAsync() {

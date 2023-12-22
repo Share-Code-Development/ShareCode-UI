@@ -10,7 +10,7 @@ import { CommonRoutingModule } from './common-routing.module';
     ],
     imports: [
         CommonModule,
-        CommonRoutingModule
+        CommonRoutingModule,
     ],
     exports: []
 })
