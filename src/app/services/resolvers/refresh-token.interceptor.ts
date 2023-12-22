@@ -101,7 +101,6 @@ export class RefreshTokenInterceptor implements HttpInterceptor {
             const refreshToken: string = res.headers.get('Refreshtoken');
             localStorage.setItem(ELocalStorage.token, authToken);
             localStorage.setItem(ELocalStorage.refreshToken, refreshToken);
-            console.log({ refreshToken, authToken })
             return { refreshToken, authToken };
         }));
     }

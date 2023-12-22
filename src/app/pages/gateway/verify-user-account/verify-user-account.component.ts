@@ -35,7 +35,6 @@ export class VerifyUserAccountComponent implements OnInit {
           this.message = 'Account verified successfully';
         },
         error: (err) => {
-          console.log(err);
           this.loading = false;
           this.result = false;
           this.message = err.error?.message || 'Account verification failed';

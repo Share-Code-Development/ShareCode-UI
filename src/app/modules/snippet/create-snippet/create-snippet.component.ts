@@ -60,7 +60,6 @@ export class CreateSnippetComponent implements OnInit, OnDestroy {
   }
 
   protected onSave() {
-    console.log(this.snippetForm.value);
     this.submitted = true;
     if (this.snippetForm.invalid) {
       this.errorMessage = 'Add some code to save';
