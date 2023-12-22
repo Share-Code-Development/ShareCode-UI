@@ -15,7 +15,7 @@ export class CommonService {
   public wrapCode: boolean = false;
   public errorMessages = new Array<INotificationConfig>();
   public authRedirectUrl: string = '';
-  private nameGenderCache = new Map<string, boolean>();
+  public doBurstNextAPICache = false;
 
   constructor(
     private http: HttpClient,
@@ -56,10 +56,7 @@ export class CommonService {
   public showSuccess(message: string) {
     const item = {
       text: message,
-      color: 'alert-success',
-      error() { },
-      success() { },
-      stop() { }
+      color: 'alert-success'
     }
     this.errorMessages.push(item);
     setTimeout(() => {
@@ -67,9 +64,9 @@ export class CommonService {
     }, 5000);
   }
 
-  public showError(message: string | any) {
+  public showError(message: string | any, replaceContext?: Record<string, string>) {
     const item = {
-      text: typeof message === 'string' ? message : this.getErrorMessages(message).join('\n'),
+      text: typeof message === 'string' ? message : this.getErrorMessages(message, replaceContext).join('\n'),
       color: 'alert-error'
     }
     this.errorMessages.push(item);
@@ -82,58 +79,47 @@ export class CommonService {
     this.errorMessages = this.errorMessages.filter(el => el !== item);
   }
 
-  public getErrorMessages(errorResponse: any) {
+  public getErrorMessages(errorResponse: any, replaceContext?: Record<string, string>) {
+    let finalMessages: string[] = [];
     if (errorResponse?.error?.errors?.length) {
       errorResponse.error = errorResponse.error.errors;
-    } else if (errorResponse?.error?.message) {
-      return [errorResponse?.error?.type || 'Error', errorResponse.error.message];
     }
-    // recursively get all strings from all the keys of the error object
-    const errorObj = errorResponse.error;
-    const errorFinder = (error: any): string[] => {
-      const messages = [];
-      for (const key in error) {
-        if (error.hasOwnProperty(key)) {
-          const value = error[key];
-          if (typeof value === 'string' && !['propertyName'].includes(key)) {
-            messages.push(value);
-          } else if (typeof value === 'object') {
-            messages.push(...errorFinder(value));
+    if (errorResponse?.error?.message) {
+      finalMessages = [errorResponse.error.message];
+    } else {
+      // recursively get all strings from all the keys of the error object
+      const errorObj = errorResponse.error;
+      const errorFinder = (error: any): string[] => {
+        const messages = [];
+        for (const key in error) {
+          if (error.hasOwnProperty(key)) {
+            const value = error[key];
+            if (typeof value === 'string' && !['propertyName'].includes(key)) {
+              messages.push(value);
+            } else if (typeof value === 'object') {
+              messages.push(...errorFinder(value));
+            }
           }
         }
+        return messages;
       }
-      return messages;
-    }
-    let allErrors: string[] = [];
-    if (typeof errorObj === 'object') {
-      allErrors = errorFinder(errorObj);
-    }
-    if (allErrors.length) {
-      return [...new Set(allErrors.filter(el => el))]; // removing empty strings
-    } else {
-      return [errorResponse?.statusText ?? errorResponse?.message ?? 'Something went wrong'];
-    }
-  }
-
-  public isUserFemaleAsync(name: string) {
-    JSON.stringify(JSON.parse('{}'), (k, v) => {
-      if (k === 'password') {
-        return undefined;
+      let allErrors: string[] = [];
+      if (typeof errorObj === 'object') {
+        allErrors = errorFinder(errorObj);
       }
-      return v;
-    });
-    if (this.nameGenderCache.has(name)) {
-      return of(this.nameGenderCache.get(name));
-    }
-    return this.http.get(`https://api.genderize.io/?name=${name}`).pipe(map(
-      (res: any) => {
-        let value = res.gender === 'female';
-        this.nameGenderCache.set(name, value);
-        return value;
+      if (allErrors.length) {
+        finalMessages = [...new Set(allErrors.filter(el => el))]; // removing empty strings
+      } else {
+        finalMessages = [errorResponse?.statusText ?? errorResponse?.message ?? 'Something went wrong'];
       }
-    ), catchError(() => {
-      return of(false)
-    }))
+    }
+    if (replaceContext) {
+      finalMessages = finalMessages.map(el => {
+        el = el.replace(/\[(.*?)\]/g, (match, key) => replaceContext[key] || match); // replace all occurrences of [key] with value
+        return el;
+      })
+    }
+    return finalMessages;
   }
 
   public showDeleteConfirmationAsync() {

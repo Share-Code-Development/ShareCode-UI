@@ -1,7 +1,7 @@
 import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, firstValueFrom, map, of, switchMap } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { ELocalStorage } from '../models/common.enum';
 import { IUser } from '../models/user.interface';
 import { CommonService } from './common.service';
@@ -43,8 +43,7 @@ export class UserService {
           this.router.navigate(['/dashboard'], { replaceUrl: true })
         },
         error: (err) => {
-          loader.stop();
-          this.commonService.showError(err);
+          loader.error(err);
         }
       });
     });
@@ -63,7 +62,7 @@ export class UserService {
     if (token) {
       localStorage.setItem(ELocalStorage.token, token);
     }
-    // this.profileUrl = user.image;
+    this.profileUrl = user.image || `https://api.dicebear.com/7.x/thumbs/svg?seed=${user.emailAddress}`;
   }
 
   public async logout() {
@@ -78,25 +77,20 @@ export class UserService {
     }
   }
 
-  private profileImage(name: string) {
-    return this.commonService.isUserFemaleAsync(name).pipe(map(res => ((res) ? this.config.femaleAvatarUrl : this.config.maleAvatarUrl)))
-  }
-
-
   public loginAsync(body: any): Observable<Prettify<IUser & ILoginResponse>> {
-    return this.http.postAsync(body, `${this.authEndpoint}/login`)
+    return this.http.postAsync(body, `${this.authEndpoint}/login`);
   }
 
   public signupAsync(body: IUser) {
-    return this.http.postAsync(body, `${this.authEndpoint}/register`)
+    return this.http.postAsync(body, `${this.authEndpoint}/register`);
   }
 
   public forgotPasswordAsync(body: any) {
-    return this.http.postAsync(body, `${this.authEndpoint}/forgot-password`)
+    return this.http.postAsync(body, `${this.authEndpoint}/forgot-password`);
   }
 
-  public getProfileAsync(params?: any): Observable<{ user: IUser, token: string }> {
-    return this.http.getAsync(`${this.authEndpoint}/profile`, params)
+  public getByIdAsync(id: string, params?: any) {
+    return this.http.getAsync(`${this.userEndPoint}/${id}`, params);
   }
 
 }

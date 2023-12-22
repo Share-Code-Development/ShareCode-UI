@@ -6,15 +6,24 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ConfigService } from 'src/app/services/config.service';
 import { CommonService } from 'src/app/services/common.service';
 import { EAuthType } from '@app/models/auth.model';
+import { fadeIn, scaleUp } from '@app/animations/animations';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  animations: [
+    fadeIn,
+    scaleUp
+  ]
 })
 export class LoginComponent implements OnInit, OnDestroy {
 
   public showForgotModel = false;
+  private errorContext = {
+    ENTITY_TYPE: "User",
+    ENTITY_VALUE: ""
+  }
 
   public forgotEmailControl = new FormControl('', [Validators.required, Validators.pattern(this.config.emailRegex)]);
   private subs: Subscription = new Subscription();
@@ -37,6 +46,11 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.userService.logout();
+    this.subs.add(
+      this.loginForm.get('emailAddress')?.valueChanges.subscribe((res: any) => {
+        this.errorContext.ENTITY_VALUE = res;
+      })
+    );
   }
 
   public onLogin() {
@@ -52,7 +66,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         },
         error: err => {
           this.loading = false;
-          this.errorMessage = this.commonService.getErrorMessages(err).join(', ')
+          this.errorMessage = this.commonService.getErrorMessages(err, this.errorContext).join(', ')
         }
       })
     }
@@ -69,7 +83,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         },
         error: (err) => {
           this.sendingEmail = false;
-          this.commonService.showError(err);
+          this.commonService.showError(err, this.errorContext);
         }
       });
     }

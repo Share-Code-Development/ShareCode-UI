@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ELocalStorage } from 'src/app/models/common.enum';
 import { CommonService } from '../common.service';
 import { UserService } from '../user.service';
+import { IUser } from '@app/models/user.interface';
 
 @Injectable({ providedIn: 'root' })
 export class AppInitService {
@@ -15,20 +16,23 @@ export class AppInitService {
 
     init() {
         return new Promise<void>((resolve, _) => {
-            const user = localStorage.getItem(ELocalStorage.currentUser) ? JSON.parse(localStorage.getItem(ELocalStorage.currentUser) || '') : null;
+            const user: IUser = localStorage.getItem(ELocalStorage.currentUser) ? JSON.parse(localStorage.getItem(ELocalStorage.currentUser) || '') : null;
             const SSOType = localStorage.getItem(ELocalStorage.ssoType) || undefined;
             const token = localStorage.getItem(ELocalStorage.token) || null;
             if (token && user) { // if sso login, google will handle the auth state in user service
                 this.userService.setupAuthState(user, token, SSOType);
                 resolve();
-                this.userService.getProfileAsync().subscribe({
+                this.commonService.doBurstNextAPICache = true;
+                this.userService.getByIdAsync(user.userId!).subscribe({
                     next: res => {
-                        this.userService.setupAuthState(res.user, res.token, SSOType);
+                        this.userService.setupAuthState(res, res.accessToken, SSOType);
                     },
-                    error: err => {
+                    error: () => {
                         this.userService.logout();
-                        this.router.navigate(['/login']);
-                        this.commonService.showError('Session expired. Please login again.');
+                        if (this.router.url !== '/login' && !this.router.url.includes('/common') && !this.router.url.includes('/gateway')) {
+                            this.router.navigate(['/login']);
+                            this.commonService.showError('Session expired. Please login again.');
+                        }
                         resolve();
                     }
                 })

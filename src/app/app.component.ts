@@ -14,7 +14,7 @@ import { environment } from '@environment';
   ]
 })
 export class AppComponent implements OnInit {
-  public showWaveAnimation = true;
+  public showWaveAnimation = false;
 
   constructor(
     public commonService: CommonService,
@@ -23,10 +23,10 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.showWaveAnimation = !this.router.url.startsWith('/dashboard') && (environment.production || false);
     this.router.events.subscribe({
       next: event => {
         if (event instanceof NavigationEnd) {
+          this.showWaveAnimation = !this.router.url.startsWith('/dashboard') && (environment.production);
           if (['/', '/login', '/signup'].includes(event.urlAfterRedirects)) {
             document.documentElement.style.setProperty(`--google-onetap-visibility`, 'block');
           } else {

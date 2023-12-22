@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ConfigService } from 'src/app/services/config.service';
-import { CreateSnippetComponent } from '../create-snippet/create-snippet.component';
+import { CreateSnippetComponent } from '../../snippet/create-snippet/create-snippet.component';
 
 @Component({
   selector: 'app-sidemenu',

@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { fadeIn, scaleUp } from '@app/animations/animations';
 
 @Component({
   selector: 'app-fullscreen-status',
   templateUrl: './fullscreen-status.component.html',
-  styleUrls: ['./fullscreen-status.component.scss']
+  styleUrls: ['./fullscreen-status.component.scss'],
+  animations: [
+    fadeIn,
+    scaleUp
+  ]
 })
 export class FullscreenStatusComponent implements OnInit {
 

@@ -5,11 +5,16 @@ import { CommonService } from 'src/app/services/common.service';
 import { ConfigService } from 'src/app/services/config.service';
 import { UserService } from 'src/app/services/user.service';
 import { mismatchValidator } from 'src/app/utils/custom-validators';
+import { fadeIn, scaleUp } from '@app/animations/animations';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.scss']
+  styleUrls: ['./signup.component.scss'],
+  animations: [
+    fadeIn,
+    scaleUp
+  ]
 })
 export class SignupComponent implements OnInit {
 
