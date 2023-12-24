@@ -26,8 +26,7 @@ export class UserService {
     private http: HttpService,
     private socialAuthService: SocialAuthService,
     private router: Router,
-    private commonService: CommonService,
-    private config: ConfigService
+    private commonService: CommonService
   ) {
     this.socialAuthService.authState.subscribe((user) => {
       if (!user) return;
@@ -53,7 +52,6 @@ export class UserService {
     if (!user) return;
     this.authUser$.next(user);
     this.isLoggedIn = true;
-    // user.image = user.image ? user.image : (await firstValueFrom(this.profileImage(user.fullName))) || this.config.maleAvatarUrl;
     localStorage.setItem(ELocalStorage.currentUser, JSON.stringify(user));
     this.isSSOLogin = !!social;
     if (social) {

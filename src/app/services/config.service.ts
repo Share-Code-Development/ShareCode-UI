@@ -11,8 +11,6 @@ export class ConfigService {
   public readonly emailRegex: RegExp = /(.+)@(.+){2,}\.(.+){2,}/;
   public readonly passwordMinLength: number = 6;
   public readonly nameMinLength: number = 3;
-  public readonly maleAvatarUrl = '/assets/images/male-avatar.svg'
-  public readonly femaleAvatarUrl = '/assets/images/female-avatar.svg';
   public static readonly defaultQueryLimit: number = 20;
 
   public readonly maxLengths = {
