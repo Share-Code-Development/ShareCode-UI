@@ -61,17 +61,16 @@ export class CreateSnippetComponent implements OnInit, OnDestroy {
 
   protected onSave() {
     this.submitted = true;
-    if (this.snippetForm.invalid) {
+    if (this.snippetForm.invalid || !this.snippetForm.get('code')?.value?.trim()) {
       this.errorMessage = 'Add some code to save';
       return;
     }
     if (!this.snippetForm.get('title')?.value) {
-      this.snippetForm.patchValue({ title: this.defaultTitle });
     }
     this.loading = true;
     const formData = new FormData();
     const codeFile: Blob = new File([this.snippetForm.value.code!], this.snippetForm.value.title!, { type: 'text/plain' });
-    formData.append('body', JSON.stringify({ ...this.snippetForm.value, code: undefined }));
+    formData.append('body', JSON.stringify({ ...this.snippetForm.value, title: this.defaultTitle, code: undefined }));
     formData.append('code', codeFile);
     this.snippet.snippetPostAsync(formData).subscribe({
       next: (res) => {

@@ -47,8 +47,10 @@ export class RefreshTokenInterceptor implements HttpInterceptor {
                                     catchError((refreshError: any) => {
                                         this.isRefreshing = false;
                                         this.userService.logout();
-                                        this.commonService.showError('Session expired. Please login again');
-                                        this.router.navigate(['/login']);
+                                        if (this.router.url !== '/login' && !this.router.url.includes('/common') && !this.router.url.includes('/gateway')) {
+                                            this.commonService.showError('Session expired. Please login again');
+                                            this.router.navigate(['/login']);
+                                        }
                                         return throwError(() => refreshError);
                                     })
                                 );
