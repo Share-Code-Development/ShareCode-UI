@@ -136,4 +136,8 @@ export class CommonService {
     return this.http.get<any[]>('/assets/common/languages.json');
   }
 
+  public getProfilePlaceholder(email: string): string {
+    return `https://api.dicebear.com/7.x/thumbs/svg?seed=${email}`;
+  }
+
 }
