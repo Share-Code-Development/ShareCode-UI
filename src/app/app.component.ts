@@ -3,6 +3,7 @@ import { fadeOut, scaleDown } from './animations/animations';
 import { CommonService } from './services/common.service';
 import { NavigationEnd, Router } from '@angular/router';
 import { environment } from '@environment';
+import { ConfigService } from './services/config.service';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,8 @@ export class AppComponent implements OnInit {
 
   constructor(
     public commonService: CommonService,
-    private router: Router
+    private router: Router,
+    private config: ConfigService
   ) {
   }
 
@@ -26,7 +28,7 @@ export class AppComponent implements OnInit {
     this.router.events.subscribe({
       next: event => {
         if (event instanceof NavigationEnd) {
-          this.showWaveAnimation = !this.router.url.startsWith('/dashboard') && (environment.production);
+          this.showWaveAnimation = this.config.isPublicRoute(this.router.url) && (environment.production);
           if (['/', '/login', '/signup'].includes(event.urlAfterRedirects)) {
             document.documentElement.style.setProperty(`--google-onetap-visibility`, 'block');
           } else {

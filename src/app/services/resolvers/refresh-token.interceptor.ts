@@ -7,6 +7,7 @@ import { CommonService } from '../common.service';
 import { Router } from '@angular/router';
 import { ELocalStorage } from '@app/models/common.enum';
 import { environment } from '@environment';
+import { ConfigService } from '../config.service';
 
 @Injectable()
 export class RefreshTokenInterceptor implements HttpInterceptor {
@@ -15,7 +16,8 @@ export class RefreshTokenInterceptor implements HttpInterceptor {
         private userService: UserService,
         private commonService: CommonService,
         private router: Router,
-        private http: HttpClient
+        private http: HttpClient,
+        private config: ConfigService
     ) { }
 
     private isRefreshing = false;
@@ -47,7 +49,7 @@ export class RefreshTokenInterceptor implements HttpInterceptor {
                                     catchError((refreshError: any) => {
                                         this.isRefreshing = false;
                                         this.userService.logout();
-                                        if (this.router.url !== '/login' && !this.router.url.includes('/common') && !this.router.url.includes('/gateway')) {
+                                        if (!this.config.isPublicRoute(this.router.url)) {
                                             this.commonService.showError('Session expired. Please login again');
                                             this.router.navigate(['/login']);
                                         }

@@ -12,6 +12,16 @@ export class ConfigService {
   public readonly passwordMinLength: number = 6;
   public readonly nameMinLength: number = 3;
   public static readonly defaultQueryLimit: number = 20;
+  public readonly publicRoutes = [
+    '/login',
+    '/signup',
+    '/gateway',
+    '/common'
+  ] as const;
+
+  public isPublicRoute(url: string): boolean {
+    return this.publicRoutes.some(route => url.startsWith(route));
+  }
 
   public readonly maxLengths = {
     title: 100,

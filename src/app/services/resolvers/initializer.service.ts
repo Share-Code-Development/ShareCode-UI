@@ -4,6 +4,7 @@ import { ELocalStorage } from 'src/app/models/common.enum';
 import { CommonService } from '../common.service';
 import { UserService } from '../user.service';
 import { IUser } from '@app/models/user.interface';
+import { ConfigService } from '../config.service';
 
 @Injectable({ providedIn: 'root' })
 export class AppInitService {
@@ -11,7 +12,8 @@ export class AppInitService {
     constructor(
         private userService: UserService,
         private router: Router,
-        private commonService: CommonService
+        private commonService: CommonService,
+        private config: ConfigService
     ) { }
 
     init() {
@@ -30,7 +32,7 @@ export class AppInitService {
                     },
                     error: (error) => {
                         this.userService.logout();
-                        if (this.router.url !== '/login' && !this.router.url.includes('/common') && !this.router.url.includes('/gateway')) {
+                        if (!this.config.isPublicRoute(this.router.url)) {
                             this.router.navigate(['/login']);
                             if (error.status !== 401) { // 401 case, we will show the error in interceptor
                                 this.commonService.showError('Session expired. Please login again.');
