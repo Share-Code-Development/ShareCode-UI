@@ -16,7 +16,8 @@ export class ConfigService {
     '/login',
     '/signup',
     '/gateway',
-    '/common'
+    '/common',
+    ''
   ] as const;
 
   public isPublicRoute(url: string): boolean {
