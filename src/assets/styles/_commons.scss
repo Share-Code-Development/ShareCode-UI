@@ -48,3 +48,10 @@ body {
 .custom-password-toggle {
     border-color: #ffffff22;
 }
+
+// if sidemenu is not present, hide the toggle button
+body:not(:has(.drawer-side)) {
+    #sidemenu-toggle {
+        display: none;
+    }
+}

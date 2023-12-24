@@ -30,6 +30,9 @@ export class SidemenuComponent implements OnInit {
       contentStyle: this.config.defaultDialogStyles,
       showHeader: false,
       baseZIndex: 10000,
+      data: {
+        popupMode: true
+      }
     });
   }
 

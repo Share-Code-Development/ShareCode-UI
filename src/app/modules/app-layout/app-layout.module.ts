@@ -4,12 +4,14 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { SidemenuComponent } from './sidemenu/sidemenu.component';
 import { SharedModule } from '@app/shared/shared.module';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
-    DynamicDialogModule
+    DynamicDialogModule,
+    RouterModule
   ],
   declarations: [
     NavbarComponent,

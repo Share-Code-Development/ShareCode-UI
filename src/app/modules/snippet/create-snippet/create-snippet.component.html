@@ -2,13 +2,18 @@
     <div class="px-0 pb-0 pt-2">
         <div class="text-xl px-1 pb-1 flex justify-between">
             <span>Create Snippet</span>
-            <span class="flex ml-auto">
+            @if (isPopup) {
+            <span class="flex ml-auto gap-3">
+                <button class="btn btn-circle btn-outline btn-xs" (click)="maximize()" tabindex="-1">
+                    <span class="material-icons">crop_free</span>
+                </button>
                 <button class="btn btn-circle btn-outline btn-xs" (click)="close()" tabindex="-1">
                     <span class="material-icons">close</span>
                 </button>
             </span>
+            }
         </div>
-        <h2 class="card-title px-1 flex justify-items-start items-center">
+        <h2 class="card-title px-1 flex justify-items-start items-center flex-wrap">
             <div class="flex-grow">
                 <input type="text" [placeholder]="defaultTitle" class="input input-sm w-full" formControlName="title"
                     [maxlength]="config.maxLengths.title">

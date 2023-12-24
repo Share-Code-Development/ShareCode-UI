@@ -38,7 +38,8 @@ const commons: any[] = [
     TooltipModule,
     RouterModule,
     ValidityColorsModule,
-    NgPipesModule
+    NgPipesModule,
+    DynamicDialogModule,
   ],
   exports: [
     FormsModule,

@@ -1,5 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Subscription } from 'rxjs';
 import { CommonService } from 'src/app/services/common.service';
@@ -21,6 +22,8 @@ export class CreateSnippetComponent implements OnInit, OnDestroy {
   protected defaultTitle = `Untitled - ${new Date().toLocaleString()}`;
   private subs: Subscription = new Subscription();
   protected languageFormatDetected = false;
+  private ref: DynamicDialogRef | null;
+  public isPopup = false;
 
   public snippetForm = new FormGroup({
     title: new FormControl('', [Validators.maxLength(this.config.maxLengths.title)]),
@@ -33,12 +36,22 @@ export class CreateSnippetComponent implements OnInit, OnDestroy {
   })
 
   constructor(
-    public ref: DynamicDialogRef,
     private common: CommonService,
     protected config: ConfigService,
     private user: UserService,
-    private snippet: SnippetService
-  ) { }
+    private snippet: SnippetService,
+    private router: Router,
+    injector: Injector
+  ) {
+    this.ref = injector.get(DynamicDialogRef, null); // Get the ref from the injector if the component is opened as a dialog
+    this.isPopup = !!this.ref;
+    if (!this.isPopup) {
+      const state: any = this.router.lastSuccessfulNavigation?.extras?.state;
+      if (state) {
+        this.snippetForm.patchValue(state);
+      }
+    }
+  }
 
   ngOnInit(): void {
     this.common.getLanguages().subscribe((res: any) => {
@@ -56,7 +69,7 @@ export class CreateSnippetComponent implements OnInit, OnDestroy {
   }
 
   protected close() {
-    this.ref.close();
+    this.ref?.close();
   }
 
   protected onSave() {
@@ -77,7 +90,7 @@ export class CreateSnippetComponent implements OnInit, OnDestroy {
         this.loading = false;
         this.common.showSuccess('Snippet created successfully');
         this.snippet.triggerRefreshSnippets();
-        this.ref.close(res);
+        this.ref?.close(res);
       },
       error: (err) => {
         this.loading = false;
@@ -113,6 +126,14 @@ export class CreateSnippetComponent implements OnInit, OnDestroy {
 
   protected togglePublic(val: boolean) {
     this.snippetForm.patchValue({ public: val });
+  }
+
+  public maximize() {
+    this.router.navigate(['/code', 'create'], {
+      state: structuredClone(this.snippetForm.value)
+    }).then(() => {
+      this.close();
+    })
   }
 
 }
