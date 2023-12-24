@@ -1,6 +1,6 @@
 export interface IUser {
     password?: string;
-    image?: string | null;
+    profilePicture?: string | null;
     firstName: string;
     lastName: string;
     middleName?: string;

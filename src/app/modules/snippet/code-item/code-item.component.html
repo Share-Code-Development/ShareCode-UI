@@ -56,7 +56,7 @@
                 <div class="profile-pic flex items-center gap-3">
                     <div class="avatar">
                         <div class="w-10 rounded-full">
-                            <img [src]="codeItem.createdBy.image || commonService.getProfilePlaceholder(codeItem.createdBy.emailAddress)" />
+                            <img [src]="codeItem.createdBy.profilePicture || commonService.getProfilePlaceholder(codeItem.createdBy.emailAddress)" />
                         </div>
                     </div>
                     <div class="flex flex-col">

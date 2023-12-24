@@ -63,7 +63,7 @@ export class UserService {
     if (refreshToken) {
       localStorage.setItem(ELocalStorage.refreshToken, refreshToken);
     }
-    this.profileUrl = user.image || this.commonService.getProfilePlaceholder(user.emailAddress);
+    this.profileUrl = user.profilePicture || this.commonService.getProfilePlaceholder(user.emailAddress);
   }
 
   public async logout() {

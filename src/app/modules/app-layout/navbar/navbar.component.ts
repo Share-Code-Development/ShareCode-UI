@@ -15,8 +15,6 @@ export class NavbarComponent implements OnInit {
     public userService: UserService
   ) { }
 
-  public profileImage$ = this.userService.authUser$.pipe(map(el => el?.image))
-
   ngOnInit(): void {
   }
 
