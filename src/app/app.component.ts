@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
     this.router.events.subscribe({
       next: event => {
         if (event instanceof NavigationEnd) {
-          this.showWaveAnimation = this.config.isPublicRoute(this.router.url) && (environment.production);
+          this.showWaveAnimation = this.config.isPublicRoute(this.router.url) && (true || environment.production);
           if (['/', '/login', '/signup'].includes(event.urlAfterRedirects)) {
             document.documentElement.style.setProperty(`--google-onetap-visibility`, 'block');
           } else {

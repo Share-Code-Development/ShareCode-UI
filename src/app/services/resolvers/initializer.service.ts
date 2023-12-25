@@ -26,7 +26,7 @@ export class AppInitService {
                 this.userService.setupAuthState(user, token, refreshToken, SSOType);
                 resolve();
                 this.commonService.doBurstNextAPICache = true;
-                this.userService.getByIdAsync(user.userId!).subscribe({
+                this.userService.getByIdAsync(user.userId!, null, { includeSettings: true }).subscribe({
                     next: (res) => {
                         this.userService.setupAuthState(res, res.accessToken, null, SSOType);
                     },

@@ -16,12 +16,11 @@ export class ConfigService {
     '/login',
     '/signup',
     '/gateway',
-    '/common',
-    ''
+    '/common'
   ] as const;
 
   public isPublicRoute(url: string): boolean {
-    return this.publicRoutes.some(route => url.startsWith(route));
+    return (url === '/' || this.publicRoutes.some(route => url.startsWith(route)));
   }
 
   public readonly maxLengths = {

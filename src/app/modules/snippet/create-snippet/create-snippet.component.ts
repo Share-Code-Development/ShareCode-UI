@@ -24,6 +24,7 @@ export class CreateSnippetComponent implements OnInit, OnDestroy {
   protected languageFormatDetected = false;
   private ref: DynamicDialogRef | null;
   public isPopup = false;
+  public navBarHeight = 0;
 
   public snippetForm = new FormGroup({
     title: new FormControl('', [Validators.maxLength(this.config.maxLengths.title)]),
@@ -54,6 +55,7 @@ export class CreateSnippetComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.navBarHeight = document.getElementById('mainNavbar')?.offsetHeight || 0;
     this.common.getLanguages().subscribe((res: any) => {
       this.languageList = res;
     });
@@ -135,5 +137,7 @@ export class CreateSnippetComponent implements OnInit, OnDestroy {
       this.close();
     })
   }
+
+
 
 }
