@@ -36,7 +36,7 @@
             </div>
         </h2>
     </div>
-    <div id="editor" class="m-1 mt-2 bg-base-100 p-0 rounded-lg overflow-hidden h-full flex-grow">
+    <div id="editor" class="m-1 mt-2 bg-base-100 p-0 rounded-lg overflow-hidden h-full flex-grow min-h-[200px]">
         <app-code-highlighter class="h-full block" formControlName="code" (onLanguageChanged)="languageChange($event)"
             [language]="snippetForm.get('language')?.value || ''"
             [autoDetectLanguage]="!snippetForm.get('language')?.dirty && !languageFormatDetected"></app-code-highlighter>
@@ -52,8 +52,8 @@
             <p-chip [label]="tag" styleClass="text-xs" class="block" [removable]="true" (onRemove)="onTagRemove(tag)"
                 *ngFor="let tag of this.snippetForm.get('tags')?.value || []"></p-chip>
         </div>
-        <div class="flex justify-between items-center pb-2 mt-2 min-h-[56px] flex-wrap gap-2">
-            <div class="error text-sm flex-grow pr-4">
+        <div class="flex justify-end items-center pb-2 mt-2 min-h-[56px] flex-wrap gap-2">
+            <div class="error text-sm pr-4">
                 <app-error-message [show]="!!errorMessage" [errorMessage]="errorMessage"></app-error-message>
             </div>
             <div class="buttons flex gap-2">

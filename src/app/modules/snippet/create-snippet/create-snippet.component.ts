@@ -83,16 +83,28 @@ export class CreateSnippetComponent implements OnInit, OnDestroy {
     if (!this.snippetForm.get('title')?.value) {
     }
     this.loading = true;
+    const newTitle = this.snippetForm.value.title || this.defaultTitle;
     const formData = new FormData();
-    const codeFile: Blob = new File([this.snippetForm.value.code!], this.snippetForm.value.title!, { type: 'text/plain' });
-    formData.append('body', JSON.stringify({ ...this.snippetForm.value, title: this.defaultTitle, code: undefined }));
+    const codeFile: Blob = new File([this.snippetForm.value.code!], newTitle, { type: 'text/plain' });
+    formData.append('body', JSON.stringify({
+      ...this.snippetForm.value,
+      title: newTitle,
+      code: undefined
+    }));
     formData.append('code', codeFile);
+    this.common.doBurstNextAPICache = true;
     this.snippet.snippetPostAsync(formData).subscribe({
       next: (res) => {
         this.loading = false;
         this.common.showSuccess('Snippet created successfully');
         this.snippet.triggerRefreshSnippets();
-        this.ref?.close(res);
+        this.errorMessage = '';
+        if (this.isPopup) {
+          this.close();
+          return;
+        } else {
+          this.router.navigate(['/code/create', res.snippetId]);
+        }
       },
       error: (err) => {
         this.loading = false;

@@ -1,6 +1,10 @@
 <!-- Sidebar content here -->
-<li (click)="onSelectItem(); openCreate()"><a><ng-icon name="matDataObjectRound" size="1.5em" class="align-middle mt-[1px] mr-1"></ng-icon>New Snippet</a></li>
+<li (click)="onSelectItem(); openCreate()"><a [class]="isActiveRoute('code/create') ? 'active': ''"><ng-icon name="matDataObjectRound" size="1.5em"
+            class="align-middle mt-[1px] mr-1"></ng-icon>New Snippet</a></li>
 <!-- <div class="divider">Favorites</div> -->
-<li (click)="onSelectItem()"><a><ng-icon name="matIntegrationInstructionsRound" size="1.5em" class="align-middle mt-[1px] mr-1"></ng-icon>My Snippets</a></li>
-<li (click)="onSelectItem()"><a><ng-icon name="matFavoriteRound" size="1.5em" class="align-middle mt-[1px] mr-1"></ng-icon>My Favorites</a></li>
-<li (click)="onSelectItem()"><a><ng-icon name="matInterestsRound" size="1.5em" class="align-middle mt-[1px] mr-1"></ng-icon>Following</a></li>
+<li (click)="onSelectItem()"><a><ng-icon name="matIntegrationInstructionsRound" size="1.5em"
+            class="align-middle mt-[1px] mr-1"></ng-icon>My Snippets</a></li>
+<li (click)="onSelectItem()"><a><ng-icon name="matFavoriteRound" size="1.5em"
+            class="align-middle mt-[1px] mr-1"></ng-icon>My Favorites</a></li>
+<li (click)="onSelectItem()"><a><ng-icon name="matInterestsRound" size="1.5em"
+            class="align-middle mt-[1px] mr-1"></ng-icon>Following</a></li>

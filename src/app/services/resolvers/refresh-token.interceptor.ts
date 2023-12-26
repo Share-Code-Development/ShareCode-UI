@@ -49,7 +49,7 @@ export class RefreshTokenInterceptor implements HttpInterceptor {
                                     catchError((refreshError: any) => {
                                         this.isRefreshing = false;
                                         this.userService.logout();
-                                        if (!this.config.isPublicRoute(this.router.url)) {
+                                        if (!this.config.isPublicRoute(this.router.url) && refreshError.status === 401) {
                                             this.commonService.showError('Session expired. Please login again');
                                             this.router.navigate(['/login']);
                                         }

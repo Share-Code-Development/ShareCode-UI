@@ -55,3 +55,8 @@ body:not(:has(.drawer-side)) {
         display: none;
     }
 }
+
+body {
+    font-family: 'Poppins', 'Roboto', sans-serif;
+    --font-family: 'Poppins', 'Roboto', sans-serif;
+}
