@@ -92,7 +92,6 @@ export class CreateSnippetComponent implements OnInit, OnDestroy {
       code: undefined
     }));
     formData.append('code', codeFile);
-    this.common.doBurstNextAPICache = true;
     this.snippet.snippetPostAsync(formData).subscribe({
       next: (res) => {
         this.loading = false;

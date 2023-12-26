@@ -25,9 +25,9 @@ export class HttpTokenInterceptor implements HttpInterceptor {
         Authorization: `Bearer ${token}`
       };
       if (this.commonService.doBurstNextAPICache) {
-        newHeaders['Cache-Control'] = 'no-transform';
-        // newHeaders['Pragma'] = 'no-cache';
-        // newHeaders['Expires'] = '0';
+        newHeaders['Cache-Control'] = 'no-cache';
+        newHeaders['Pragma'] = 'no-cache';
+        newHeaders['Expires'] = '0';
         this.commonService.doBurstNextAPICache = false;
       }
       if (token) {
@@ -38,8 +38,8 @@ export class HttpTokenInterceptor implements HttpInterceptor {
       } else {
         const newCacheBurstHeaders = {
           'Cache-Control': 'no-cache',
-          // 'Pragma': 'no-cache',
-          // 'Expires': '0'
+          'Pragma': 'no-cache',
+          'Expires': '0'
         };
         request = request.clone({
           withCredentials: true,
