@@ -11,7 +11,7 @@
                     <span class="loading loading-infinity swap-off" *ngIf="copyLoading"></span>
                 </button>
                 <button class="btn btn-square btn-sm btn-outline btn-secondary" pTooltip="Open" tooltipPosition="top"
-                    [showDelay]="1000">
+                    [showDelay]="1000" routerLink="/code/35ca3276-6741-4ba6-817f-0c5668f0128d">
                     <span class="material-symbols-outlined">open_in_full</span>
                 </button>
                 <button class="btn btn-square btn-sm btn-outline btn-error" pTooltip="Delete" tooltipPosition="top"
@@ -73,11 +73,6 @@
                         [showDelay]="1000" (click)="onLike()">
                         <span class="custom-icon"
                             [ngClass]="codeItem.selfLiked ? 'material-symbols-outlined filled-icon text-primary' : 'material-symbols-outlined'">thumb_up</span>
-                    </button>
-                    <button class="btn btn-square btn-sm btn-ghost btn-secondary" pTooltip="Like" tooltipPosition="top"
-                        [showDelay]="1000" (click)="onLike()">
-                        <span class="custom-icon"
-                            [ngClass]="!codeItem.selfLiked ? 'material-symbols-outlined filled-icon text-primary' : 'material-symbols-outlined'">thumb_up</span>
                     </button>
                     <button class="btn btn-square btn-sm btn-ghost btn-secondary" pTooltip="Like" tooltipPosition="top"
                         [showDelay]="1000">

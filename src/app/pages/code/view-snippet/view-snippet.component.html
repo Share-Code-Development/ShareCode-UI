@@ -1,8 +1,215 @@
-<div class="h-full flex gap-3 flex-wrap p-4">
-    <div class="h-full bg-base-200 code-details flex-grow rounded-2xl">
-        Code Display
+<div class="h-full flex gap-3 flex-wrap lg:flex-nowrap p-4">
+    <div class="h-full bg-base-200 code-details flex-grow rounded-2xl overflow-hidden">
+        <div class="p-3 pb-1 flex flex-col gap-1">
+            <div class="text-xl font-bold">Sample JavaScript to extract text from HTML</div>
+            <div class="text-sm"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt fugit eligendi eius
+                veritatis! Porro in omnis excepturi perspiciatis, sapiente inventore doloribus laboriosam alias
+                praesentium?
+                Nam molestias temporibus quibusdam assumenda ut?</div>
+            <div class="text-sm text-slate-500">Javascript, HTML, Extraction</div>
+            <div class="flex gap-4 justify-start text-slate-500">
+                <div class="flex gap-3">
+                    <span class="text-sm flex align-center" pTooltip="Likes" tooltipPosition="top" [showDelay]="1000">
+                        <span class="material-symbols-outlined mt-[1px] mr-1">thumb_up</span>
+                        <span>6</span>
+                    </span>
+                    <span class="text-sm flex align-center" pTooltip="Comments" tooltipPosition="top"
+                        [showDelay]="1000">
+                        <span class="material-symbols-outlined mt-[1px] mr-1">chat_bubble</span>
+                        <span>6</span>
+                    </span>
+                    <span class="text-sm flex align-center" pTooltip="Views" tooltipPosition="top" [showDelay]="1000">
+                        <span class="material-symbols-outlined mt-[1px] mr-1">visibility</span>
+                        <span>6</span>
+                    </span>
+                    <span class="text-sm flex align-center" pTooltip="Copies" tooltipPosition="top" [showDelay]="1000">
+                        <span class="material-symbols-outlined mt-[1px] mr-1">content_copy</span>
+                        <span>6</span>
+                    </span>
+                </div>
+                <div class="flex gap-3">
+                    <span class="text-sm flex align-center" pTooltip="Language" tooltipPosition="top"
+                    [showDelay]="1000">
+                    <span class="material-symbols-outlined mt-[1px] mr-1">data_object</span>
+                        <span class="w-full truncate flex-grow">Javascript</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <app-code-highlighter [code]="'console.log(\'Hello World\')'" [language]="'javascript'" [readOnlyMode]="true"
+            class="block h-full flex-grow rounded-2xl overflow-hidden"></app-code-highlighter>
     </div>
-    <div class="h-full bg-base-200 w-80 comments-section rounded-2xl">
-        Comments section
+    <div class="h-full flex flex-col gap-3 comments-section w-full lg:w-[45rem]">
+        <div class="bg-base-200 w-full rounded-2xl p-3">
+            <div class="divider mt-0">Author</div>
+            <div class="flex gap-4 items-center">
+                <div class="avatar">
+                    <div class="w-12 h-w-12 rounded-full">
+                        <img src="https://api.dicebear.com/7.x/thumbs/svg" alt="User profile picture" />
+                    </div>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-xl">Vishnu Vinod</span>
+                    <span class="text-sm">userEmail&#64;gmail.com</span>
+                </div>
+            </div>
+
+            <div class="flex gap-3 mt-4 items-center">
+                <button class="btn btn-outline btn-sm btn-primary flex-grow">Follow</button>
+                <button class="btn btn-outline btn-sm btn-secondary flex-grow">View Profile</button>
+            </div>
+        </div>
+        <div class="bg-base-200 w-full rounded-2xl flex-grow p-3 overflow-auto">
+            <div class="comments-section">
+                <div class="divider mt-0">Comments</div>
+
+                <div class="comment mb-2">
+                    <div class="bg-base-300 rounded-2xl p-3">
+                        <div class="flex items-center gap-4">
+                            <div class="avatar">
+                                <div class="w-8 rounded-full">
+                                    <img src="https://api.dicebear.com/7.x/thumbs/svg?seed=1" alt />
+                                </div>
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="p-0 m-0">John Doe</span>
+                                <span class="text-gray-600 text-xs">5 minutes ago</span>
+                            </div>
+                        </div>
+                        <p class="my-1 text-sm">This is a great Idea! I really enjoyed reading it.</p>
+                    </div>
+                    <button class="btn btn-ghost btn-sm text-primary mt-1">Reply</button>
+                    <button class="btn btn-ghost btn-sm text-primary mt-1">Hide 2 Replies</button>
+
+                    <div class="ml-3 mt-2 mb-3 border-l border-l-slate-700 pl-3">
+                        <div class="comment mb-1">
+                            <div class="bg-base-300 rounded-2xl p-3">
+                                <div class="flex items-center gap-4">
+                                    <div class="avatar">
+                                        <div class="w-8 rounded-full">
+                                            <img src="https://api.dicebear.com/7.x/thumbs/svg?seed-2" alt />
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <span class="p-0 m-0">Tom Cruse</span>
+                                        <span class="text-gray-600 text-xs">5 minutes ago</span>
+                                    </div>
+                                </div>
+                                <p class="my-1 text-sm">Yeah. me too!</p>
+                            </div>
+                        </div>
+                        <div class="comment mb-1">
+                            <div class="bg-base-300 rounded-2xl p-3">
+                                <div class="flex items-center gap-4">
+                                    <div class="avatar">
+                                        <div class="w-8 rounded-full">
+                                            <img src="https://api.dicebear.com/7.x/thumbs/svg?seed=3" alt />
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <span class="p-0 m-0">Robert Downey Jr</span>
+                                        <span class="text-gray-600 text-xs">5 minutes ago</span>
+                                    </div>
+                                </div>
+                                <p class="my-1 text-sm">I agree with you.</p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="comment mb-2">
+                    <div class="bg-base-300 rounded-2xl p-3">
+                        <div class="flex items-center gap-4">
+                            <div class="avatar">
+                                <div class="w-8 rounded-full">
+                                    <img src="https://api.dicebear.com/7.x/thumbs/svg?seed=4" alt />
+                                </div>
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="p-0 m-0">Christopher Nolan</span>
+                                <span class="text-gray-600 text-xs">2 hours ago</span>
+                            </div>
+                        </div>
+                        <p class="my-1 text-sm">This is a nice hack, Thanks</p>
+                    </div>
+                    <button class="btn btn-ghost btn-sm text-primary mt-1">Reply</button>
+                    <button class="btn btn-ghost btn-sm text-primary mt-1">View 2 Replies</button>
+                </div>
+                <div class="comment mb-2">
+                    <div class="bg-base-300 rounded-2xl p-3">
+                        <div class="flex items-center gap-4">
+                            <div class="avatar">
+                                <div class="w-8 rounded-full">
+                                    <img src="https://api.dicebear.com/7.x/thumbs/svg?seed=5" alt />
+                                </div>
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="p-0 m-0">Leonardo DiCaprio</span>
+                                <span class="text-gray-600 text-xs">2 hours ago</span>
+                            </div>
+                        </div>
+                        <p class="my-1 text-sm">This is a nice snippet</p>
+                    </div>
+                    <button class="btn btn-ghost btn-sm text-primary mt-1">Reply</button>
+                    <button class="btn btn-ghost btn-sm text-primary mt-1">View 2 Replies</button>
+                </div>
+                <div class="comment mb-2">
+                    <div class="bg-base-300 rounded-2xl p-3">
+                        <div class="flex items-center gap-4">
+                            <div class="avatar">
+                                <div class="w-8 rounded-full">
+                                    <img src="https://api.dicebear.com/7.x/thumbs/svg?seed=6" alt />
+                                </div>
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="p-0 m-0">Johnny Depp</span>
+                                <span class="text-gray-600 text-xs">2 hours ago</span>
+                            </div>
+                        </div>
+                        <p class="my-1 text-sm">This is a good</p>
+                    </div>
+                    <button class="btn btn-ghost btn-sm text-primary">Reply</button>
+                    <button class="btn btn-ghost btn-sm text-primary">View 2 Replies</button>
+                </div>
+                <div class="comment mb-2">
+                    <div class="bg-base-300 rounded-2xl p-3">
+                        <div class="flex items-center gap-4">
+                            <div class="avatar">
+                                <div class="w-8 rounded-full">
+                                    <img src="https://api.dicebear.com/7.x/thumbs/svg?seed=4" alt />
+                                </div>
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="p-0 m-0">Christopher Nolan</span>
+                                <span class="text-gray-600 text-xs">2 hours ago</span>
+                            </div>
+                        </div>
+                        <p class="my-1 text-sm">This is a nice hack, Thanks</p>
+                    </div>
+                    <button class="btn btn-ghost btn-sm text-primary mt-1">Reply</button>
+                    <button class="btn btn-ghost btn-sm text-primary mt-1">View 2 Replies</button>
+                </div>
+                <div class="comment mb-2">
+                    <div class="bg-base-300 rounded-2xl p-3">
+                        <div class="flex items-center gap-4">
+                            <div class="avatar">
+                                <div class="w-8 rounded-full">
+                                    <img src="https://api.dicebear.com/7.x/thumbs/svg?seed=4" alt />
+                                </div>
+                            </div>
+                            <div class="flex flex-col">
+                                <span class="p-0 m-0">Christopher Nolan</span>
+                                <span class="text-gray-600 text-xs">2 hours ago</span>
+                            </div>
+                        </div>
+                        <p class="my-1 text-sm">This is a nice hack, Thanks</p>
+                    </div>
+                    <button class="btn btn-ghost btn-sm text-primary mt-1">Reply</button>
+                    <button class="btn btn-ghost btn-sm text-primary mt-1">View 2 Replies</button>
+                </div>
+
+            </div>
+
+        </div>
     </div>
 </div>

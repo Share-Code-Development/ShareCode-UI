@@ -45,6 +45,14 @@ export class CodeHighlighterComponent implements ControlValueAccessor {
     };
   }
 
+  @Input()
+  public set readOnlyMode(val: boolean) {
+    this.editorOptions = {
+      ...this.editorOptions,
+      readOnly: val
+    };
+  }
+
   @Input() public autoDetectLanguage: boolean = true;
 
   @Input() public set options(val: unknown) {
