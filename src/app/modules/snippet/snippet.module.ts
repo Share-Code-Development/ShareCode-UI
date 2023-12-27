@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CreateSnippetComponent } from './create-snippet/create-snippet.component';
 import { CodeItemComponent } from './code-item/code-item.component';
 import { ChipModule } from 'primeng/chip';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
@@ -14,6 +15,9 @@ import { ChipModule } from 'primeng/chip';
     ReactiveFormsModule,
     SharedModule,
     ChipModule,
+    RouterModule.forChild([
+      { path: '', component: CreateSnippetComponent }
+    ])
   ],
   declarations: [
     CreateSnippetComponent,

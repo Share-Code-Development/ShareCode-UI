@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Observable, firstValueFrom, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
 import { DeleteConfirmationComponent } from '../shared/delete-confirmation/delete-confirmation.component';
 import { ConfigService } from './config.service';
 import { INotificationConfig } from '../models/common.model';
@@ -65,6 +64,7 @@ export class CommonService {
   }
 
   public showError(message: string | any, replaceContext?: Record<string, string>) {
+    console.trace(message);
     const item = {
       text: typeof message === 'string' ? message : this.getErrorMessages(message, replaceContext).join('\n'),
       color: 'alert-error'

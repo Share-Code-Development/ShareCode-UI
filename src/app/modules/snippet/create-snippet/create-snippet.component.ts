@@ -17,7 +17,16 @@ export class CreateSnippetComponent implements OnInit, OnDestroy {
 
   public loading = false;
   public languageList: { id: string; name: string }[] = [];
-  protected errorMessage = '';
+  private _errorMessage = '';
+  protected get errorMessage() {
+    return this._errorMessage;
+  }
+  protected set errorMessage(value) {
+    this._errorMessage = value;
+    if (value && !this.isPopup) {
+      this.common.showError(value);
+    }
+  }
   protected submitted = false;
   protected defaultTitle = `Untitled - ${new Date().toLocaleString()}`;
   private subs: Subscription = new Subscription();
@@ -25,6 +34,7 @@ export class CreateSnippetComponent implements OnInit, OnDestroy {
   private ref: DynamicDialogRef | null;
   public isPopup = false;
   public navBarHeight = 0;
+  public isAnonymous = !this.user.isLoggedIn;
 
   public snippetForm = new FormGroup({
     title: new FormControl('', [Validators.maxLength(this.config.maxLengths.title)]),
@@ -55,6 +65,7 @@ export class CreateSnippetComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+
     this.navBarHeight = document.getElementById('mainNavbar')?.offsetHeight || 0;
     this.common.getLanguages().subscribe((res: any) => {
       this.languageList = res;
@@ -92,7 +103,7 @@ export class CreateSnippetComponent implements OnInit, OnDestroy {
       code: undefined
     }));
     formData.append('code', codeFile);
-    this.snippet.snippetPostAsync(formData).subscribe({
+    this.snippet.snippetPostAsync(formData, { public: this.isAnonymous }).subscribe({
       next: (res) => {
         this.loading = false;
         this.common.showSuccess('Snippet created successfully');
@@ -102,7 +113,7 @@ export class CreateSnippetComponent implements OnInit, OnDestroy {
           this.close();
           return;
         } else {
-          this.router.navigate(['/code/create', res.snippetId]);
+          this.router.navigate(['/code', res.snippetId]);
         }
       },
       error: (err) => {

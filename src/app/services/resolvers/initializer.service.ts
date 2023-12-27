@@ -24,11 +24,11 @@ export class AppInitService {
             const refreshToken = localStorage.getItem(ELocalStorage.refreshToken) || null;
             if (token && user) { // if sso login, google will handle the auth state in user service
                 this.userService.setupAuthState(user, token, refreshToken, SSOType);
-                resolve();
                 this.commonService.doBurstNextAPICache = true;
                 this.userService.getByIdAsync(user.userId!, null, { includeSettings: true }).subscribe({
                     next: (res) => {
                         this.userService.setupAuthState(res, res.accessToken, null, SSOType);
+                        resolve();
                     },
                     error: (error) => {
                         this.userService.logout();

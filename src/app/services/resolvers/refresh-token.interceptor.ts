@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpClient } from '@angular/common/http';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpClient, HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { Observable, BehaviorSubject, throwError } from 'rxjs';
-import { catchError, filter, map, switchMap, take, tap } from 'rxjs/operators';
+import { catchError, filter, map, switchMap, take } from 'rxjs/operators';
 import { UserService } from '../user.service';
 import { CommonService } from '../common.service';
 import { Router } from '@angular/router';
@@ -46,10 +46,10 @@ export class RefreshTokenInterceptor implements HttpInterceptor {
                                         this.refreshTokenSubject.next(response.refreshToken);
                                         return next.handle(this.addAuthorizationHeader(request));
                                     }),
-                                    catchError((refreshError: any) => {
+                                    catchError((refreshError: HttpErrorResponse) => {
                                         this.isRefreshing = false;
                                         this.userService.logout();
-                                        if (!this.config.isPublicRoute(this.router.url) && refreshError.status === 401) {
+                                        if (!this.config.isPublicRoute(this.router.url) && refreshError.status === HttpStatusCode.Unauthorized) {
                                             this.commonService.showError('Session expired. Please login again');
                                             this.router.navigate(['/login']);
                                         }

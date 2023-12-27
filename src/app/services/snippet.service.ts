@@ -17,8 +17,12 @@ export class SnippetService {
     this.refreshSnippets$.next();
   }
 
-  public snippetPostAsync(body: any): Observable<any> {
-    return this.http.postAsync(body, `${this.snippetEndpoint}`);
+  public snippetPostAsync(body: any, options?: { public: boolean }): Observable<any> {
+    let endpoint = this.snippetEndpoint;
+    if (options?.public) {
+      endpoint = `${endpoint}/public`;
+    }
+    return this.http.postAsync(body, endpoint);
   }
 
   public mySnippetsListAsync(params: any = {}): Observable<any> {
