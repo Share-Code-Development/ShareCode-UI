@@ -18,8 +18,17 @@ export class ConfigService {
     '/gateway',
     '/common'
   ] as const;
+  public readonly publicAccessibleRoutes = [
+    '/create'
+  ] as const;
 
   public isPublicRoute(url: string): boolean {
+    const isPublicUrl = (url === '/' || this.publicRoutes.some(route => url.startsWith(route)));
+    const isPublicAccessibleUrlAsPublic =  this.publicAccessibleRoutes.some(route => url === route);
+    return (isPublicUrl || isPublicAccessibleUrlAsPublic);
+  }
+
+  public showWaveAnimation(url: string): boolean {
     return (url === '/' || this.publicRoutes.some(route => url.startsWith(route)));
   }
 

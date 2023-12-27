@@ -19,8 +19,6 @@ const routes: Routes = [
   },
   {
     path: 'code',
-    canActivate: [AuthGuard],
-    canLoad: [AuthGuard],
     loadChildren: () => import('./pages/code/code.module').then(m => m.CodeModule)
   },
   {
