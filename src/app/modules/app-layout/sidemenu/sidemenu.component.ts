@@ -39,6 +39,7 @@ export class SidemenuComponent {
       header: 'Create',
       width: '70%',
       contentStyle: this.config.defaultDialogStyles,
+      styleClass: 'rounded-2xl',
       showHeader: false,
       baseZIndex: 10000,
       data: {

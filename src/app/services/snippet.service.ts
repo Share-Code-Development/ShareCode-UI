@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { Observable, Subject } from 'rxjs';
-import { ISnippetResponse } from '@app/models/snippet.interface';
+import { ISnippet, ISnippetResponse } from '@app/models/snippet.interface';
 import { IListResponse } from '@app/models/queryList.model';
 
 @Injectable({
@@ -17,6 +17,10 @@ export class SnippetService {
 
   public triggerRefreshSnippets() {
     this.refreshSnippets$.next();
+  }
+
+  public getByIdAsync(id: string): Observable<ISnippet> {
+    return this.http.getAsync(`${this.snippetEndpoint}/${id}`);
   }
 
   public snippetPostAsync(body: any, options?: { public: boolean }): Observable<any> {

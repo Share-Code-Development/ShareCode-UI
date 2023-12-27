@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class CodeComponent {
 
+  public navBarHeight = 0;
+
+  public onChangeNavBarHeight(height: number) {
+    this.navBarHeight = height;
+  }
+
 }
