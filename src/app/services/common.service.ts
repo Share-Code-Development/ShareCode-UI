@@ -87,6 +87,8 @@ export class CommonService {
     }
     if (errorResponse?.error?.message) {
       finalMessages = [errorResponse.error.message];
+    } else if (!errorResponse.error) {
+      finalMessages = [`Unknown error: Error ${errorResponse.status}`];
     } else {
       // recursively get all strings from all the keys of the error object
       const errorObj = errorResponse.error;
