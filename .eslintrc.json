@@ -32,7 +32,17 @@
           }
         ],
         "@typescript-eslint/no-explicit-any": "off",
-        "@typescript-eslint/no-non-null-asserted-optional-chain": "off"
+        "@typescript-eslint/no-non-null-asserted-optional-chain": "off",
+        // prevent console logs
+        "no-console": [
+          "error",
+          {
+            "allow": [
+              "warn",
+              "error"
+            ]
+          }
+        ]
       }
     },
     {

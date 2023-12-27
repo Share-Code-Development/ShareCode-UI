@@ -21,7 +21,7 @@
                         <span class="label-text">Email</span>
                     </label>
                     <input type="text" placeholder="Email" class="input input-bordered" formControlName="emailAddress"
-                        InputValidityColors [submitted]="submitted" />
+                        appInputValidityColors [submitted]="submitted" />
                     <app-error-message [show]="submitted" controlName="Email" [control]="loginForm.get('emailAddress')"
                         [isFloating]="true"></app-error-message>
                 </div>
@@ -31,7 +31,7 @@
                     </label>
                     <div class="join w-full">
                         <input type="password" placeholder="Password" class="input input-bordered join-item flex-grow"
-                            formControlName="password" InputValidityColors [submitted]="submitted" #password />
+                            formControlName="password" appInputValidityColors [submitted]="submitted" #password />
                         <button class="btn join-item btn-outline btn-square border-opacity-20 custom-password-toggle"
                             (click)="password.type = password.type === 'password' ? 'text' : 'password'">
                             <span class="material-symbols-outlined">{{password.type === 'password' ? 'visibility' :
@@ -68,7 +68,7 @@
                 <span class="label-text">Enter email to receive Password Reset link</span>
             </label>
             <input type="text" [formControl]="forgotEmailControl" placeholder="Email" class="input input-bordered"
-                InputValidityColors />
+                appInputValidityColors />
         </div>
         <div class="modal-action">
             <button class="btn btn-sm btn-neutral" (click)="onSend()" [disabled]="forgotEmailControl.invalid">

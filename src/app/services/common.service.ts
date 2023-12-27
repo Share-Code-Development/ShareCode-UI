@@ -66,7 +66,6 @@ export class CommonService {
   }
 
   public showError(message: string | any, replaceContext?: Record<string, string>) {
-    console.trace(message);
     const item = {
       text: typeof message === 'string' ? message : this.getErrorMessages(message, replaceContext).join('\n'),
       color: 'alert-error'

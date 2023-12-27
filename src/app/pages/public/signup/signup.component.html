@@ -14,7 +14,7 @@
                             <span class="label-text">First Name</span>
                         </label>
                         <input type="text" placeholder="First Name" formControlName="firstName"
-                            class="input input-bordered" InputValidityColors [submitted]="submitted" />
+                            class="input input-bordered" appInputValidityColors [submitted]="submitted" />
                         <app-error-message [show]="submitted" controlName="First Name"
                             [control]="signupForm.get('firstName')" [isFloating]="true"></app-error-message>
                     </div>
@@ -30,7 +30,7 @@
                             <span class="label-text">Last Name</span>
                         </label>
                         <input type="text" placeholder="Last Name" formControlName="lastName"
-                            class="input input-bordered" InputValidityColors [submitted]="submitted" />
+                            class="input input-bordered" appInputValidityColors [submitted]="submitted" />
                         <app-error-message [show]="submitted" controlName="Last Name"
                             [control]="signupForm.get('lastName')" [isFloating]="true"></app-error-message>
                     </div>
@@ -40,7 +40,7 @@
                         <span class="label-text">Email</span>
                     </label>
                     <input type="text" placeholder="Email" class="input input-bordered" formControlName="emailAddress"
-                        InputValidityColors [submitted]="submitted" />
+                        appInputValidityColors [submitted]="submitted" />
                     <app-error-message [show]="submitted" controlName="Email" [control]="signupForm.get('emailAddress')"
                         [isFloating]="true"></app-error-message>
                 </div>
@@ -52,7 +52,7 @@
                         <div class="join w-full">
                             <input type="password" placeholder="Password"
                                 class="input input-bordered join-item flex-grow" formControlName="password"
-                                InputValidityColors [submitted]="submitted" #password />
+                                appInputValidityColors [submitted]="submitted" #password />
                             <button
                                 class="btn join-item btn-outline btn-square border-opacity-20 custom-password-toggle"
                                 (click)="password.type = password.type === 'password' ? 'text' : 'password'">
@@ -69,7 +69,7 @@
                         </label>
                         <div class="join w-full">
                             <input type="password" placeholder="Confirm Password" class="input input-bordered join-item flex-grow"
-                                formControlName="confirmPassword" InputValidityColors [submitted]="submitted" #confirmPassword />
+                                formControlName="confirmPassword" appInputValidityColors [submitted]="submitted" #confirmPassword />
                             <button class="btn join-item btn-outline btn-square border-opacity-20 custom-password-toggle"
                                 (click)="confirmPassword.type = confirmPassword.type === 'password' ? 'text' : 'password'">
                                 <span class="material-symbols-outlined">{{confirmPassword.type === 'password' ? 'visibility' :

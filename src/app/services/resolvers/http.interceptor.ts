@@ -19,7 +19,6 @@ export class HttpTokenInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token = localStorage.getItem(ELocalStorage.token);
-    console.log(request.body)
     if (request.url.startsWith(environment.apiUrl)) {
       const newHeaders: any = {
         Authorization: `Bearer ${token}`

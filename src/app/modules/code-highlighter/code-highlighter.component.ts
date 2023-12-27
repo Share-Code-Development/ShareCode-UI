@@ -95,7 +95,6 @@ export class CodeHighlighterComponent implements ControlValueAccessor {
     this.customInput$.next();
     const matches = editor.getModel().findMatches(/\(TRUNCATED:.+COPY.+OPEN.+\)/g, false, true, true, null, true); // Find matches using the regex source
     const decorations = matches.map((match: any) => {
-      console.log(match)
       return {
         range: match.range, // Range of the matched text
         options: {

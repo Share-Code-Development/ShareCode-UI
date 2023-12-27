@@ -3,7 +3,7 @@ import { NgControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 @Directive({
-  selector: '[InputValidityColors]'
+  selector: '[appInputValidityColors]'
 })
 export class InputValidityDirective implements OnInit, OnDestroy, OnChanges {
 
