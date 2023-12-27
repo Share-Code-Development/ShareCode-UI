@@ -13,11 +13,13 @@
         "iconfont",
         "Notyf",
         "onetap",
+        "opsz",
         "primeicons",
         "primeng",
         "Refreshtoken",
         "SCSSO",
         "sidemenu",
-        "signin"
+        "signin",
+        "wght"
     ]
 }

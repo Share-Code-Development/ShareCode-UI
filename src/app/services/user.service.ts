@@ -9,6 +9,8 @@ import { HttpService } from './http.service';
 import { ConfigService } from './config.service';
 import { EAuthType, ILoginResponse } from '@app/models/auth.model';
 import { Prettify } from '@app/models/common.model';
+import { IListResponse } from '@app/models/queryList.model';
+import { ISnippetResponse } from '@app/models/snippet.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -48,7 +50,7 @@ export class UserService {
       });
     });
   }
-  
+
   public async setupAuthState(user: IUser, token: string, refreshToken: string | null, social?: string) {
     if (!user) return;
     this.authUser$.next(user);
@@ -101,6 +103,22 @@ export class UserService {
       urlParams.includeSettings = true;
     }
     return this.http.getAsync(`${this.userEndPoint}/${id}`, urlParams);
+  }
+
+  public getMySnippetsAsync(userId: string, params?: any, options?: {
+    onlyOwned?: boolean,
+    recentSnippets?: boolean
+  }): Observable<IListResponse<ISnippetResponse>> {
+    const urlParams = {
+      ...(params || {})
+    }
+    if (options?.onlyOwned) {
+      urlParams.onlyOwned = true;
+    }
+    if (options?.recentSnippets) {
+      urlParams.recentSnippets = true;
+    }
+    return this.http.getAsync(`${this.userEndPoint}/${userId}/snippets`, params);
   }
 
 }

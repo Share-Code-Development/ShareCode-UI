@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { TSnippetResponse } from 'src/app/models/snippet.interface';
+import { ISnippetResponse } from 'src/app/models/snippet.interface';
 import { CommonService } from 'src/app/services/common.service';
 import { ConfigService } from 'src/app/services/config.service';
 import { SnippetService } from 'src/app/services/snippet.service';
@@ -12,7 +12,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class CodeItemComponent implements OnInit {
 
-  @Input() public codeItem!: TSnippetResponse;
+  @Input() public codeItem!: ISnippetResponse;
 
   public copied: boolean = false;
   protected languageName: string = '';
@@ -33,13 +33,13 @@ export class CodeItemComponent implements OnInit {
       const language = res.find((l: any) => l.id === this.codeItem.language);
       this.languageName = language?.name || '';
     });
-    this.isAuthor = this.userService.authUser$.value?.userId === this.codeItem.createdBy.userId;
+    this.isAuthor = this.userService.authUser$.value?.userId === this.codeItem.owner?.userId;
     this.codeItem.createdAt = new Date(this.codeItem.createdAt);
   }
 
   onCopy() {
     this.copyLoading = true;
-    this.snippetService.getCodeByIdAsync(this.codeItem._id!).subscribe({
+    this.snippetService.getCodeByIdAsync(this.codeItem.id!).subscribe({
       next: (res) => {
         this.copyLoading = false;
         navigator.clipboard.writeText(res?.code?.trim() || '').then(() => {
@@ -48,15 +48,15 @@ export class CodeItemComponent implements OnInit {
             this.copied = false;
           }, 2000);
           if (!this.copiedOnce) {
-            this.snippetService.patchCopyAsync(this.codeItem._id!).subscribe({
-              next: () => {
-                this.codeItem.copies++;
-                this.copiedOnce = true;
-              },
-              error: (err) => {
-                this.commonService.showError(err);
-              }
-            });
+            // this.snippetService.patchCopyAsync(this.codeItem.id!).subscribe({
+            //   next: () => {
+            //     this.codeItem.copies++;
+            //     this.copiedOnce = true;
+            //   },
+            //   error: (err) => {
+            //     this.commonService.showError(err);
+            //   }
+            // });
           }
         }).catch(() => this.commonService.showError('Failed to copy to clipboard'));
       },
@@ -72,7 +72,7 @@ export class CodeItemComponent implements OnInit {
       if (!confirmation) return;
       if (this.codeItem) {
         const loader = this.commonService.showLoading("Deleting snippet...");
-        this.snippetService.deleteSnippetAsync(this.codeItem._id!).subscribe({
+        this.snippetService.deleteSnippetAsync(this.codeItem.id!).subscribe({
           next: () => {
             loader.success('Snippet deleted successfully');
             this.snippetService.triggerRefreshSnippets();
@@ -86,37 +86,37 @@ export class CodeItemComponent implements OnInit {
   }
 
   protected onLike() {
-    if (this.codeItem.selfLiked) {
-      this.loadingLike = true;
-      this.codeItem.likeCount--;
-      this.codeItem.selfLiked = false;
-      this.snippetService.deleteLikeAsync(this.codeItem._id!, this.userService.authUser$.value?.userId!).subscribe({
-        next: () => {
-          this.loadingLike = false;
-        },
-        error: (err) => {
-          this.loadingLike = false;
-          this.codeItem.likeCount++;
-          this.codeItem.selfLiked = true;
-          this.commonService.showError(err);
-        }
-      })
-    } else {
-      this.loadingLike = true;
-      this.codeItem.likeCount++;
-      this.codeItem.selfLiked = true;
-      this.snippetService.postLikeAsync(this.codeItem._id!).subscribe({
-        next: () => {
-          this.loadingLike = false;
-        },
-        error: (err) => {
-          this.loadingLike = false;
-          this.codeItem.likeCount--;
-          this.codeItem.selfLiked = false;
-          this.commonService.showError(err);
-        }
-      })
-    }
+  //   if (this.codeItem.selfLiked) {
+  //     this.loadingLike = true;
+  //     this.codeItem.likeCount--;
+  //     this.codeItem.selfLiked = false;
+  //     this.snippetService.deleteLikeAsync(this.codeItem.id!, this.userService.authUser$.value?.userId!).subscribe({
+  //       next: () => {
+  //         this.loadingLike = false;
+  //       },
+  //       error: (err) => {
+  //         this.loadingLike = false;
+  //         this.codeItem.likeCount++;
+  //         this.codeItem.selfLiked = true;
+  //         this.commonService.showError(err);
+  //       }
+  //     })
+  //   } else {
+  //     this.loadingLike = true;
+  //     this.codeItem.likeCount++;
+  //     this.codeItem.selfLiked = true;
+  //     this.snippetService.postLikeAsync(this.codeItem.id!).subscribe({
+  //       next: () => {
+  //         this.loadingLike = false;
+  //       },
+  //       error: (err) => {
+  //         this.loadingLike = false;
+  //         this.codeItem.likeCount--;
+  //         this.codeItem.selfLiked = false;
+  //         this.commonService.showError(err);
+  //       }
+  //     })
+  //   }
   }
 
 }

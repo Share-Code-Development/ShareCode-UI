@@ -5,6 +5,7 @@ import { SettingsRoutingModule } from './settings-routing.module';
 import { SettingsComponent } from './settings.component';
 import { AccountComponent } from './account/account.component';
 import { SharedModule } from '@shared/shared.module';
+import { AppLayoutModule } from '@app/modules/app-layout/app-layout.module';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { SharedModule } from '@shared/shared.module';
   imports: [
     CommonModule,
     SettingsRoutingModule,
-    SharedModule
+    SharedModule,
+    AppLayoutModule
   ]
 })
 export class SettingsModule { }

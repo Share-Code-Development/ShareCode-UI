@@ -1,4 +1,3 @@
-import { Prettify } from "./common.model";
 import { IUser } from "./user.interface";
 
 export interface IComment {
@@ -24,13 +23,22 @@ export interface ISnippet {
     _id?: string,
 }
 
-export type TSnippetResponse = Prettify<Omit<ISnippet, 'createdBy' | 'comments' | 'likes'> & {
-    createdBy: IUser;
-    comments: Omit<IComment, 'createdBy'> & {
-        createdBy: IUser;
-    }[],
-    likes: IUser[],
-    commentsCount: number,
-    likeCount: number,
-    selfLiked: boolean,
-}>;
+export interface ISnippetResponse {
+    commentCount: number;
+    copy: number;
+    description: string;
+    id: string;
+    ownerId: string;
+    owner?: IUser;
+    public: boolean;
+    reactions: any[];
+    title: string;
+    totalCount: number;
+    view: number;
+    language: string;
+    createdAt: string | Date;
+    previewCode: string;
+    tags?: string[];
+    summary?: string;
+    selfLiked?: boolean;
+};

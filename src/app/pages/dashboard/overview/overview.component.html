@@ -5,7 +5,7 @@
     <div class="flex w-full justify-center" *ngIf="loadingMySnippets">
         <span class="loading loading-infinity loading-lg"></span>
     </div>
-    <div class="grid gap-3 overflow-x-hidden px-2 pb-3 lg:grid-cols-3 md:grid-cols-2 code-items"
+    <div class="grid gap-3 overflow-x-hidden px-2 pb-3 grid-cols-1 lg:grid-cols-3 md:grid-cols-2 code-items"
         *ngIf="!loadingMySnippets">
         <app-code-item *ngFor="let item of mySnippets" [codeItem]="item"></app-code-item>
     </div>
@@ -18,7 +18,7 @@
     <div class="flex w-full justify-center" *ngIf="loadingTrendingSnippets">
         <span class="loading loading-infinity loading-lg"></span>
     </div>
-    <div class="grid gap-3 overflow-x-auto px-2 pb-3 lg:grid-cols-3 md:grid-cols-2" *ngIf="!loadingTrendingSnippets">
+    <div class="grid gap-3 overflow-x-auto px-2 pb-3 grid-cols-1 lg:grid-cols-3 md:grid-cols-2" *ngIf="!loadingTrendingSnippets">
         <app-code-item *ngFor="let item of trendingSnippets" [codeItem]="item"></app-code-item>
     </div>
 </div>

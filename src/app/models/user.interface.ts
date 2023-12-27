@@ -21,7 +21,7 @@ export enum EProfileVisibility {
 }
 
 export interface IUserParams {
-    includeSettings: boolean;
+    includeSettings?: boolean;
 }
 
 export enum EUserPermissions {

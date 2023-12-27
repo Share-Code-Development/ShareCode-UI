@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
-import { Observable, firstValueFrom, of } from 'rxjs';
+import { Observable, firstValueFrom, of, share, tap } from 'rxjs';
 import { DeleteConfirmationComponent } from '../shared/delete-confirmation/delete-confirmation.component';
 import { ConfigService } from './config.service';
-import { INotificationConfig } from '../models/common.model';
+import { INotificationConfig, Prettify } from '../models/common.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +15,8 @@ export class CommonService {
   public errorMessages = new Array<INotificationConfig>();
   public authRedirectUrl: string = '';
   public doBurstNextAPICache = false;
+  private languagesCache: any[] | null = null;
+  private languageJsonApiCall: Observable<any[]> | null = null;
 
   constructor(
     private http: HttpClient,
@@ -23,8 +25,8 @@ export class CommonService {
   ) {
   }
 
-  public showLoading(message?: string): Required<INotificationConfig> {
-    const item: Required<INotificationConfig> = {
+  public showLoading(message?: string): Prettify<Required<INotificationConfig>> {
+    const item: Prettify<Required<INotificationConfig>> = {
       text: message || 'Please wait...',
       color: 'alert-info',
       isLoading: true,
@@ -133,7 +135,20 @@ export class CommonService {
   }
 
   public getLanguages(): Observable<any[]> {
-    return this.http.get<any[]>('/assets/common/languages.json');
+    if (this.languagesCache) {
+      return of(this.languagesCache);
+    } else {
+      if (this.languageJsonApiCall) {
+        return this.languageJsonApiCall;
+      }
+      this.languageJsonApiCall = this.http.get<any[]>('/assets/common/languages.json').pipe(
+        tap((languages) => {
+          this.languagesCache = languages;
+        }),
+        share()
+      );
+      return this.languageJsonApiCall;
+    }
   }
 
   public getProfilePlaceholder(email: string): string {

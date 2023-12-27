@@ -6,37 +6,37 @@
                 <button (click)="onCopy()" [ngClass]="{'swap-active': copied, 'btn-outline': !copied}"
                     class="btn btn-square btn-sm btn-outline btn-accent swap swap-rotate"
                     [pTooltip]="!copied ? 'Copy' : 'Copied'" tooltipPosition="top" [showDelay]="!copied ? 1000 : 0">
-                    <span class="material-icons swap-on">done</span>
-                    <span class="material-icons swap-off" *ngIf="!copyLoading">content_copy</span>
+                    <span class="material-symbols-outlined swap-on">done</span>
+                    <span class="material-symbols-outlined swap-off" *ngIf="!copyLoading">content_copy</span>
                     <span class="loading loading-infinity swap-off" *ngIf="copyLoading"></span>
                 </button>
                 <button class="btn btn-square btn-sm btn-outline btn-secondary" pTooltip="Open" tooltipPosition="top"
                     [showDelay]="1000">
-                    <span class="material-icons">open_in_full</span>
+                    <span class="material-symbols-outlined">open_in_full</span>
                 </button>
                 <button class="btn btn-square btn-sm btn-outline btn-error" pTooltip="Delete" tooltipPosition="top"
                     [showDelay]="1000" (click)="onDelete()" *ngIf="isAuthor">
-                    <span class="material-icons">delete</span>
+                    <span class="material-symbols-outlined">delete</span>
                 </button>
             </span>
         </h2>
         <div class="px-4 -my-1 flex gap-3 justify-between text-slate-500">
             <div class="flex gap-3">
                 <span class="text-xs flex align-center" pTooltip="Likes" tooltipPosition="top" [showDelay]="1000">
-                    <span class="material-icons mt-[1px] mr-1">thumb_up</span>
-                    <span>{{codeItem.likeCount}}</span>
+                    <span class="material-symbols-outlined mt-[1px] mr-1">thumb_up</span>
+                    <span>{{codeItem.reactions.length}}</span>
                 </span>
                 <span class="text-xs flex align-center" pTooltip="Comments" tooltipPosition="top" [showDelay]="1000">
-                    <span class="material-icons mt-[1px] mr-1">chat_bubble</span>
-                    <span>{{codeItem.commentsCount}}</span>
+                    <span class="material-symbols-outlined mt-[1px] mr-1">chat_bubble</span>
+                    <span>{{codeItem.commentCount}}</span>
                 </span>
                 <span class="text-xs flex align-center" pTooltip="Views" tooltipPosition="top" [showDelay]="1000">
-                    <span class="material-icons mt-[1px] mr-1">visibility</span>
-                    <span>{{codeItem.views}}</span>
+                    <span class="material-symbols-outlined mt-[1px] mr-1">visibility</span>
+                    <span>{{codeItem.view}}</span>
                 </span>
                 <span class="text-xs flex align-center" pTooltip="Copies" tooltipPosition="top" [showDelay]="1000">
-                    <span class="material-icons mt-[1px] mr-1">content_copy</span>
-                    <span>{{codeItem.copies}}</span>
+                    <span class="material-symbols-outlined mt-[1px] mr-1">content_copy</span>
+                    <span>{{codeItem.copy}}</span>
                 </span>
             </div>
             <div class="flex gap-3">
@@ -46,21 +46,21 @@
             </div>
         </div>
         <div class="mockup-code min-w-0 w-full h-52 pb-0 overflow-hidden">
-            <app-code-highlighter [code]="codeItem.code" [language]="'javascript'" [readOnlyMiniMode]="true"
+            <app-code-highlighter [code]="codeItem.previewCode" [language]="'javascript'" [readOnlyMiniMode]="true"
                 class="block h-full select-none"></app-code-highlighter>
         </div>
     </div>
-    <div class="absolute card-footer-content flex px-2 flex-col">
+    <div class="absolute card-footer-content opacity-100 md:opacity-0 flex px-2 flex-col justify-end z-10">
         <div class="row1 flex justify-between pb-1">
             <div class="flex justify-between items-center flex-grow">
                 <div class="profile-pic flex items-center gap-3">
                     <div class="avatar">
                         <div class="w-10 rounded-full">
-                            <img [src]="codeItem.createdBy.profilePicture || commonService.getProfilePlaceholder(codeItem.createdBy.emailAddress)" />
+                            <img [src]="codeItem.owner?.profilePicture || commonService.getProfilePlaceholder(codeItem.owner?.emailAddress!)" />
                         </div>
                     </div>
                     <div class="flex flex-col">
-                        <span class="font-bold">{{codeItem.createdBy.firstName}}</span>
+                        <span class="font-bold">{{codeItem.owner?.firstName}}</span>
                         <span class="text-xs flex align-center gap-1" pTooltip="Created At" tooltipPosition="top"
                             [showDelay]="1000">
                             <span>{{codeItem.createdAt | timeAgo}}</span>
@@ -72,7 +72,12 @@
                     <button class="btn btn-square btn-sm btn-ghost btn-secondary" pTooltip="Like" tooltipPosition="top"
                         [showDelay]="1000" (click)="onLike()">
                         <span class="custom-icon"
-                            [ngClass]="codeItem.selfLiked ? 'material-icons text-primary' : 'material-icons-outlined'">thumb_up</span>
+                            [ngClass]="codeItem.selfLiked ? 'material-symbols-outlined filled-icon text-primary' : 'material-symbols-outlined'">thumb_up</span>
+                    </button>
+                    <button class="btn btn-square btn-sm btn-ghost btn-secondary" pTooltip="Like" tooltipPosition="top"
+                        [showDelay]="1000" (click)="onLike()">
+                        <span class="custom-icon"
+                            [ngClass]="!codeItem.selfLiked ? 'material-symbols-outlined filled-icon text-primary' : 'material-symbols-outlined'">thumb_up</span>
                     </button>
                     <button class="btn btn-square btn-sm btn-ghost btn-secondary" pTooltip="Like" tooltipPosition="top"
                         [showDelay]="1000">
@@ -89,8 +94,8 @@
             <div class="row2 truncate text-xs">
                 {{codeItem.summary}}
             </div>
-            <div class="row3 pb-1 truncate text-xs text-slate-500" *ngIf="codeItem.tags.length">
-                {{codeItem.tags.join(', ')}}
+            <div class="row3 pb-1 truncate text-xs text-slate-500" *ngIf="codeItem.tags?.length">
+                {{codeItem.tags?.join(', ')}}
             </div>
         </div>
     </div>

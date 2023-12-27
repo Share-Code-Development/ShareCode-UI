@@ -1,12 +1,13 @@
 export interface IQueryListParams {
     skip?: number;
-    limit?: number;
-    sort?: string;
+    take?: number;
+    orderBy?: string;
     order?: string;  
-    search?: string;
+    searchQuery?: string;
 }
 
-export interface IListResponse {
-    result: any[];
-    totalItems: number;
+export interface IListResponse<T> {
+    entities: T[];
+    totalCount: number;
+    query: IQueryListParams;
 }

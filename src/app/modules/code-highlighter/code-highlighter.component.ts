@@ -60,13 +60,13 @@ export class CodeHighlighterComponent implements ControlValueAccessor {
       alwaysConsumeMouseWheel: false
     }
   };
-  private customInput: Subject<void> = new Subject();
+  private customInput$: Subject<void> = new Subject();
   private editor: any;
 
   constructor(
   ) {
-    this.customInput.pipe(debounceTime(500)).subscribe(() => {
-      if (!this.autoDetectLanguage) return;
+    this.customInput$.pipe(debounceTime(500)).subscribe(() => {
+      if (!this.autoDetectLanguage || !this.code) return;
       let language = langDetector(this.code);
       if (language) {
         language = language.toLowerCase()
@@ -82,14 +82,14 @@ export class CodeHighlighterComponent implements ControlValueAccessor {
   }
 
   guessCode() {
-    this.customInput.next();
+    this.customInput$.next();
     this.onChange(this.code);
     this.onTouched();
   }
 
   onEditorInit(editor: any) {
     this.editor = editor;
-    this.customInput.next();
+    this.customInput$.next();
     const matches = editor.getModel().findMatches(/\(TRUNCATED:.+COPY.+OPEN.+\)/g, false, true, true, null, true); // Find matches using the regex source
     const decorations = matches.map((match: any) => {
       console.log(match)

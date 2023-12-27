@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { UserService } from '@app/services/user.service';
 import { Subscription } from 'rxjs';
 import { QueryListParams } from 'src/app/classes/QueryListParams';
 import { IListResponse } from 'src/app/models/queryList.model';
-import { TSnippetResponse } from 'src/app/models/snippet.interface';
+import { ISnippetResponse } from 'src/app/models/snippet.interface';
 import { CommonService } from 'src/app/services/common.service';
 import { SnippetService } from 'src/app/services/snippet.service';
 
@@ -13,25 +14,26 @@ import { SnippetService } from 'src/app/services/snippet.service';
 })
 export class OverviewComponent implements OnInit, OnDestroy {
 
-  protected mySnippets: TSnippetResponse[] = [];
-  protected mySnippetQuery = new QueryListParams({ limit: 3 });
+  protected mySnippets: ISnippetResponse[] = [];
+  protected mySnippetQuery = new QueryListParams({ take: 3 });
   protected loadingMySnippets = false;
-  protected trendingSnippets: TSnippetResponse[] = [];
-  protected trendingSnippetQuery = new QueryListParams({ limit: 6 });
+  protected trendingSnippets: ISnippetResponse[] = [];
+  protected trendingSnippetQuery = new QueryListParams({ take: 6 });
   protected loadingTrendingSnippets = false;
   private subs: Subscription = new Subscription();
 
   constructor(
     private snippetService: SnippetService,
-    private commonService: CommonService
+    private commonService: CommonService,
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
     // waiting for api to be ready
-    // this.getMySnippets();
+    this.getMySnippets();
     // this.getTrendingSnippets();
     this.subs.add(this.snippetService.refreshSnippets$.subscribe(() => {
-      // this.getMySnippets();
+      this.getMySnippets();
       // this.getTrendingSnippets();
     }))
   }
@@ -50,10 +52,10 @@ export class OverviewComponent implements OnInit, OnDestroy {
     }
     this.loadingTrendingSnippets = true;
     this.snippetService.trendingSnippetsListAsync(params).subscribe({
-      next: (res: IListResponse) => {
+      next: (res) => {
         this.loadingTrendingSnippets = false;
-        if (res?.result?.length) {
-          this.trendingSnippets = [...this.trendingSnippets, ...res.result];
+        if (res?.entities?.length) {
+          this.trendingSnippets = [...this.trendingSnippets, ...res.entities];
         }
       },
       error: (err: any) => {
@@ -72,11 +74,14 @@ export class OverviewComponent implements OnInit, OnDestroy {
       this.mySnippets = [];
     }
     this.loadingMySnippets = true;
-    this.snippetService.mySnippetsListAsync(params).subscribe({
-      next: (res: IListResponse) => {
+    this.userService.getMySnippetsAsync(this.userService.authUser$.value?.userId!, params, { recentSnippets: true }).subscribe({
+      next: (res) => {
         this.loadingMySnippets = false;
-        if (res?.result?.length) {
-          this.mySnippets = [...this.mySnippets, ...res.result];
+        if (res?.entities?.length) {
+          res.entities.forEach((snippet) => {
+            snippet.owner = this.userService.authUser$.value!;
+          })
+          this.mySnippets = [...this.mySnippets, ...res.entities];
         }
       },
       error: (err: any) => {

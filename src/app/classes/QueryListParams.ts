@@ -3,46 +3,46 @@ import { ConfigService } from "../services/config.service";
 
 export class QueryListParams implements IQueryListParams {
     public skip: number
-    public limit: number;
-    public sort: string;
+    public take: number;
+    public orderBy: string;
     public order: string;
-    public search: string;
+    public searchQuery: string;
 
     private initialQuery?: IQueryListParams;
 
     constructor(queryList?: IQueryListParams) {
         this.skip = queryList?.skip || 0;
-        this.limit = queryList?.limit || ConfigService.defaultQueryLimit;
-        this.sort = queryList?.sort || '';
+        this.take = queryList?.take || ConfigService.defaultQueryLimit;
+        this.orderBy = queryList?.orderBy || '';
         this.order = queryList?.order || '';
-        this.search = queryList?.search || '';
+        this.searchQuery = queryList?.searchQuery || '';
         this.initialQuery = queryList;
     }
 
     public getQuery() {
-        const query: {[key: string]: any} = {
+        const query: IQueryListParams = {
             skip: this.skip,
-            limit: this.limit,
-            sort: this.sort,
+            take: this.take,
+            orderBy: this.orderBy,
             order: this.order,
-            search: this.search
+            searchQuery: this.searchQuery
         }
         // remove falsy values
-        Object.keys(query).forEach(key => (!query[key] && typeof query[key] !== 'number') && delete query[key])
+        Object.keys(query).forEach((key) => (!query[key as keyof IQueryListParams] && typeof query[key as keyof IQueryListParams] !== 'number') && delete query[key as keyof IQueryListParams])
         return query;
     }
 
     public getNextQuery() {
-        this.skip += this.limit;
+        this.skip += this.take;
         return this.getQuery();
     }
 
     public resetQuery(queryList?: IQueryListParams) {
         this.skip = queryList?.skip || this.initialQuery?.skip || 0;
-        this.limit = queryList?.limit || this.initialQuery?.limit || ConfigService.defaultQueryLimit;
-        this.sort = queryList?.sort || this.initialQuery?.sort || '';
+        this.take = queryList?.take || this.initialQuery?.take || ConfigService.defaultQueryLimit;
+        this.orderBy = queryList?.orderBy || this.initialQuery?.orderBy || '';
         this.order = queryList?.order || this.initialQuery?.order || '';
-        this.search = queryList?.search || this.initialQuery?.search || '';
+        this.searchQuery = queryList?.searchQuery || this.initialQuery?.searchQuery || '';
         return this.getQuery();
     }
 }

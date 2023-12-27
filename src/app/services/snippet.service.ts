@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { Observable, Subject } from 'rxjs';
+import { ISnippetResponse } from '@app/models/snippet.interface';
+import { IListResponse } from '@app/models/queryList.model';
 
 @Injectable({
   providedIn: 'root'
@@ -25,11 +27,11 @@ export class SnippetService {
     return this.http.postAsync(body, endpoint);
   }
 
-  public mySnippetsListAsync(params: any = {}): Observable<any> {
+  public mySnippetsListAsync(params: any = {}): Observable<ISnippetResponse> {
     return this.http.getAsync(`${this.snippetEndpoint}/my-snippets`, params);
   }
 
-  public trendingSnippetsListAsync(params: any = {}): Observable<any> {
+  public trendingSnippetsListAsync(params: any = {}): Observable<IListResponse<ISnippetResponse>> {
     return this.http.getAsync(`${this.snippetEndpoint}/trending`, params);
   }
 
