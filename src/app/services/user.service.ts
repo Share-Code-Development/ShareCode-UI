@@ -6,7 +6,6 @@ import { ELocalStorage } from '../models/common.enum';
 import { IUser, IUserParams } from '../models/user.interface';
 import { CommonService } from './common.service';
 import { HttpService } from './http.service';
-import { ConfigService } from './config.service';
 import { EAuthType, ILoginResponse } from '@app/models/auth.model';
 import { Prettify } from '@app/models/common.model';
 import { IListResponse } from '@app/models/queryList.model';

@@ -91,8 +91,6 @@ export class CreateSnippetComponent implements OnInit, OnDestroy {
       this.errorMessage = 'Add some code to save';
       return;
     }
-    if (!this.snippetForm.get('title')?.value) {
-    }
     this.loading = true;
     const newTitle = this.snippetForm.value.title || this.defaultTitle;
     const formData = new FormData();

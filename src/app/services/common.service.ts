@@ -94,7 +94,7 @@ export class CommonService {
       const errorFinder = (error: any): string[] => {
         const messages = [];
         for (const key in error) {
-          if (error.hasOwnProperty(key)) {
+          if (Object.prototype.hasOwnProperty.call(error, key)) {
             const value = error[key];
             if (typeof value === 'string' && !['propertyName'].includes(key)) {
               messages.push(value);

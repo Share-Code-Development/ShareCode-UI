@@ -1,6 +1,6 @@
 <!-- Sidebar content here -->
-<li (click)="onSelectItem(); openCreate()">
-    <a [class]="isActiveRoute('code/create') ? 'active': ''">
+<li>
+    <a href="javascript:void(0)" [class]="isActiveRoute('code/create') ? 'active': ''" (click)="onSelectItem(); openCreate()" (keydown.enter)="onSelectItem(); openCreate()">
         <span class="material-symbols-outlined default-icon-size text-xl">
             data_object
         </span>
@@ -8,24 +8,24 @@
     </a>
 </li>
 <!-- <div class="divider">Favorites</div> -->
-<li (click)="onSelectItem()">
-    <a>
+<li>
+    <a [routerLink]="null" (click)="onSelectItem()" (keydown.enter)="onSelectItem()">
         <span class="material-symbols-outlined default-icon-size text-xl">
             integration_instructions
         </span>
         My Snippets
     </a>
 </li>
-<li (click)="onSelectItem()">
-    <a>
+<li>
+    <a [routerLink]="null" (click)="onSelectItem()" (keydown.enter)="onSelectItem()">
         <span class="material-symbols-outlined default-icon-size text-xl">
             favorite
         </span>
         My Favorites
     </a>
 </li>
-<li (click)="onSelectItem()">
-    <a>
+<li>
+    <a [routerLink]="null" (click)="onSelectItem()" (keydown.enter)="onSelectItem()">
         <span class="material-symbols-outlined default-icon-size text-xl">
             interests
         </span>

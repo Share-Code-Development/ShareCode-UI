@@ -10,7 +10,6 @@ import { SharedModule } from '@shared/shared.module';
 import { SocialLoginModule } from '@abacritt/angularx-social-login';
 import { FormsModule } from '@angular/forms';
 import { ValidityColorsModule } from '@app/modules/validity-colors.module';
-import { SnippetModule } from '@app/modules/snippet/snippet.module';
 
 
 @NgModule({

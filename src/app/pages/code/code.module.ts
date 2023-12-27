@@ -5,7 +5,6 @@ import { CodeRoutingModule } from './code-routing.module';
 import { SnippetModule } from '@app/modules/snippet/snippet.module';
 import { CodeComponent } from './code.component';
 import { SharedModule } from '@app/shared/shared.module';
-import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { AppLayoutModule } from '@app/modules/app-layout/app-layout.module';
 
 

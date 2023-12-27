@@ -48,7 +48,7 @@
         </h2>
     </div>
     <div id="editor" class="m-1 mt-2 bg-base-100 p-0 rounded-lg overflow-hidden h-full flex-grow min-h-[200px]">
-        <app-code-highlighter class="h-full block" formControlName="code" (onLanguageChanged)="languageChange($event)"
+        <app-code-highlighter class="h-full block" formControlName="code" (languageChanged)="languageChange($event)"
             [language]="snippetForm.get('language')?.value || ''"
             [autoDetectLanguage]="!snippetForm.get('language')?.dirty && !languageFormatDetected"></app-code-highlighter>
     </div>

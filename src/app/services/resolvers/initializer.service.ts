@@ -17,7 +17,7 @@ export class AppInitService {
     ) { }
 
     init() {
-        return new Promise<void>((resolve, _) => {
+        return new Promise<void>((resolve) => {
             const user: IUser = localStorage.getItem(ELocalStorage.currentUser) ? JSON.parse(localStorage.getItem(ELocalStorage.currentUser) || '') : null;
             const SSOType = localStorage.getItem(ELocalStorage.ssoType) || undefined;
             const token = localStorage.getItem(ELocalStorage.token) || null;

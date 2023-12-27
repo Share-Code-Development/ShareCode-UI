@@ -31,7 +31,7 @@ export interface ISnippetResponse {
     ownerId: string;
     owner?: IUser;
     public: boolean;
-    reactions: any[];
+    reactions: unknown[];
     title: string;
     totalCount: number;
     view: number;
@@ -41,4 +41,4 @@ export interface ISnippetResponse {
     tags?: string[];
     summary?: string;
     selfLiked?: boolean;
-};
+}

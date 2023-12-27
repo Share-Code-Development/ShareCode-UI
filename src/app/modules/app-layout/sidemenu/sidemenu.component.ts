@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ConfigService } from 'src/app/services/config.service';
 import { CreateSnippetComponent } from '../../snippet/create-snippet/create-snippet.component';
@@ -9,16 +9,13 @@ import { Router } from '@angular/router';
   templateUrl: './sidemenu.component.html',
   styleUrls: ['./sidemenu.component.scss']
 })
-export class SidemenuComponent implements OnInit {
+export class SidemenuComponent {
 
   constructor(
     public dialogService: DialogService,
     private config: ConfigService,
     private router: Router
   ) { }
-
-  ngOnInit(): void {
-  }
 
   onSelectItem() {
     // Closing the sidebar

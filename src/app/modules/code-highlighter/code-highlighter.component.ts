@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-// @ts-ignore - no types available
+// @ts-expect-error - no types available
 import langDetector from 'lang-detector';
 import { Subject, debounceTime } from 'rxjs';
 
@@ -22,11 +22,14 @@ export class CodeHighlighterComponent implements ControlValueAccessor {
 
   @Input() public code: string = '';
 
-  public language: string = 'plain';
-  @Input('language') public set setLanguage(val: string) {
+  private  _language: string = 'plain';
+  @Input() public set language(val: string) {
     if (this.editor && val) {
       monaco.editor.setModelLanguage(this.editor.getModel(), val.toLowerCase());
     }
+  }
+  public get language() {
+    return this._language;
   }
 
   @Input()
@@ -44,12 +47,12 @@ export class CodeHighlighterComponent implements ControlValueAccessor {
 
   @Input() public autoDetectLanguage: boolean = true;
 
-  @Input() public set options(val: any) {
+  @Input() public set options(val: unknown) {
     if (!val) return;
     this.editorOptions = { ...this.editorOptions, ...val };
   }
 
-  @Output() public onLanguageChanged: EventEmitter<string> = new EventEmitter();
+  @Output() public languageChanged: EventEmitter<string> = new EventEmitter();
 
   protected editorOptions: any = {
     theme: 'vs-dark',
@@ -75,7 +78,7 @@ export class CodeHighlighterComponent implements ControlValueAccessor {
           language = language.replace('c#', 'csharp');
           language = language.replace('c++', 'cpp');
           monaco.editor.setModelLanguage(this.editor.getModel(), language);
-          this.onLanguageChanged.emit(language);
+          this.languageChanged.emit(language);
         }
       }
     });

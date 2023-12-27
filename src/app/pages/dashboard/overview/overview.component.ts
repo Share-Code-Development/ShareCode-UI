@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UserService } from '@app/services/user.service';
 import { Subscription } from 'rxjs';
 import { QueryListParams } from 'src/app/classes/QueryListParams';
-import { IListResponse } from 'src/app/models/queryList.model';
 import { ISnippetResponse } from 'src/app/models/snippet.interface';
 import { CommonService } from 'src/app/services/common.service';
 import { SnippetService } from 'src/app/services/snippet.service';
