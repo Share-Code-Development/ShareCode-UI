@@ -6,7 +6,7 @@
   </svg><span>{{errorMessage}}</span>
 </div>
 
-<label class="label error-msg-custom-label visible-control-error" *ngIf="isFloating && show && control">
+<span class="label error-msg-custom-label visible-control-error" *ngIf="isFloating && show && control">
   <span class="label-text-alt text-red-300" *ngIf="control.hasError('required')">{{controlName}} is
     Required</span>
   <span class="label-text-alt text-red-300" *ngIf="control.hasError('minlength')">{{controlName}} is too
@@ -17,4 +17,4 @@
     Invalid</span>
   <span class="label-text-alt text-red-300" *ngIf="control.hasError('passwordMismatch')">{{controlName}} is
     Invalid</span>
-</label>
+</span>

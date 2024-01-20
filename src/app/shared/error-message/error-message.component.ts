@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AbstractControl, FormControl } from '@angular/forms';
 import { fadeIn, fadeOut, scaleDown, scaleUp } from '@app/animations/animations';
 
@@ -13,7 +13,7 @@ import { fadeIn, fadeOut, scaleDown, scaleUp } from '@app/animations/animations'
     scaleDown
   ]
 })
-export class ErrorMessageComponent implements OnInit {
+export class ErrorMessageComponent {
 
   @Input() errorMessage = '';
   @Input() isFloating = false;
@@ -23,8 +23,5 @@ export class ErrorMessageComponent implements OnInit {
 
 
   constructor() { }
-
-  ngOnInit() {
-  }
 
 }

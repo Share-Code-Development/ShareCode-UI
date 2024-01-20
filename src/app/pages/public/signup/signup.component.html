@@ -10,47 +10,47 @@
             <form class="card-body" [formGroup]="signupForm">
                 <div class="flex gap-[0.5rem] flex-col">
                     <div class="form-control flex-grow">
-                        <label class="label">
+                        <label class="label" for="first-name">
                             <span class="label-text">First Name</span>
                         </label>
-                        <input type="text" placeholder="First Name" formControlName="firstName"
+                        <input type="text" placeholder="First Name" id="first-name" formControlName="firstName"
                             class="input input-bordered" appInputValidityColors [submitted]="submitted" />
                         <app-error-message [show]="submitted" controlName="First Name"
                             [control]="signupForm.get('firstName')" [isFloating]="true"></app-error-message>
                     </div>
                     <div class="form-control flex-grow">
-                        <label class="label">
+                        <label class="label" for="middle-name">
                             <span class="label-text">Middle Name</span>
                         </label>
-                        <input type="text" placeholder="Middle Name" formControlName="middleName"
+                        <input type="text" placeholder="Middle Name" id="middle-name" formControlName="middleName"
                             class="input input-bordered" />
                     </div>
                     <div class="form-control flex-grow">
-                        <label class="label">
+                        <label class="label" for="last-name">
                             <span class="label-text">Last Name</span>
                         </label>
-                        <input type="text" placeholder="Last Name" formControlName="lastName"
+                        <input type="text" placeholder="Last Name" id="last-name" formControlName="lastName"
                             class="input input-bordered" appInputValidityColors [submitted]="submitted" />
                         <app-error-message [show]="submitted" controlName="Last Name"
                             [control]="signupForm.get('lastName')" [isFloating]="true"></app-error-message>
                     </div>
                 </div>
                 <div class="form-control">
-                    <label class="label">
+                    <label class="label" for="email">
                         <span class="label-text">Email</span>
                     </label>
-                    <input type="text" placeholder="Email" class="input input-bordered" formControlName="emailAddress"
+                    <input type="text" placeholder="Email" id="email" class="input input-bordered" formControlName="emailAddress"
                         appInputValidityColors [submitted]="submitted" />
                     <app-error-message [show]="submitted" controlName="Email" [control]="signupForm.get('emailAddress')"
                         [isFloating]="true"></app-error-message>
                 </div>
                 <div class="flex gap-[0.5rem] flex-col ">
                     <div class="form-control flex-grow">
-                        <label class="label">
+                        <label class="label" for="password">
                             <span class="label-text">Password</span>
                         </label>
                         <div class="join w-full">
-                            <input type="password" placeholder="Password"
+                            <input type="password" id="password" placeholder="Password"
                                 class="input input-bordered join-item flex-grow" formControlName="password"
                                 appInputValidityColors [submitted]="submitted" #password />
                             <button
@@ -64,11 +64,11 @@
                             [control]="signupForm.get('password')" [isFloating]="true"></app-error-message>
                     </div>
                     <div class="form-control flex-grow">
-                        <label class="label">
+                        <label class="label" for="confirm-password">
                             <span class="label-text">Confirm Password</span>
                         </label>
                         <div class="join w-full">
-                            <input type="password" placeholder="Confirm Password" class="input input-bordered join-item flex-grow"
+                            <input type="password" id="confirm-password" placeholder="Confirm Password" class="input input-bordered join-item flex-grow"
                                 formControlName="confirmPassword" appInputValidityColors [submitted]="submitted" #confirmPassword />
                             <button class="btn join-item btn-outline btn-square border-opacity-20 custom-password-toggle"
                                 (click)="confirmPassword.type = confirmPassword.type === 'password' ? 'text' : 'password'">

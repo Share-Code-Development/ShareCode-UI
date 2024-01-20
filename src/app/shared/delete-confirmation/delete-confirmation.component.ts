@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
@@ -6,14 +6,11 @@ import { DynamicDialogRef } from 'primeng/dynamicdialog';
   templateUrl: './delete-confirmation.component.html',
   styleUrls: ['./delete-confirmation.component.scss']
 })
-export class DeleteConfirmationComponent implements OnInit {
+export class DeleteConfirmationComponent {
 
   constructor(
     public ref: DynamicDialogRef
   ) { }
-
-  ngOnInit() {
-  }
 
   public close() {
     this.ref.close(false);

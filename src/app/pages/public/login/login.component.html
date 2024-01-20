@@ -17,20 +17,20 @@
                 </div>
                 <div class="divider my-0">OR</div>
                 <div class="form-control">
-                    <label class="label">
+                    <label class="label" for="email">
                         <span class="label-text">Email</span>
                     </label>
-                    <input type="text" placeholder="Email" class="input input-bordered" formControlName="emailAddress"
+                    <input type="text" id="email" placeholder="Email" class="input input-bordered" formControlName="emailAddress"
                         appInputValidityColors [submitted]="submitted" />
                     <app-error-message [show]="submitted" controlName="Email" [control]="loginForm.get('emailAddress')"
                         [isFloating]="true"></app-error-message>
                 </div>
                 <div class="form-control">
-                    <label class="label">
+                    <label class="label" for="password">
                         <span class="label-text">Password</span>
                     </label>
                     <div class="join w-full">
-                        <input type="password" placeholder="Password" class="input input-bordered join-item flex-grow"
+                        <input type="password" id="password" placeholder="Password" class="input input-bordered join-item flex-grow"
                             formControlName="password" appInputValidityColors [submitted]="submitted" #password />
                         <button class="btn join-item btn-outline btn-square border-opacity-20 custom-password-toggle"
                             (click)="password.type = password.type === 'password' ? 'text' : 'password'">
@@ -64,10 +64,10 @@
         <label for="forgot-popup" class="btn btn-sm btn-circle absolute right-2 top-2 btn-neutral">✕</label>
         <h3 class="font-bold text-lg">Forgot Password</h3>
         <div class="form-control">
-            <label class="label">
+            <label class="label" for="forgot-email">
                 <span class="label-text">Enter email to receive Password Reset link</span>
             </label>
-            <input type="text" [formControl]="forgotEmailControl" placeholder="Email" class="input input-bordered"
+            <input type="text" id="forgot-email" [formControl]="forgotEmailControl" placeholder="Email" class="input input-bordered"
                 appInputValidityColors />
         </div>
         <div class="modal-action">
