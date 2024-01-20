@@ -20,7 +20,7 @@
       <span class="loading loading-infinity" *ngIf="message.isLoading"></span>
       <span class="text-sm font-semibold">{{message.text}}</span>
       <span class="text-xs rounded-full cursor-pointer ml-auto hover:scale-125 hover:font-extrabold mt-[2px] pl-2"
-        (click)="commonService.closeError(message)" *ngIf="!message.isLoading">✕</span>
+        (click)="commonService.closeError(message)" (keypress.enter)="commonService.closeError(message)" tabindex="-1" *ngIf="!message.isLoading">✕</span>
     </div>
   </div>
 </div>
