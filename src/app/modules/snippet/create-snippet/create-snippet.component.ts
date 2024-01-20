@@ -34,7 +34,9 @@ export class CreateSnippetComponent implements OnInit, OnDestroy {
   private ref: DynamicDialogRef | null;
   public isPopup = false;
   public navBarHeight = 0;
-  public isAnonymous = !this.user.isLoggedIn;
+  // public get isAnonymous() {
+  //   return !this.user.isLoggedIn;
+  // }
 
   public snippetForm = new FormGroup({
     title: new FormControl('', [Validators.maxLength(this.config.maxLengths.title)]),
@@ -49,9 +51,9 @@ export class CreateSnippetComponent implements OnInit, OnDestroy {
   constructor(
     private common: CommonService,
     protected config: ConfigService,
-    private user: UserService,
+    public user: UserService,
     private snippet: SnippetService,
-    private router: Router,
+    protected router: Router,
     injector: Injector
   ) {
     this.ref = injector.get(DynamicDialogRef, null); // Get the ref from the injector if the component is opened as a dialog
@@ -101,7 +103,7 @@ export class CreateSnippetComponent implements OnInit, OnDestroy {
       code: undefined
     }));
     formData.append('code', codeFile);
-    this.snippet.snippetPostAsync(formData, { public: this.isAnonymous }).subscribe({
+    this.snippet.snippetPostAsync(formData, { public: !this.user.isLoggedIn }).subscribe({
       next: (res) => {
         this.loading = false;
         this.common.showSuccess('Snippet created successfully');

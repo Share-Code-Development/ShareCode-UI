@@ -8,7 +8,7 @@
             <p class="pb-6 pt-2"><kbd class="kbd">Ctrl </kbd> + <kbd class="kbd">C</kbd>, <kbd class="kbd">Ctrl </kbd> +
                 <kbd class="kbd"> V</kbd>
             </p>
-            <button class="btn btn-primary" routerLink="login">
+            <button class="btn btn-primary" [routerLink]="userService.isLoggedIn ? '/dashboard' : '/login'">
                 Get Started
                 <span class="material-symbols-outlined default-icon-size">
                     arrow_forward
