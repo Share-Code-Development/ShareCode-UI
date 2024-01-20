@@ -10,6 +10,7 @@ import { SharedModule } from '@shared/shared.module';
 import { SocialLoginModule } from '@abacritt/angularx-social-login';
 import { FormsModule } from '@angular/forms';
 import { ValidityColorsModule } from '@app/modules/validity-colors.module';
+import { PublicNavbarComponent } from '@app/components/public-navbar/public-navbar.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { ValidityColorsModule } from '@app/modules/validity-colors.module';
     SharedModule,
     SocialLoginModule,
     FormsModule,
-    ValidityColorsModule
+    ValidityColorsModule,
+    PublicNavbarComponent
   ],
   bootstrap: [HomeComponent]
 })

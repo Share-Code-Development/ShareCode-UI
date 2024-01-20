@@ -8,6 +8,7 @@ import { SharedModule } from '@app/shared/shared.module';
 import { AppLayoutModule } from '@app/modules/app-layout/app-layout.module';
 import { ViewSnippetComponent } from './view-snippet/view-snippet.component';
 import { CodeHighlighterModule } from '@app/modules/code-highlighter/code-highlighter.module';
+import { PublicNavbarComponent } from '@app/components/public-navbar/public-navbar.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { CodeHighlighterModule } from '@app/modules/code-highlighter/code-highli
     SnippetModule,
     SharedModule,
     AppLayoutModule,
-    CodeHighlighterModule
+    CodeHighlighterModule,
+    PublicNavbarComponent
   ]
 })
 export class CodeModule { }
