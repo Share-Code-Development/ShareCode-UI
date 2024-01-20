@@ -1,2 +1,6 @@
-<app-public-navbar></app-public-navbar>
+@if (userService.isLoggedIn) {
+    <app-navbar></app-navbar>
+} @else {
+    <app-public-navbar></app-public-navbar>
+}
 <router-outlet></router-outlet>

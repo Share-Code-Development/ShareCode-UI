@@ -11,6 +11,7 @@ import { SocialLoginModule } from '@abacritt/angularx-social-login';
 import { FormsModule } from '@angular/forms';
 import { ValidityColorsModule } from '@app/modules/validity-colors.module';
 import { PublicNavbarComponent } from '@app/components/public-navbar/public-navbar.component';
+import { AppLayoutModule } from '@app/modules/app-layout/app-layout.module';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { PublicNavbarComponent } from '@app/components/public-navbar/public-navb
     SocialLoginModule,
     FormsModule,
     ValidityColorsModule,
-    PublicNavbarComponent
+    PublicNavbarComponent,
+    AppLayoutModule
   ],
   bootstrap: [HomeComponent]
 })
