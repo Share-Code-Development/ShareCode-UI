@@ -38,12 +38,19 @@ export class ViewSnippetComponent implements OnInit, OnDestroy {
       this.sub.add(
         this.snippetService.onSnippetMessages(this.codeId).subscribe({
         next: (res) => {
-          console.log(res);
+            this.processMessage(res);
         },
         error: (err) => {
           console.error(err);
         }
       }))
+    }
+  }
+
+  private processMessage(message: any) {
+    switch (message.type) {
+      case 'code':
+        break;
     }
   }
 

@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ConfigService } from 'src/app/services/config.service';
 import { mismatchValidator } from 'src/app/utils/custom-validators';
-import { UserService } from 'src/app/services/user.service';
 import { CommonService } from 'src/app/services/common.service';
 import { GatewayService } from '@app/services/gateway.service';
 import { EGatewayType } from '@app/models/auth.model';

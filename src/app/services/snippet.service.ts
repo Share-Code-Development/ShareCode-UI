@@ -6,7 +6,6 @@ import { IListResponse } from '@app/models/queryList.model';
 import * as signalR from '@microsoft/signalr';
 import { environment } from '@environment';
 import { ELocalStorage } from 'src/app/models/common.enum';
-import { finalize } from 'rxjs/operators';
 import { ESnippetSignalREvents } from '@app/models/snippet.enum';
 
 @Injectable({
