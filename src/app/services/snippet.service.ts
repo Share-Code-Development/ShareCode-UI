@@ -1,8 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, Subscription } from 'rxjs';
 import { ISnippet, ISnippetResponse } from '@app/models/snippet.interface';
 import { IListResponse } from '@app/models/queryList.model';
+import * as signalR from '@microsoft/signalr';
+import { environment } from '@environment';
+import { ELocalStorage } from 'src/app/models/common.enum';
+import { finalize } from 'rxjs/operators';
+import { ESnippetSignalREvents } from '@app/models/snippet.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +15,55 @@ import { IListResponse } from '@app/models/queryList.model';
 export class SnippetService {
   private snippetEndpoint = 'snippet';
   public refreshSnippets$ = new Subject<void>();
+  private connection?: signalR.HubConnection;
+  private snippetSubscription?: Subscription;
 
   constructor(
     private http: HttpService,
-  ) { }
+  ) {
+  }
+
+
+  private startConnection(snippetId: string) {
+    return new Observable<void>(observer => {
+      this.connection = new signalR.HubConnectionBuilder()
+        .withUrl(`${environment.apiLiveUrl}/snippet?snippetId=${snippetId}`, {
+          withCredentials: true,
+          accessTokenFactory: () => 'Bearer ' + localStorage.getItem(ELocalStorage.token) || '',
+        })
+        .build();
+      this.connection.start().then(() => {
+        observer.next();
+        observer.complete();
+      }).catch(err => {
+        observer.error(err);
+      })
+    })
+  }
+
+  public onSnippetMessages(snippetId: string) {
+    return new Observable<any>((observer) => {
+      if (this.connection) {
+        this.connection.off(ESnippetSignalREvents.message);
+      }
+      this.snippetSubscription?.unsubscribe();
+      this.snippetSubscription = this.startConnection(snippetId).subscribe({
+        next: () => {
+          this.connection?.on(ESnippetSignalREvents.message, (res) => {
+            observer.next(res);
+          })
+        },
+        error: (err) => {
+          observer.error(err);
+        }
+      })
+      return () => {
+        // cleanup logic to stop listening for messages here
+        this.snippetSubscription?.unsubscribe();
+        this.connection?.off(ESnippetSignalREvents.message);
+      };
+    })
+  }
 
   public triggerRefreshSnippets() {
     this.refreshSnippets$.next();

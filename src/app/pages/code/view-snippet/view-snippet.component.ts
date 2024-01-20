@@ -1,31 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ISnippet } from '@app/models/snippet.interface';
 import { CommonService } from '@app/services/common.service';
 import { SnippetService } from '@app/services/snippet.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-view-snippet',
   templateUrl: './view-snippet.component.html',
   styleUrl: './view-snippet.component.scss'
 })
-export class ViewSnippetComponent implements OnInit {
+export class ViewSnippetComponent implements OnInit, OnDestroy {
 
   private codeId: string = '';
-  public codeDetails: ISnippet | null = {
-    code: `console.log('hello world')`,
-    comments: [],
-    copies: 0,
-    createdAt: new Date(),
-    createdBy: '',
-    isPublic: true,
-    likes: [],
-    tags: [],
-    views: 0,
-    language: 'javascript',
-    summary: 'Lorem ipsum dolor sit consectetur quos.',
-    title: 'Hello World',
-  };
+  public codeDetails: ISnippet | null = null;
+  private sub: Subscription = new Subscription();
 
   constructor(
     private route: ActivatedRoute,
@@ -45,8 +34,21 @@ export class ViewSnippetComponent implements OnInit {
         error: (err: any) => {
           loader.error(err);
         }
-      })
+      });
+      this.sub.add(
+        this.snippetService.onSnippetMessages(this.codeId).subscribe({
+        next: (res) => {
+          console.log(res);
+        },
+        error: (err) => {
+          console.error(err);
+        }
+      }))
     }
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 
 }
