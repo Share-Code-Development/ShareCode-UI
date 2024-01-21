@@ -1,6 +1,6 @@
 <div class="rounded-2xl p-2 flex flex-col" [formGroup]="snippetForm"
-    [ngClass]="{'bg-base-200': isPopup, 'pt-16': (!isPopup && config.isPublicRoute(router.url))}"
-    [ngStyle]="{'height': isPopup ? '80vh' : 'calc(100dvh - var(--navbar-height))'}">
+    [ngClass]="{'bg-base-200': isPopup}"
+    [ngStyle]="{'height': isPopup ? '80vh' : '100%'}">
     <div class="px-0 pb-0 pt-2">
         <div class="text-xl px-1 pb-2 flex justify-between items-center">
             <div class="flex flex-col">

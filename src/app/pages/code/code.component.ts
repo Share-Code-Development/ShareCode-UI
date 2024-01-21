@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UserService } from '@app/services/user.service';
 
 @Component({
   selector: 'app-code',
@@ -7,6 +8,8 @@ import { Component } from '@angular/core';
 })
 export class CodeComponent {
 
-  constructor() { }
+  constructor(
+    protected userService: UserService
+  ) { }
 
 }
