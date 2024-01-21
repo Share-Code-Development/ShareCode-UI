@@ -117,7 +117,7 @@ export class UserService {
     if (options?.recentSnippets) {
       urlParams.recentSnippets = true;
     }
-    return this.http.getAsync(`${this.userEndPoint}/${userId}/snippets`, params);
+    return this.http.getAsync(`${this.userEndPoint}/${userId}/snippets`, urlParams);
   }
 
 }
