@@ -69,6 +69,7 @@ body {
 .router-outlet-full-height {
     &+* {
         height: 100%;
+        // display: block;
     }
 }
 

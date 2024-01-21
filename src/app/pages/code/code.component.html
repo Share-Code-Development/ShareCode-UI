@@ -1,7 +1,11 @@
-<app-navbar></app-navbar>
+@if (userService.isLoggedIn) {
+    <app-navbar></app-navbar>
+} @else {
+    <app-public-navbar></app-public-navbar>
+}
 <div class="drawer lg:drawer-open">
     <input id="sidemenu-drawer" type="checkbox" class="drawer-toggle" />
-    <div class="drawer-content z-0 flex flex-col mt-[4.1rem] overflow-auto">
+    <div class="drawer-content z-0 flex flex-col overflow-auto" style="margin-top: var(--navbar-height);">
         <router-outlet class="router-outlet-full-height"></router-outlet>
     </div>
     <div class="drawer-side">
