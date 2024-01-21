@@ -7,6 +7,7 @@ import * as signalR from '@microsoft/signalr';
 import { environment } from '@environment';
 import { ELocalStorage } from 'src/app/models/common.enum';
 import { ESnippetSignalREvents } from '@app/models/snippet.enum';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,17 +20,21 @@ export class SnippetService {
 
   constructor(
     private http: HttpService,
+    private userService: UserService
   ) {
   }
 
 
   private startConnection(snippetId: string) {
     return new Observable<void>(observer => {
+      const signalROptions: signalR.IHttpConnectionOptions = {
+        withCredentials: true
+      }
+      if (this.userService.isLoggedIn) {
+        signalROptions.accessTokenFactory = () => `Bearer ${localStorage.getItem(ELocalStorage.token)}`;
+      }
       this.connection = new signalR.HubConnectionBuilder()
-        .withUrl(`${environment.apiLiveUrl}/snippet?snippetId=${snippetId}`, {
-          withCredentials: true,
-          accessTokenFactory: () => 'Bearer ' + localStorage.getItem(ELocalStorage.token) || '',
-        })
+        .withUrl(`${environment.apiLiveUrl}/snippet?snippetId=${snippetId}`, signalROptions)
         .build();
       this.connection.start().then(() => {
         observer.next();
